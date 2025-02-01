@@ -71,6 +71,15 @@ Matthews Wong is an Information Technology student at Swiss German University, s
    - Analyzed security logs from both Windows and Linux systems using Wazuh and SIEM tools.
    - Utilized Elasticsearch and Kibana to perform in-depth log analysis and identify security threats.
 
+   ### Skills:
+- **Programming Languages**: JavaScript (React.js, Node.js), Python, Java
+- **DevOps Tools**: Ansible, Docker, Docker Swarm, CI/CD pipelines
+- **Testing**: WebdriverIO, Mocha, Jest, Supertest, JUnit, Allure Reporting
+- **Data Science & Machine Learning**: XGBoost, Data Storytelling, Exploratory Data Analysis (EDA)
+- **Web Development**: HTML, CSS, JavaScript, React.js, Express.js, REST API development , Next.js 
+- **Cloud & Infrastructure**: Docker
+- **Version Control & Collaboration**: Git
+
 ### Contact:
 - **Email**: matthewswong2610@gmail.com
 - Open to collaborations, discussions, and knowledge-sharing opportunities.
