@@ -14,19 +14,68 @@ interface Message {
 }
 
 const CONTEXT = `
-Matthews Wong is an Information Technology student at Swiss German University, specializing in Technopreneurship.
-He is currently working as a DevOps Engineer at Commsult Indonesia, where he previously gained experience as an SDET (Software Development Engineer in Test).
-Matthews has completed project-based internships at PT Bank Mandiri (Persero) Tbk, developing an Android application for a real-time news platform, and at id/x partner, building a machine learning model for predicting loan risks.
-He is passionate about continuous learning and actively engages in international tech communities, including Microsoft Learning and Red Hat Learning.
-Matthews holds several industry-recognized certifications:
-- Ethical Hacking Essentials & Network Defense Certification – EC-Council
-- DevOps Certified – PagerDuty
-- Cybersecurity Awareness Certified – Certiprof
-- SQL (Advanced) & Rest API - HackerRank
-He has contributed to a funded research project on a BLE (Bluetooth Low Energy) app, designed as a smart stadium solution.
-Matthews is familiar with Web Development and Software Engineering.
-He can be contacted via email at matthewswong2610@gmail.com.
+Matthews Wong is an Information Technology student at Swiss German University, specializing in Technopreneurship. He is passionate about continuous learning and is involved in various international tech communities to stay up-to-date with the latest advancements.
+
+### Current Role:
+- **DevOps Engineer at Commsult Indonesia** (Jan 2025 - Present)
+  - Responsible for managing infrastructure using tools such as Ansible and Docker Swarm.
+  - Works with deployment and CI/CD processes, focusing on automating tasks and improving system reliability.
+
+### Previous Experience:
+- **Software Development Engineer in Test (SDET) at Commsult Indonesia** (Jul 2024 - Jan 2025)
+  - Developed and executed automated UI tests using WebdriverIO, XPath Selector, and Mocha framework.
+  - Built dynamic API tests leveraging Supertest and Jest, ensuring data-driven testing with expected response validation.
+  - Integrated Allure reporting framework to provide detailed test reports.
+
+- **Project-Based Virtual Intern: Data Scientist at id/x partners x Rakamin Academy** (May 2024 - Jun 2024)
+  - Conducted exploratory data analysis (EDA) to uncover key patterns and trends in datasets.
+  - Mastered data storytelling techniques and created visual representations of complex data.
+  - Worked on a machine learning model using XGBoost, achieving a portfolio consisting of 46% good loans and 0% risky loans.
+
+- **Project-Based Virtual Intern: Mobile Apps Developer at PT Bank Mandiri (Persero) Tbk** (Jan 2024 - Feb 2024)
+  - Developed a real-time news platform Android application using Kotlin, AndroidX, Jetpack Compose, and Material Design.
+  - Applied object-oriented programming (OOP) principles and utilized SQLite for local storage.
+  - Conducted unit testing using JUnit.
+
+### Certifications:
+- **Ethical Hacking Essentials & Network Defense Certification** – EC-Council
+- **DevOps Certified** – PagerDuty
+- **Cybersecurity Awareness Certified** – Certiprof
+- **SQL (Advanced) & Rest API** – HackerRank
+- **Docker Foundation Professional Certificate** - Docker
+- **Advanced Website Conversion rate Optimization** - Simplilearn
+- **Large Language Models** by Google Cloud Skills Boost 
+- **Career Essential in Generative AI** by Microsoft and Linkedin
+- **Career Essential Software Development** by Microsoft and Linkedin 
+
+### Education:
+- **Bachelor's degree in Information Technology**, Swiss German University (Aug 2022 - Aug 2026)
+  - Active member of several clubs:
+    - Badminton Club (Secretary)
+    - IT Student Association (Member)
+    - Chess Club (Event Division)
+    - SGU Bible Fellowship (Head of Creative Division)
+
+### Key Projects:
+1. **Observer KPU: All-in-One Election Solution** (Feb 2024 - Jun 2024)
+   - Developed a web application for real-time election data in Indonesia using React.js and Express.js.
+   - Integrated SIREKAP API and utilized web scraping techniques to display real-time news.
+   - Built a GROQ AI-powered chatbot to provide users with factual information about candidates and political dynamics.
+
+2. **STADPASS - Stadium Navigation App Utilizing Bluetooth Low Energy** (Oct 2023 - Mar 2024)
+   - Developed a BLE-based app for stadium navigation, guiding users to amenities and seats.
+   - Enabled mobile food ordering and notifications about nearby food stalls.
+   - Focused on enhancing the fan experience using BLE technology.
+
+3. **Wazuh Implementation to Monitor IT Security (Windows and Linux Workstations)** (Sep 2023 - Dec 2023)
+   - Analyzed security logs from both Windows and Linux systems using Wazuh and SIEM tools.
+   - Utilized Elasticsearch and Kibana to perform in-depth log analysis and identify security threats.
+
+### Contact:
+- **Email**: matthewswong2610@gmail.com
+- Open to collaborations, discussions, and knowledge-sharing opportunities.
 `;
+
 
 const suggestedQuestions = [
   "What is Matthews' current role?",
@@ -46,7 +95,16 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showBubble, setShowBubble] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowBubble(true);
+    }, 4000); // 4 seconds delay
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Auto-scroll to the bottom when messages change
   useEffect(() => {
@@ -89,11 +147,11 @@ export default function Chatbot() {
 
   const handleSend = async (message: string) => {
     if (!message.trim()) return;
-
+  
     setMessages((prev) => [...prev, { type: "user", content: message }]);
     setInputValue("");
     setIsLoading(true);
-
+  
     try {
       const chatCompletion = await groq.chat.completions.create({
         messages: [
@@ -109,20 +167,30 @@ export default function Chatbot() {
           },
         ],
         model: "llama-3.3-70b-versatile",
-        max_tokens: 250, // Increased to allow longer responses
-        temperature: 0.7,
+        max_completion_tokens: 1024,
+        temperature: 0.1,
+        stream: true, // Enable streaming
       });
-
-      let response = chatCompletion.choices[0]?.message?.content || "I'm sorry, I couldn't generate a response.";
-
-      // Check if the response is cut off and append an ellipsis
-      if (response.length >= 250 && !/[.!?]$/.test(response)) {
-        response += "...";
+  
+      let responseContent = "";
+      setMessages((prev) => [...prev, { type: "bot", content: "" }]); // Add an empty bot message to start streaming
+  
+      for await (const chunk of chatCompletion) {
+        const chunkContent = chunk.choices[0]?.delta?.content || "";
+        responseContent += chunkContent;
+  
+        // Update the last message with the new chunk
+        setMessages((prev) => {
+          const lastMessage = prev[prev.length - 1];
+          if (lastMessage.type === "bot") {
+            return [
+              ...prev.slice(0, -1),
+              { type: "bot", content: formatResponse(responseContent) },
+            ];
+          }
+          return prev;
+        });
       }
-
-      const formattedResponse = formatResponse(response); // Format the response
-
-      setMessages((prev) => [...prev, { type: "bot", content: formattedResponse }]);
     } catch (error) {
       console.error("Error generating response:", error);
       setMessages((prev) => [
@@ -134,7 +202,7 @@ export default function Chatbot() {
         },
       ]);
     }
-
+  
     setIsLoading(false);
   };
 
@@ -145,21 +213,24 @@ export default function Chatbot() {
   return (
     <>
       {/* Floating Bubble When Chat is Closed */}
-      {!isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          className="fixed bottom-20 right-4 z-50"
-        >
-          <div
-            className="bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg p-3 sm:p-4 cursor-pointer hover:shadow-xl transition-all duration-300"
-            onClick={() => setIsOpen(true)}
+      <AnimatePresence>
+        {!isOpen && showBubble && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
+            className="fixed bottom-20 right-4 z-50"
           >
-            <p className="text-xs sm:text-sm">I am Matthews' AI, Feel free to ask...</p>
-          </div>
-        </motion.div>
-      )}
+            <div
+              className="bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg p-3 sm:p-4 cursor-pointer hover:shadow-xl transition-all duration-300"
+              onClick={() => setIsOpen(true)}
+            >
+              <p className="text-xs sm:text-sm">I am Matthews' AI, Feel free to ask...</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Chat Toggle Button */}
       <motion.button

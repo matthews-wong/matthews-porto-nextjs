@@ -105,7 +105,7 @@ export default function Project() {
                   </div>
                   
                   {/* Content container */}
-                  <div className="p-4 relative bg-gradient-to-b from-slate-900/80 to-slate-900/95 backdrop-blur-sm">
+                  <div className="p-4 relative bg-gradient-to-b from-slate-900/80 to-slate-900/95 backdrop-blur-sm h-[300px]">
                     {/* Subtle top border */}
                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
                     
@@ -116,13 +116,10 @@ export default function Project() {
                     {project.features && (
                       <>
                         <h4 className="text-md font-semibold mb-2 text-indigo-400">Main Features:</h4>
-                        <ul className="list-disc list-inside text-slate-200 text-sm space-y-1">
+                        <ul className="list-none text-slate-200 text-sm space-y-1">
                           {project.features.map((feature, featureIndex) => (
-                            <li 
-                              key={featureIndex} 
-                              className="hover:text-blue-300 transition-colors duration-300 pl-2"
-                            >
-                              <span className="ml-[-1.5rem]">•</span> {feature}
+                            <li key={featureIndex} className="hover:text-blue-300 transition-colors duration-300">
+                              <span className="text-indigo-400">•</span> {feature}
                             </li>
                           ))}
                         </ul>
@@ -159,7 +156,7 @@ export default function Project() {
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
                 
                 {/* Card container */}
-                <div className="relative rounded-xl bg-slate-900/40 backdrop-blur-md p-4 border border-white/10">
+                <div className="relative rounded-xl bg-slate-900/40 backdrop-blur-md p-4 border border-white/10 h-[350px]">
                   <h3 className="text-lg font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
                     {project.title}
                   </h3>
@@ -167,13 +164,13 @@ export default function Project() {
                   {project.features && (
                     <>
                       <h4 className="text-md font-semibold mb-2 text-indigo-400">Key Highlights:</h4>
-                      <ul className="list-disc list-inside text-slate-200 text-sm space-y-1">
+                      <ul className="list-none text-slate-200 text-sm space-y-1">
                         {project.features.map((feature, featureIndex) => (
                           <li 
                             key={featureIndex} 
-                            className="hover:text-blue-300 transition-colors duration-300 pl-2"
+                            className="hover:text-blue-300 transition-colors duration-300"
                           >
-                            <span className="ml-[-1.5rem]">•</span> {feature}
+                            <span className="text-indigo-400">•</span> {feature}
                           </li>
                         ))}
                       </ul>

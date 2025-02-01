@@ -56,6 +56,7 @@ export default function Hero() {
             objectFit="cover"
             className="rounded-full shadow-2xl relative z-10"
             priority
+            loading="eager"
             />
             
             {/* Enhanced rotating effects */}
