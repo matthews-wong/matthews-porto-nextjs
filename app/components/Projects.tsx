@@ -59,117 +59,66 @@ const otherProjects = [
 ];
 
 export default function Project() {
-    return (
-      <section id="projects" className="min-h-screen py-12 relative overflow-hidden">
-        {/* Background effects */}
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-purple-500/5" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900/0 via-slate-900/80 to-slate-900" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#080808_1px,transparent_1px),linear-gradient(to_bottom,#080808_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-50" />
-  
-        <div className="container mx-auto px-4 relative">
-          {/* Section Title */}
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white text-5xl">
-              Featured Projects
-            </span>
-          </motion.h2>
-  
-          {/* Featured Projects */}
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                className="relative w-full md:w-4/5 mx-auto group"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                {/* Glow effect */}
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                
-                {/* Main card container */}
-                <div className="relative rounded-xl overflow-hidden bg-slate-900/40 backdrop-blur-md border border-white/10">
-                  {/* Image container */}
-                  <div className="relative pb-[150%]">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      layout="fill"
-                      className="transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  
-                  {/* Content container */}
-                  <div className="p-4 relative bg-gradient-to-b from-slate-900/80 to-slate-900/95 backdrop-blur-sm h-[300px]">
-                    {/* Subtle top border */}
-                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                    
-                    <h3 className="text-xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
-                      {project.title}
-                    </h3>
-                    <p className="text-slate-300 mb-4 text-sm leading-relaxed">{project.description}</p>
-                    {project.features && (
-                      <>
-                        <h4 className="text-md font-semibold mb-2 text-indigo-400">Main Features:</h4>
-                        <ul className="list-none text-slate-200 text-sm space-y-1">
-                          {project.features.map((feature, featureIndex) => (
-                            <li key={featureIndex} className="hover:text-blue-300 transition-colors duration-300">
-                              <span className="text-indigo-400">•</span> {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </>
-                    )}
-                  </div>
+  return (
+    <section id="projects" className="min-h-screen py-12 relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-purple-500/5" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900/0 via-slate-900/80 to-slate-900" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#080808_1px,transparent_1px),linear-gradient(to_bottom,#080808_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-50" />
+
+      <div className="container mx-auto px-4 relative">
+        {/* Section Title */}
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold text-center mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white text-5xl">
+            Featured Projects
+          </span>
+        </motion.h2>
+
+        {/* Featured Projects */}
+        <div className="grid md:grid-cols-2 gap-6 mb-12">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              className="relative w-full md:w-4/5 mx-auto group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              {/* Glow effect */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              
+              {/* Main card container */}
+              <div className="relative rounded-xl overflow-hidden bg-slate-900/40 backdrop-blur-md border border-white/10">
+                {/* Image container */}
+                <div className="relative pb-[150%]">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    layout="fill"
+                    className="transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
-              </motion.div>
-            ))}
-          </div>
-  
-          {/* Other Projects */}
-          <motion.h3
-            className="text-2xl font-bold mb-6 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white text-4xl">
-              Other Projects
-            </span>
-          </motion.h3>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            {otherProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                className="relative w-full md:w-4/5 mx-auto group"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                {/* Glow effect */}
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
                 
-                {/* Card container */}
-                <div className="relative rounded-xl bg-slate-900/40 backdrop-blur-md p-4 border border-white/10 h-[350px]">
-                  <h3 className="text-lg font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
+                {/* Content container */}
+                <div className="p-4 relative bg-gradient-to-b from-slate-900/80 to-slate-900/95 backdrop-blur-sm h-[390px] overflow-y-auto">
+                  {/* Subtle top border */}
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                  
+                  <h3 className="text-xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
                     {project.title}
                   </h3>
                   <p className="text-slate-300 mb-4 text-sm leading-relaxed">{project.description}</p>
                   {project.features && (
                     <>
-                      <h4 className="text-md font-semibold mb-2 text-indigo-400">Key Highlights:</h4>
+                      <h4 className="text-md font-semibold mb-2 text-indigo-400">Main Features:</h4>
                       <ul className="list-none text-slate-200 text-sm space-y-1">
                         {project.features.map((feature, featureIndex) => (
-                          <li 
-                            key={featureIndex} 
-                            className="hover:text-blue-300 transition-colors duration-300"
-                          >
+                          <li key={featureIndex} className="hover:text-blue-300 transition-colors duration-300">
                             <span className="text-indigo-400">•</span> {feature}
                           </li>
                         ))}
@@ -177,10 +126,62 @@ export default function Project() {
                     </>
                   )}
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
-      </section>
-    );
+
+        {/* Other Projects */}
+        
+        <motion.h3
+          className="text-2xl font-bold mb-6 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white text-4xl">
+            Other Projects
+          </span>
+        </motion.h3>
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          {otherProjects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              className="relative w-full md:w-4/5 mx-auto group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              {/* Glow effect */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              
+              {/* Card container */}
+              <div className="relative rounded-xl bg-slate-900/40 backdrop-blur-md p-4 border border-white/10 h-[450px] overflow-y-auto">
+                <h3 className="text-lg font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
+                  {project.title}
+                </h3>
+                <p className="text-slate-300 mb-4 text-sm leading-relaxed">{project.description}</p>
+                {project.features && (
+                  <>
+                    <h4 className="text-md font-semibold mb-2 text-indigo-400">Key Highlights:</h4>
+                    <ul className="list-none text-slate-200 text-sm space-y-1">
+                      {project.features.map((feature, featureIndex) => (
+                        <li 
+                          key={featureIndex} 
+                          className="hover:text-blue-300 transition-colors duration-300"
+                        >
+                          <span className="text-indigo-400">•</span> {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
