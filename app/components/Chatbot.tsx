@@ -100,271 +100,281 @@ const groq = new Groq({
 });
 
 export default function Chatbot() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [inputValue, setInputValue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [showBubble, setShowBubble] = useState(false);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowBubble(true);
-    }, 4000); // 4 seconds delay
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Auto-scroll to the bottom when messages change
-  useEffect(() => {
-    if (scrollAreaRef.current) {
-      const scrollContainer = scrollAreaRef.current.querySelector("[data-radix-scroll-area-viewport]");
-      if (scrollContainer) {
-        scrollContainer.scrollTo({
-          top: scrollContainer.scrollHeight,
-          behavior: "smooth",
-        });
+    const [isOpen, setIsOpen] = useState(false);
+    const [messages, setMessages] = useState<Message[]>([]);
+    const [inputValue, setInputValue] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [showBubble, setShowBubble] = useState(false);
+    const scrollAreaRef = useRef<HTMLDivElement>(null);
+  
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setShowBubble(true);
+      }, 4000); // 4 seconds delay
+  
+      return () => clearTimeout(timer);
+    }, []);
+  
+    // Auto-scroll to the bottom when messages change
+    useEffect(() => {
+      if (scrollAreaRef.current) {
+        const scrollContainer = scrollAreaRef.current.querySelector("[data-radix-scroll-area-viewport]");
+        if (scrollContainer) {
+          scrollContainer.scrollTo({
+            top: scrollContainer.scrollHeight,
+            behavior: "smooth",
+          });
+        }
       }
-    }
-  }, [messages]);
-
-  const formatResponse = (response: string) => {
-    // Handle Bullet points (starting with - or +) properly
-    response = response.replace(/(?:^|\n)[-+]\s+(.*?)(?=\n|$)/g, "<br />• $1");
-
-    // Handle Numbered lists (1. 2. 3.)
-    response = response.replace(/(\d+\.\s+)/g, "<br />$1");
-
-    // Handle Bold (**text**) properly
-    response = response.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-
-    // Handle Italic (*text* or _text_) properly
-    response = response.replace(/\*(.*?)\*/g, "<em>$1</em>");
-    response = response.replace(/_(.*?)_/g, "<em>$1</em>");
-
-    // Fix cases where both Bold and Italic are mixed, e.g., **_bold italic_**
-    response = response.replace(/<strong>\s*<em>(.*?)<\/em>\s*<\/strong>/g, "<strong><em>$1</em></strong>");
-
-    // Convert newline characters to <br /> for spacing
-    response = response.replace(/\n/g, "<br />");
-
-    // Ensure there are no empty bullet points or strange formatting issues.
-    response = response.replace(/<br \/>\s*•/g, "");
-
-    return response;
-  };
-
-  const handleSend = async (message: string) => {
-    if (!message.trim()) return;
+    }, [messages]);
   
-    setMessages((prev) => [...prev, { type: "user", content: message }]);
-    setInputValue("");
-    setIsLoading(true);
+    const formatResponse = (response: string) => {
+      // Handle Bullet points (starting with - or +) properly
+      response = response.replace(/(?:^|\n)[-+]\s+(.*?)(?=\n|$)/g, "<br />• $1");
   
-    try {
-      const chatCompletion = await groq.chat.completions.create({
-        messages: [
-          {
-            role: "system",
-            content: `You are an AI assistant for Matthews Wong. Use the following context to answer questions about Matthews:
-            ${CONTEXT}
-            Provide concise and friendly responses. Format the response with **bold** for emphasis, *italic* for subtle highlights, and use bullet points or numbered lists for clarity.`,
-          },
-          {
-            role: "user",
-            content: message,
-          },
-        ],
-        model: "llama-3.3-70b-versatile",
-        max_completion_tokens: 1024,
-        temperature: 0.1,
-        stream: true, // Enable streaming
-      });
+      // Handle Numbered lists (1. 2. 3.)
+      response = response.replace(/(\d+\.\s+)/g, "<br />$1");
   
-      let responseContent = "";
-      setMessages((prev) => [...prev, { type: "bot", content: "" }]); // Add an empty bot message to start streaming
+      // Handle Bold (**text**) properly
+      response = response.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
   
-      for await (const chunk of chatCompletion) {
-        const chunkContent = chunk.choices[0]?.delta?.content || "";
-        responseContent += chunkContent;
+      // Handle Italic (*text* or _text_) properly
+      response = response.replace(/\*(.*?)\*/g, "<em>$1</em>");
+      response = response.replace(/_(.*?)_/g, "<em>$1</em>");
   
-        // Update the last message with the new chunk
-        setMessages((prev) => {
-          const lastMessage = prev[prev.length - 1];
-          if (lastMessage.type === "bot") {
-            return [
-              ...prev.slice(0, -1),
-              { type: "bot", content: formatResponse(responseContent) },
-            ];
-          }
-          return prev;
+      // Fix cases where both Bold and Italic are mixed, e.g., **_bold italic_**
+      response = response.replace(/<strong>\s*<em>(.*?)<\/em>\s*<\/strong>/g, "<strong><em>$1</em></strong>");
+  
+      // Convert newline characters to <br /> for spacing
+      response = response.replace(/\n/g, "<br />");
+  
+      // Ensure there are no empty bullet points or strange formatting issues.
+      response = response.replace(/<br \/>\s*•/g, "");
+  
+      return response;
+    };
+  
+    const handleSend = async (message: string) => {
+      if (!message.trim()) return;
+    
+      setMessages((prev) => [...prev, { type: "user", content: message }]);
+      setInputValue("");
+      setIsLoading(true);
+    
+      try {
+        const chatCompletion = await groq.chat.completions.create({
+          messages: [
+            {
+              role: "system",
+              content: `You are an AI assistant for Matthews Wong. Use the following context to answer questions about Matthews:
+              ${CONTEXT}
+              Provide concise and friendly responses. Format the response with **bold** for emphasis, *italic* for subtle highlights, and use bullet points or numbered lists for clarity.`,
+            },
+            {
+              role: "user",
+              content: message,
+            },
+          ],
+          model: "llama-3.3-70b-versatile",
+          max_completion_tokens: 1024,
+          temperature: 0.1,
+          stream: true, // Enable streaming
         });
+    
+        let responseContent = "";
+        setMessages((prev) => [...prev, { type: "bot", content: "" }]); // Add an empty bot message to start streaming
+    
+        for await (const chunk of chatCompletion) {
+          const chunkContent = chunk.choices[0]?.delta?.content || "";
+          responseContent += chunkContent;
+    
+          // Update the last message with the new chunk
+          setMessages((prev) => {
+            const lastMessage = prev[prev.length - 1];
+            if (lastMessage.type === "bot") {
+              return [
+                ...prev.slice(0, -1),
+                { type: "bot", content: formatResponse(responseContent) },
+              ];
+            }
+            return prev;
+          });
+        }
+      } catch (error) {
+        console.error("Error generating response:", error);
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: "bot",
+            content:
+              "I apologize, but I'm having trouble connecting right now. Please try again later or reach out to Matthews directly at matthewswong2610@gmail.com.",
+          },
+        ]);
       }
-    } catch (error) {
-      console.error("Error generating response:", error);
-      setMessages((prev) => [
-        ...prev,
-        {
-          type: "bot",
-          content:
-            "I apologize, but I'm having trouble connecting right now. Please try again later or reach out to Matthews directly at matthewswong2610@gmail.com.",
-        },
-      ]);
-    }
+    
+      setIsLoading(false);
+    };
   
-    setIsLoading(false);
-  };
-
-  const handleNewChat = () => {
-    setMessages([]);
-  };
-
-  return (
-    <>
-      {/* Floating Bubble When Chat is Closed */}
-      <AnimatePresence>
-        {!isOpen && showBubble && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5 }}
-            className="fixed bottom-20 right-4 z-50"
-          >
-            <div
-              className="bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg p-3 sm:p-4 cursor-pointer hover:shadow-xl transition-all duration-300"
-              onClick={() => setIsOpen(true)}
+    const handleNewChat = () => {
+      setMessages([]);
+    };
+  
+    return (
+      <>
+        {/* Floating Bubble When Chat is Closed */}
+        <AnimatePresence>
+          {!isOpen && showBubble && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.5 }}
+              className="fixed bottom-20 right-4 z-50"
             >
-              <p className="text-xs sm:text-sm">I am Matthews' AI, Feel free to ask...</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Chat Toggle Button */}
-      <motion.button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 p-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        aria-label="Open Chat"
-      >
-        <MessageCircle size={24} />
-      </motion.button>
-
-      {/* Chat Window */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="fixed bottom-20 right-4 z-50"
-          >
-            <Card className="w-[320px] sm:w-[380px] shadow-xl bg-slate-900/90 backdrop-blur-lg border-slate-800 rounded-xl">
-              <CardHeader className="border-b border-slate-800">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg font-semibold">Chat with Matthews&apos; AI</CardTitle>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={handleNewChat}
-                      className="h-8 w-8 rounded-full hover:bg-slate-800/50 transition-colors" // Adjusted hover style
-                      aria-label="New Chat"
-                    >
-                      <Trash2 size={18} />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setIsOpen(false)}
-                      className="h-8 w-8 rounded-full hover:bg-slate-800/50 transition-colors" // Adjusted hover style
-                      aria-label="Close Chat"
-                    >
-                      <X size={18} />
-                    </Button>
+              <div className="relative">
+                <div
+                  className="bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg p-3 sm:p-4 cursor-pointer hover:shadow-xl transition-all duration-300"
+                  onClick={() => setIsOpen(true)}
+                >
+                  <p className="text-xs sm:text-sm">I am Matthews' AI, Feel free to ask...</p>
+                </div>
+                {/* Close Button */}
+                <button
+                  onClick={() => setShowBubble(false)}
+                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors duration-300"
+                  aria-label="Close Bubble"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+  
+        {/* Chat Toggle Button */}
+        <motion.button
+          onClick={() => setIsOpen(true)}
+          className="fixed bottom-4 right-4 p-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Open Chat"
+        >
+          <MessageCircle size={24} />
+        </motion.button>
+  
+        {/* Chat Window */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="fixed bottom-20 right-4 z-50"
+            >
+              <Card className="w-[320px] sm:w-[380px] shadow-xl bg-slate-900/90 backdrop-blur-lg border-slate-800 rounded-xl">
+                <CardHeader className="border-b border-slate-800">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg font-semibold">Chat with Matthews&apos; AI</CardTitle>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={handleNewChat}
+                        className="h-8 w-8 rounded-full hover:bg-slate-800/50 transition-colors" // Adjusted hover style
+                        aria-label="New Chat"
+                      >
+                        <Trash2 size={18} />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setIsOpen(false)}
+                        className="h-8 w-8 rounded-full hover:bg-slate-800/50 transition-colors" // Adjusted hover style
+                        aria-label="Close Chat"
+                      >
+                        <X size={18} />
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </CardHeader>
-              <CardContent className="p-0">
-                <ScrollArea className="h-[400px] p-4" ref={scrollAreaRef}>
-                  {messages.length === 0 ? (
-                    <div className="space-y-4">
-                      <p className="text-sm text-slate-400">
-                        Hello! I&apos;m Matthews&apos; AI assistant. Feel free to ask me anything about him, or choose
-                        from these suggested questions:
-                      </p>
-                      <div className="space-y-2">
-                        {suggestedQuestions.map((question) => (
-                          <Button
-                            key={question}
-                            variant="secondary"
-                            className="w-full justify-start text-left h-auto whitespace-normal rounded-lg"
-                            onClick={() => handleSend(question)}
-                          >
-                            {question}
-                          </Button>
-                        ))}
+                </CardHeader>
+                <CardContent className="p-0">
+                  <ScrollArea className="h-[400px] p-4" ref={scrollAreaRef}>
+                    {messages.length === 0 ? (
+                      <div className="space-y-4">
+                        <p className="text-sm text-slate-400">
+                          Hello! I&apos;m Matthews&apos; AI assistant. Feel free to ask me anything about him, or choose
+                          from these suggested questions:
+                        </p>
+                        <div className="space-y-2">
+                          {suggestedQuestions.map((question) => (
+                            <Button
+                              key={question}
+                              variant="secondary"
+                              className="w-full justify-start text-left h-auto whitespace-normal rounded-lg"
+                              onClick={() => handleSend(question)}
+                            >
+                              {question}
+                            </Button>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      {messages.map((message, index) => (
-                        <div
-                          key={index}
-                          className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
-                        >
+                    ) : (
+                      <div className="space-y-4">
+                        {messages.map((message, index) => (
                           <div
-                            className={`rounded-xl px-4 py-2 max-w-[85%] ${
-                              message.type === "user" ? "bg-blue-600 text-white" : "bg-slate-800 text-slate-200"
-                            }`}
+                            key={index}
+                            className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
                           >
-                            {message.type === "bot" ? (
-                              <p className="text-sm" dangerouslySetInnerHTML={{ __html: message.content }} />
-                            ) : (
-                              <p className="text-sm">{message.content}</p>
-                            )}
+                            <div
+                              className={`rounded-xl px-4 py-2 max-w-[85%] ${
+                                message.type === "user" ? "bg-blue-600 text-white" : "bg-slate-800 text-slate-200"
+                              }`}
+                            >
+                              {message.type === "bot" ? (
+                                <p className="text-sm" dangerouslySetInnerHTML={{ __html: message.content }} />
+                              ) : (
+                                <p className="text-sm">{message.content}</p>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                      {isLoading && (
-                        <div className="flex justify-start">
-                          <div className="rounded-xl px-4 py-2 bg-slate-800">
-                            <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
+                        ))}
+                        {isLoading && (
+                          <div className="flex justify-start">
+                            <div className="rounded-xl px-4 py-2 bg-slate-800">
+                              <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
+                            </div>
                           </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </ScrollArea>
-                <div className="border-t border-slate-800 p-4">
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      handleSend(inputValue);
-                    }}
-                    className="flex gap-2"
-                  >
-                    <input
-                      type="text"
-                      value={inputValue}
-                      onChange={(e) => setInputValue(e.target.value)}
-                      placeholder="Type your message..."
-                      className="flex-1 bg-slate-800 text-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      disabled={isLoading}
-                    />
-                    <Button type="submit" size="icon" className="rounded-xl" disabled={isLoading || !inputValue.trim()}>
-                      <Send size={18} />
-                    </Button>
-                  </form>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
-}
+                        )}
+                      </div>
+                    )}
+                  </ScrollArea>
+                  <div className="border-t border-slate-800 p-4">
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        handleSend(inputValue);
+                      }}
+                      className="flex gap-2"
+                    >
+                      <input
+                        type="text"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        placeholder="Type your message..."
+                        className="flex-1 bg-slate-800 text-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        disabled={isLoading}
+                      />
+                      <Button type="submit" size="icon" className="rounded-xl" disabled={isLoading || !inputValue.trim()}>
+                        <Send size={18} />
+                      </Button>
+                    </form>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </>
+    );
+  }
