@@ -25,7 +25,7 @@ export const metadata = {
     title: "Matthews Wong - DevOps Engineer & IT Student",
     description: "A showcase of projects, skills, and experiences in DevOps, cloud infrastructure, and IT innovation.",
     type: "website",
-    url: "https://matthewswong.vercel.app",
+    url: "https://matthewswong.tech",
   }
 }
 

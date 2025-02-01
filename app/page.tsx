@@ -1,60 +1,62 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense, lazy } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import About from "./components/About";
-import Education from "./components/Education";
-import Experience from "./components/Experience";
-import Certifications from "./components/Certifications";
-import Footer from "./components/Footer";
-import Hackathon from "./components/Hackathon";
-import Projects from "./components/Projects";  // Import Projects component
+
+// Lazy load components that are not immediately visible
+const About = lazy(() => import("./components/About"));
+const Education = lazy(() => import("./components/Education"));
+const Experience = lazy(() => import("./components/Experience"));
+const Certifications = lazy(() => import("./components/Certifications"));
+const Hackathon = lazy(() => import("./components/Hackathon"));
+const Projects = lazy(() => import("./components/Projects"));
+const Footer = lazy(() => import("./components/Footer"));
+
+// Loading component with skeleton
+const LoadingComponent = () => (
+  <div className="animate-pulse space-y-8 p-4">
+    <div className="h-64 bg-slate-700 rounded"></div>
+    <div className="h-96 bg-slate-700 rounded"></div>
+    <div className="h-72 bg-slate-700 rounded"></div>
+  </div>
+);
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 2000);
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-slate-900">
-        <div className="text-4xl font-bold gradient-text">
-          Loading...
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-slate-900">
+      {/* Header and Hero are loaded immediately */}
       <Header />
-      <div>
-        <Hero />
-      </div>
-      <div>
+      <Hero />
+      
+      {/* Wrap other components in Suspense with skeleton loading */}
+      <Suspense fallback={<LoadingComponent />}>
         <About />
-      </div>
-      <div>
+      </Suspense>
+      
+      <Suspense fallback={<LoadingComponent />}>
         <Education />
-      </div>
-      <div>
+      </Suspense>
+      
+      <Suspense fallback={<LoadingComponent />}>
         <Experience />
-      </div>
-      <div>
+      </Suspense>
+      
+      <Suspense fallback={<LoadingComponent />}>
         <Certifications />
-      </div>
-      <div>
+      </Suspense>
+      
+      <Suspense fallback={<LoadingComponent />}>
         <Hackathon />
-      </div>
-      <div>
-        <Projects />  {/* Add the Projects component here */}
-      </div>
-      <div>
+      </Suspense>
+      
+      <Suspense fallback={<LoadingComponent />}>
+        <Projects />
+      </Suspense>
+      
+      <Suspense fallback={<LoadingComponent />}>
         <Footer />
-      </div>
+      </Suspense>
     </div>
   );
 }
