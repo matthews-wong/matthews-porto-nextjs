@@ -21,6 +21,24 @@ const certifications = [
     image:
       "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/Screenshot%202025-01-30%20at%2020.49.57.png?raw=true",
   },
+  {
+    name: "SQL (Advanced)",
+    issuer: "HackerRank",
+    image:
+      "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/Screenshot%202025-02-02%20at%2021.30.52.png?raw=true",
+  },
+  {
+    name: "Ethical Hacking Essentials",
+    issuer: "EC-Council",
+    image:
+      "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/Screenshot%202025-02-02%20at%2021.31.50.png?raw=true",
+  },
+  {
+    name: "Cybersecurity Awareness Professional Certification",
+    issuer: "Certiprof",
+    image:
+      "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/Screenshot%202025-02-02%20at%2021.33.08.png?raw=true",
+  },
 ]
 
 export default function Certifications() {
