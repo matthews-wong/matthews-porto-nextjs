@@ -17,12 +17,12 @@ const CONTEXT = `
 Matthews Wong is an Information Technology student at Swiss German University, specializing in Technopreneurship. He is passionate about continuous learning and is involved in various international tech communities to stay up-to-date with the latest advancements.
 
 ### Current Role:
-- **DevOps Engineer at Commsult Indonesia** (Jan 2025 - Present)
+- **DevOps Engineer Intern at Commsult Indonesia** (Jan 2025 - Present)
   - Responsible for managing infrastructure using tools such as Ansible and Docker Swarm.
   - Works with deployment and CI/CD processes, focusing on automating tasks and improving system reliability.
 
 ### Previous Experience:
-- **Software Development Engineer in Test (SDET) at Commsult Indonesia** (Jul 2024 - Jan 2025)
+- **Software Development Engineer in Test Intern(SDET) at Commsult Indonesia** (Jul 2024 - Jan 2025)
   - Developed and executed automated UI tests using WebdriverIO, XPath Selector, and Mocha framework.
   - Built dynamic API tests leveraging Supertest and Jest, ensuring data-driven testing with expected response validation.
   - Integrated Allure reporting framework to provide detailed test reports.
@@ -79,6 +79,10 @@ Matthews Wong is an Information Technology student at Swiss German University, s
 - **Web Development**: HTML, CSS, JavaScript, React.js, Express.js, REST API development , Next.js 
 - **Cloud & Infrastructure**: Docker
 - **Version Control & Collaboration**: Git
+
+### Hackathon Experience:
+- **AI Hackathon by Indonesia AI Society**: Participated in an AI-focused hackathon, where I developed and fine-tuned **Random Forest classification models** to enhance predictive accuracy. Conducted **comparative analysis** of different machine learning approaches, optimized hyperparameters, and leveraged data preprocessing techniques to improve model performance.  
+- **PwC Capture The Flag (CTF)**: Engaged in a high-intensity **cybersecurity competition**, solving real-world security challenges, including **binary exploitation, cryptography, web security, and reverse engineering**. Collaborated with cybersecurity enthusiasts, applied ethical hacking techniques, and enhanced problem-solving skills under pressure.
 
 ### Contact:
 - **Email**: matthewswong2610@gmail.com
