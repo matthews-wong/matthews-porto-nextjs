@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import Header from "./components/Header"
 import Hero from "./components/Hero"
 import Chatbot from "./components/Chatbot"
+import { Analytics } from '@vercel/analytics/next'
 
 // Lazy load components that are not immediately visible
 const About = lazy(() => import("./components/About"))
@@ -65,6 +66,7 @@ export default function Home() {
 
       {/* Speed Insights for performance monitoring */}
       <SpeedInsights />
+      <Analytics />
     </div>
   )
 }
