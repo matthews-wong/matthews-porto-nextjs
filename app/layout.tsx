@@ -122,14 +122,6 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         {children}
-        
-        {/* Add a footer with relevant links and information */}
-        <footer style={{ textAlign: 'center', padding: '20px', marginTop: '40px', backgroundColor: '#f8f9fa' }}>
-          <p>© {new Date().getFullYear()} Matthews Wong. All rights reserved.</p>
-          <p>
-            <a href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-service">Terms of Service</a>
-          </p>
-        </footer>
       </body>
     </html>
   );
