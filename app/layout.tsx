@@ -86,8 +86,8 @@ export default function RootLayout({
             "sameAs": socialLinks.map(link => link.href),
             "description": "A passionate Software Engineer and IT Student specializing in Technopreneurship, with expertise in cloud computing, CI/CD pipelines, containerization, and infrastructure automation.",
             "alumniOf": {
-              "@type": "CollegeOrUniversity",
-              "name": "Your University Name"
+              "@type": "University",
+              "name": "Swiss German University"
             },
             "knowsAbout": [
               "DevOps",
