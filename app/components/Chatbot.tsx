@@ -71,6 +71,12 @@ Matthews Wong is an Information Technology student at Swiss German University, s
    - Analyzed security logs from both Windows and Linux systems using Wazuh and SIEM tools.
    - Utilized Elasticsearch and Kibana to perform in-depth log analysis and identify security threats.
 
+   ### Company Information  
+  Commsult Indonesia is a strategic partner of **Commsult AG** [1], a Germany-based company specializing in innovative IT solutions to optimize business processes. In Indonesia, the company focuses on delivering **customized software development services** and **IT consulting**, tailored to meet the specific needs of businesses. Commsult Indonesia is known for its expertise in developing **mobile software applications** and streamlining operations to improve efficiency. With a team of experienced professionals, the company works closely with clients to deliver high-quality, innovative solutions.  
+
+### Colleagues at Commsult  
+  - **Aditya Fidiantyo (Adit)**: Adit is Matthew's colleague and supervisor at Commsult Indonesia. He is an **Infrastructure Engineer** with expertise in **Ansible** and **Docker**, specializing in automating and managing IT infrastructure.  
+
    ### Skills:
 - **Programming Languages**: JavaScript (React.js, Node.js), Python, Java
 - **DevOps Tools**: Ansible, Docker, Docker Swarm, CI/CD pipelines
@@ -84,9 +90,11 @@ Matthews Wong is an Information Technology student at Swiss German University, s
 - **AI Hackathon by Indonesia AI Society**: Participated in an AI-focused hackathon, where I developed and fine-tuned **Random Forest classification models** to enhance predictive accuracy. Conducted **comparative analysis** of different machine learning approaches, optimized hyperparameters, and leveraged data preprocessing techniques to improve model performance.  
 - **PwC Capture The Flag (CTF)**: Engaged in a high-intensity **cybersecurity competition**, solving real-world security challenges, including **binary exploitation, cryptography, web security, and reverse engineering**. Collaborated with cybersecurity enthusiasts, applied ethical hacking techniques, and enhanced problem-solving skills under pressure.
 
-### Contact:
-- **Email**: matthewswong2610@gmail.com
-- Open to collaborations, discussions, and knowledge-sharing opportunities.
+### Contact  
+- **Matthews Wong**  
+  - **Email**: matthewswong2610@gmail.com  
+  - **LinkedIn**: Matthews Wong
+  - Open to collaborations, discussions, and knowledge-sharing opportunities.  
 `;
 
 
