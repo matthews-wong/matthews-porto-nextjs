@@ -1,6 +1,7 @@
 "use client"
 
 import { Suspense, lazy } from "react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import Header from "./components/Header"
 import Hero from "./components/Hero"
 import Chatbot from "./components/Chatbot"
@@ -61,6 +62,9 @@ export default function Home() {
 
       {/* Chatbot component */}
       <Chatbot />
+
+      {/* Speed Insights for performance monitoring */}
+      <SpeedInsights />
     </div>
   )
 }
