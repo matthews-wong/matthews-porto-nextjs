@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-// Sample project data
 const projects = [
   {
     id: 1,
@@ -69,12 +68,12 @@ export default function Project() {
       <div className="container mx-auto px-4 relative">
         {/* Section Title */}
         <motion.h2
-          className="text-3xl md:text-4xl font-bold text-center mb-8"
+          className="text-4xl md:text-5xl font-extrabold text-center mb-10 tracking-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white text-5xl">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white">
             Featured Projects
           </span>
         </motion.h2>
@@ -105,21 +104,21 @@ export default function Project() {
                 </div>
                 
                 {/* Content container */}
-                <div className="p-4 relative bg-gradient-to-b from-slate-900/80 to-slate-900/95 backdrop-blur-sm h-[390px] overflow-y-auto">
+                <div className="p-4 relative bg-gradient-to-b from-slate-900/80 to-slate-900/95 backdrop-blur-sm h-[470px] overflow-hidden">
                   {/* Subtle top border */}
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
                   
-                  <h3 className="text-xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
+                  <h3 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100 leading-tight">
                     {project.title}
                   </h3>
-                  <p className="text-slate-300 mb-4 text-sm leading-relaxed">{project.description}</p>
+                  <p className="text-slate-300 mb-4 text-base leading-relaxed">{project.description}</p>
                   {project.features && (
                     <>
-                      <h4 className="text-md font-semibold mb-2 text-indigo-400">Main Features:</h4>
-                      <ul className="list-none text-slate-200 text-sm space-y-1">
+                      <h4 className="text-lg font-semibold mb-2 text-indigo-400">Main Features:</h4>
+                      <ul className="list-none text-slate-200 text-base space-y-2">
                         {project.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="hover:text-blue-300 transition-colors duration-300">
-                            <span className="text-indigo-400">•</span> {feature}
+                          <li key={featureIndex} className="flex items-start hover:text-blue-300 transition-colors duration-300">
+                            <span className="text-indigo-400 mr-2">•</span> {feature}
                           </li>
                         ))}
                       </ul>
@@ -132,14 +131,13 @@ export default function Project() {
         </div>
 
         {/* Other Projects */}
-        
         <motion.h3
-          className="text-2xl font-bold mb-6 text-center"
+          className="text-3xl md:text-4xl font-extrabold mb-6 text-center tracking-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white text-4xl">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white">
             Other Projects
           </span>
         </motion.h3>
@@ -157,21 +155,21 @@ export default function Project() {
               <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
               
               {/* Card container */}
-              <div className="relative rounded-xl bg-slate-900/40 backdrop-blur-md p-4 border border-white/10 h-[450px] overflow-y-auto">
-                <h3 className="text-lg font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
+              <div className="relative rounded-xl bg-slate-900/40 backdrop-blur-md p-4 border border-white/10 h-[520px] overflow-hidden">
+                <h3 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100 leading-tight">
                   {project.title}
                 </h3>
-                <p className="text-slate-300 mb-4 text-sm leading-relaxed">{project.description}</p>
+                <p className="text-slate-300 mb-4 text-base leading-relaxed">{project.description}</p>
                 {project.features && (
                   <>
-                    <h4 className="text-md font-semibold mb-2 text-indigo-400">Key Highlights:</h4>
-                    <ul className="list-none text-slate-200 text-sm space-y-1">
+                    <h4 className="text-lg font-semibold mb-2 text-indigo-400">Key Highlights:</h4>
+                    <ul className="list-none text-slate-200 text-base space-y-2">
                       {project.features.map((feature, featureIndex) => (
                         <li 
                           key={featureIndex} 
-                          className="hover:text-blue-300 transition-colors duration-300"
+                          className="flex items-start hover:text-blue-300 transition-colors duration-300"
                         >
-                          <span className="text-indigo-400">•</span> {feature}
+                          <span className="text-indigo-400 mr-2">•</span> {feature}
                         </li>
                       ))}
                     </ul>

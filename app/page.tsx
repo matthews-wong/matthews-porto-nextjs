@@ -14,6 +14,7 @@ const Experience = lazy(() => import("./components/Experience"))
 const Certifications = lazy(() => import("./components/Certifications"))
 const Hackathon = lazy(() => import("./components/Hackathon"))
 const Projects = lazy(() => import("./components/Projects"))
+const Blog = lazy(() => import("./components/Blog"))
 const Footer = lazy(() => import("./components/Footer"))
 
 // Loading component with skeleton
@@ -55,6 +56,10 @@ export default function Home() {
 
       <Suspense fallback={<LoadingComponent />}>
         <Projects />
+      </Suspense>
+
+      <Suspense fallback={<LoadingComponent />}>
+        <Blog />
       </Suspense>
 
       <Suspense fallback={<LoadingComponent />}>

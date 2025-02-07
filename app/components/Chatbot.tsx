@@ -38,15 +38,15 @@ Matthews Wong is an Information Technology student at Swiss German University, s
   - Conducted unit testing using JUnit.
 
 ### Certifications:
-- **Ethical Hacking Essentials & Network Defense Certification** – EC-Council
-- **DevOps Certified** – PagerDuty
-- **Cybersecurity Awareness Certified** – Certiprof
-- **SQL (Advanced) & Rest API** – HackerRank
-- **Docker Foundation Professional Certificate** - Docker
-- **Advanced Website Conversion rate Optimization** - Simplilearn
-- **Large Language Models** by Google Cloud Skills Boost 
-- **Career Essential in Generative AI** by Microsoft and Linkedin
-- **Career Essential Software Development** by Microsoft and Linkedin 
+- **Ethical Hacking Essentials & Network Defense Certification** - Issued by :  EC-Council
+- **DevOps Certified** - Issued by : PagerDuty
+- **Cybersecurity Awareness Certified** - Issued by : Certiprof
+- **SQL (Advanced) & Rest API** – Issued by : HackerRank
+- **Docker Foundation Professional Certificate** - Issued by : Docker
+- **Advanced Website Conversion rate Optimization** - Issued by : Simplilearn
+- **Large Language Models** Issued by : Google Cloud Skills Boost 
+- **Career Essential in Generative AI** Issued by : Microsoft and Linkedin
+- **Career Essential Software Development** Issued by Microsoft and Linkedin 
 
 ### Education:
 - **Bachelor's degree in Information Technology**, Swiss German University (Aug 2022 - Aug 2026)

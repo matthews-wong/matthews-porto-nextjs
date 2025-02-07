@@ -5,37 +5,37 @@ import Link from "next/link"
 const certifications = [
   {
     name: "DevOps Professional Certificate",
-    issuer: "PagerDuty",
+    issuer: "Issued by : PagerDuty",
     image:
       "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/Screenshot%202025-01-30%20at%2020.23.23.png?raw=true",
   },
   {
     name: "Network Defense Essentials",
-    issuer: "EC-Council",
+    issuer: "Issued by : EC-Council",
     image:
       "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/Screenshot%202025-01-30%20at%2020.24.21.png?raw=true",
   },
   {
     name: "AWS Academy Cloud Foundations",
-    issuer: "AWS Academy",
+    issuer: "Issued by : AWS Academy",
     image:
       "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/Screenshot%202025-01-30%20at%2020.49.57.png?raw=true",
   },
   {
     name: "SQL (Advanced)",
-    issuer: "HackerRank",
+    issuer: "Issued by : HackerRank",
     image:
       "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/Screenshot%202025-02-02%20at%2021.30.52.png?raw=true",
   },
   {
     name: "Ethical Hacking Essentials",
-    issuer: "EC-Council",
+    issuer: "Issued by : EC-Council",
     image:
       "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/Screenshot%202025-02-02%20at%2021.31.50.png?raw=true",
   },
   {
     name: "Cybersecurity Awareness Professional Certification",
-    issuer: "Certiprof",
+    issuer: "Issued by : Certiprof",
     image:
       "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/Screenshot%202025-02-02%20at%2021.33.08.png?raw=true",
   },
@@ -74,7 +74,7 @@ export default function Certifications() {
               {/* Subtle card glow */}
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-lg blur-lg group-hover:blur-xl transition-all duration-500" />
 
-              <div className="glass-effect p-6 rounded-lg backdrop-blur-xl bg-white/5 border border-white/10 relative">
+                  <div className="glass-effect p-6 rounded-lg backdrop-blur-xl bg-white/5 border border-white/10 relative h-[390px] flex flex-col">
                 <div className="relative w-full pb-[75%] mb-4 overflow-hidden rounded-lg">
                   <Image
                     src={cert.image || "/placeholder.svg"}
