@@ -104,7 +104,7 @@ export default function Project() {
                 </div>
                 
                 {/* Content container */}
-                <div className="p-4 relative bg-gradient-to-b from-slate-900/80 to-slate-900/95 backdrop-blur-sm h-[490px] overflow-hidden">
+                <div className="p-4 relative bg-gradient-to-b from-slate-900/80 to-slate-900/95 backdrop-blur-sm h-[493px] overflow-hidden">
                   {/* Subtle top border */}
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
                   
