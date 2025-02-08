@@ -12,7 +12,7 @@ const hackathons = [
   },
   {
     id: 2,
-    title: "Blockchain Training by Pelita Bangsa Academy",
+    title: "Blockchain Training Documentation",
     image: "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/WhatsApp%20Image%202025-01-11%20at%2018.07.47_82743a8b%20(1).jpg?raw=true",
   },
   {
@@ -35,6 +35,27 @@ const hackathons = [
     title: "Blockchain Workshop and Training by Pelita Bangsa Academy",
     image: "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/WhatsApp%20Image%202025-01-31%20at%2015.19.07.jpeg?raw=true",
   },
+  {
+    id: 7,
+    title: "Blockchain Workshop and Training by Pelita Bangsa Academy",
+    image: "/images/Blockchain1.jpeg",
+  },
+  {
+    id: 8,
+    title: "SGU IT Symposium & Project Showcase",
+    image: "/images/Symposium1.jpeg",
+  },
+  {
+    id: 9,
+    title: "SGU IT Symposium & Project Showcase",
+    image: "/images/Symposium2.jpeg",
+  },
+  {
+    id: 10,
+    title: "SGU IT Symposium & Project Showcase",
+    image: "/images/Symposium3.jpeg",
+  },
+
 ]
 
 export default function Hackathon() {

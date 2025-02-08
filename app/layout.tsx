@@ -19,7 +19,7 @@ export const metadata = {
     "DevOps",
     "Cloud Computing",
     "CI/CD",
-    "Kubernetes",
+    "Ansible",
     "Infrastructure as Code",
     "IT Student",
     "Technopreneurship",
@@ -99,10 +99,10 @@ export default function RootLayout({
               "Automation"
             ],
             "workLocation": {
-              "@type": "Place",
+              "@type": "Internship",
               "address": {
-                "@type": "PostalAddress",
-                "addressCountry": "Your Country"
+                "@type": "45131",
+                "addressCountry": "Indonesia"
               }
             },
             "memberOf": [
