@@ -1,10 +1,9 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import type React from "react"; // Import React
+import type React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// Define social links for SEO
 const socialLinks = [
   { href: "https://www.linkedin.com/in/matthewswong", label: "LinkedIn" },
   { href: "https://github.com/MatthewsWongOfficial", label: "GitHub" },
@@ -14,7 +13,8 @@ const socialLinks = [
 
 export const metadata = {
   title: "Matthews Wong Portfolio",
-  description: "Welcome to the personal portfolio of Matthews Wong, a Software Engineer and IT Student specializing in Technopreneurship. Passionate about cloud computing, CI/CD pipelines, containerization, and infrastructure automation. Explore my projects, skills, and experiences in the world of IT and software development.",
+  description:
+    "Welcome to the personal portfolio of Matthews Wong, a Software Engineer and IT Student specializing in Technopreneurship. Passionate about cloud computing, CI/CD pipelines, containerization, and infrastructure automation. Explore my projects, skills, and experiences in the world of IT and software development.",
   keywords: [
     "DevOps",
     "Cloud Computing",
@@ -25,13 +25,14 @@ export const metadata = {
     "Technopreneurship",
     "Software Engineering",
     "Automation",
-    "Portfolio"
+    "Portfolio",
   ],
   author: "Matthews Wong",
   robots: "index, follow",
   openGraph: {
     title: "Matthews Wong - DevOps Engineer & IT Student",
-    description: "A showcase of projects, skills, and experiences in DevOps, cloud infrastructure, and IT innovation.",
+    description:
+      "A showcase of projects, skills, and experiences in DevOps, cloud infrastructure, and IT innovation.",
     type: "website",
     url: "https://matthewswong.tech",
     images: [
@@ -43,8 +44,16 @@ export const metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    site: "@your_twitter_handle",
+    title: "Matthews Wong - DevOps Engineer & IT Student",
+    description:
+      "A showcase of projects, skills, and experiences in DevOps, cloud infrastructure, and IT innovation.",
+    image: "https://matthewswong.tech/images/og-image.svg",
+  },
   icons: {
-    icon: "/favicon.ico"
+    icon: "/favicon.ico",
   },
   manifest: "/site.webmanifest",
   themeColor: "#ffffff",
@@ -53,76 +62,88 @@ export const metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <head>
-        {/* Add canonical link to avoid duplicate content issues */}
         <link rel="canonical" href="https://matthewswong.tech" />
-        
-        {/* Add preconnect for Google Fonts to improve performance */}
+
+        {/* Preconnect & Preload Fonts for Performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
-        {/* Add meta tags for better SEO */}
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+          as="style"
+        />
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="theme-color" content="#ffffff" />
 
-        {/* LinkedIn-specific meta tags */}
-        <meta property="linkedin:author" content="Matthews Wong" />
-        <meta property="linkedin:title" content="Matthews Wong - DevOps Engineer & IT Student" />
-        <meta property="linkedin:description" content="A showcase of projects, skills, and experiences in DevOps, cloud infrastructure, and IT innovation. Expert in cloud computing, CI/CD pipelines, containerization, and infrastructure automation." />
-        <meta property="linkedin:image" content="https://matthewswong.tech/images/og-image.svg" />
-        
-        {/* Add structured data for better search engine and LinkedIn understanding */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Matthews Wong",
-            "jobTitle": "Software Engineer & IT Student",
-            "url": "https://matthewswong.tech",
-            "sameAs": socialLinks.map(link => link.href),
-            "description": "A passionate Software Engineer and IT Student specializing in Technopreneurship, with expertise in cloud computing, CI/CD pipelines, containerization, and infrastructure automation.",
-            "alumniOf": {
-              "@type": "University",
-              "name": "Swiss German University"
-            },
-            "knowsAbout": [
-              "DevOps",
-              "Cloud Computing",
-              "CI/CD",
-              "Kubernetes",
-              "Infrastructure as Code",
-              "Software Engineering",
-              "Automation"
-            ],
-            "workLocation": {
-              "@type": "Internship",
-              "address": {
-                "@type": "45131",
-                "addressCountry": "Indonesia"
-              }
-            },
-            "memberOf": [
-              {
-                "@type": "Organization",
-                "name": "GitHub",
-                "url": "https://github.com/MatthewsWongOfficial"
+        {/* OpenGraph for Facebook & LinkedIn */}
+        <meta property="og:title" content={metadata.openGraph.title} />
+        <meta property="og:description" content={metadata.openGraph.description} />
+        <meta property="og:url" content={metadata.openGraph.url} />
+        <meta property="og:image" content={metadata.openGraph.images[0].url} />
+        <meta property="og:type" content={metadata.openGraph.type} />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content={metadata.twitter.card} />
+        <meta name="twitter:site" content={metadata.twitter.site} />
+        <meta name="twitter:title" content={metadata.twitter.title} />
+        <meta name="twitter:description" content={metadata.twitter.description} />
+        <meta name="twitter:image" content={metadata.twitter.image} />
+
+        {/* Structured Data for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Matthews Wong",
+              "jobTitle": "Software Engineer & IT Student",
+              "url": "https://matthewswong.tech",
+              "sameAs": socialLinks.map((link) => link.href),
+              "description":
+                "A passionate Software Engineer and IT Student specializing in Technopreneurship, with expertise in cloud computing, CI/CD pipelines, containerization, and infrastructure automation.",
+              "alumniOf": {
+                "@type": "CollegeOrUniversity",
+                "name": "Swiss German University",
               },
-              {
-                "@type": "Organization",
-                "name": "LinkedIn",
-                "url": "https://www.linkedin.com/in/matthewswong"
-              }
-            ]
-          })}
-        </script>
+              "knowsAbout": [
+                "DevOps",
+                "Cloud Computing",
+                "CI/CD",
+                "Kubernetes",
+                "Infrastructure as Code",
+                "Software Engineering",
+                "Automation",
+              ],
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Indonesia",
+                "postalCode": "45131",
+                "addressCountry": "ID",
+              },
+              "memberOf": [
+                {
+                  "@type": "Organization",
+                  "name": "GitHub",
+                  "url": "https://github.com/MatthewsWongOfficial",
+                },
+                {
+                  "@type": "Organization",
+                  "name": "LinkedIn",
+                  "url": "https://www.linkedin.com/in/matthewswong",
+                },
+              ],
+            }),
+          }}
+        />
       </head>
-      <body className={inter.className}>
-        {children}
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
