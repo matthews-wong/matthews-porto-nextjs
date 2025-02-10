@@ -1,8 +1,15 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import type React from "react";
+import { Metadata } from "next";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+});
+
+const BASE_URL = "https://matthewswong.tech";
 
 const socialLinks = [
   { href: "https://www.linkedin.com/in/matthewswong", label: "LinkedIn" },
@@ -11,52 +18,87 @@ const socialLinks = [
   { href: "https://codepen.io/Matthews-Wong", label: "Codepen" },
 ];
 
-export const metadata = {
-  title: "Matthews Wong Portfolio",
-  description:
-    "Welcome to the personal portfolio of Matthews Wong, a Software Engineer and IT Student specializing in Technopreneurship. Passionate about cloud computing, CI/CD pipelines, containerization, and infrastructure automation. Explore my projects, skills, and experiences in the world of IT and software development.",
+export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: "Matthews Wong Portfolio - Software Engineer",
+    template: "%s | Matthews Wong Portfolio"
+  },
+  description: "Innovative Software engineer and IT student specializing in Automation, Web Development, CI/CD, and infrastructure automation. Explore cutting-edge tech solutions and projects.",
+  applicationName: "Matthews Wong Portfolio",
+  authors: [{ name: "Matthews Wong", url: BASE_URL }],
+  generator: "Next.js",
   keywords: [
-    "DevOps",
-    "Cloud Computing",
-    "CI/CD",
-    "Ansible",
-    "Infrastructure as Code",
-    "IT Student",
-    "Technopreneurship",
-    "Software Engineering",
-    "Automation",
-    "Portfolio",
+    "DevOps", "Cloud Computing", "CI/CD", "Ansible", 
+    "Infrastructure as Code", "Software Engineering", 
+    "Technopreneurship", "Automation", "Docker", "AWS"
   ],
-  author: "Matthews Wong",
-  robots: "index, follow",
+  referrer: "origin-when-cross-origin",
+  creator: "Matthews Wong",
+  publisher: "Matthews Wong",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1
+    }
+  },
+  alternates: {
+    canonical: BASE_URL
+  },
   openGraph: {
-    title: "Matthews Wong - DevOps Engineer & IT Student",
-    description:
-      "A showcase of projects, skills, and experiences in DevOps, cloud infrastructure, and IT innovation.",
     type: "website",
-    url: "https://matthewswong.tech",
-    images: [
-      {
-        url: "https://matthewswong.tech/images/og-image.svg",
-        width: 1200,
-        height: 630,
-        alt: "Matthews Wong Portfolio",
-      },
-    ],
+    locale: "en_US",
+    title: "Matthews Wong - Software Engineer & IT Student",
+    description: "Innovative portfolio showcasing Innovative Web Applications, DevOps, and software engineering expertise.",
+    url: BASE_URL,
+    siteName: "Matthews Wong Portfolio",
+    images: [{
+      url: "/og-image.svg",
+      width: 1200,
+      height: 630,
+      alt: "Matthews Wong Portfolio"
+    }]
   },
   twitter: {
     card: "summary_large_image",
-    site: "@your_twitter_handle",
-    title: "Matthews Wong - DevOps Engineer & IT Student",
-    description:
-      "A showcase of projects, skills, and experiences in DevOps, cloud infrastructure, and IT innovation.",
-    image: "https://matthewswong.tech/images/og-image.svg",
+    title: "Matthews Wong - DevOps & Software Engineering",
+    description: "Innovative Software engineer and IT student",
+    images: ["/og-image.svg"]
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" }
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180" }
+    ],
+    shortcut: { url: "/favicon.ico", type: "image/x-icon" },
+    other: [
+      {
+        rel: "android-chrome-192x192",
+        url: "/android-chrome-192x192.png",
+        sizes: "192x192"
+      },
+      {
+        rel: "android-chrome-512x512",
+        url: "/android-chrome-512x512.png",
+        sizes: "512x512"
+      }
+    ]
   },
   manifest: "/site.webmanifest",
-  themeColor: "#ffffff",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" }
+  ],
 };
 
 export default function RootLayout({
@@ -65,37 +107,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="canonical" href="https://matthewswong.tech" />
-
-        {/* Preconnect & Preload Fonts for Performance */}
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="preload"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
-          as="style"
-        />
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="theme-color" content="#ffffff" />
-
-        {/* OpenGraph for Facebook & LinkedIn */}
-        <meta property="og:title" content={metadata.openGraph.title} />
-        <meta property="og:description" content={metadata.openGraph.description} />
-        <meta property="og:url" content={metadata.openGraph.url} />
-        <meta property="og:image" content={metadata.openGraph.images[0].url} />
-        <meta property="og:type" content={metadata.openGraph.type} />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content={metadata.twitter.card} />
-        <meta name="twitter:site" content={metadata.twitter.site} />
-        <meta name="twitter:title" content={metadata.twitter.title} />
-        <meta name="twitter:description" content={metadata.twitter.description} />
-        <meta name="twitter:image" content={metadata.twitter.image} />
-
-        {/* Structured Data for SEO */}
+        
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -104,46 +121,22 @@ export default function RootLayout({
               "@type": "Person",
               "name": "Matthews Wong",
               "jobTitle": "Software Engineer & IT Student",
-              "url": "https://matthewswong.tech",
-              "sameAs": socialLinks.map((link) => link.href),
-              "description":
-                "A passionate Software Engineer and IT Student specializing in Technopreneurship, with expertise in cloud computing, CI/CD pipelines, containerization, and infrastructure automation.",
+              "url": BASE_URL,
+              "sameAs": socialLinks.map(link => link.href),
               "alumniOf": {
                 "@type": "CollegeOrUniversity",
-                "name": "Swiss German University",
-              },
-              "knowsAbout": [
-                "DevOps",
-                "Cloud Computing",
-                "CI/CD",
-                "Kubernetes",
-                "Infrastructure as Code",
-                "Software Engineering",
-                "Automation",
-              ],
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Indonesia",
-                "postalCode": "45131",
-                "addressCountry": "ID",
-              },
-              "memberOf": [
-                {
-                  "@type": "Organization",
-                  "name": "GitHub",
-                  "url": "https://github.com/MatthewsWongOfficial",
-                },
-                {
-                  "@type": "Organization",
-                  "name": "LinkedIn",
-                  "url": "https://www.linkedin.com/in/matthewswong",
-                },
-              ],
-            }),
+                "name": "Swiss German University"
+              }
+            })
           }}
         />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body 
+        className={`${inter.className} antialiased min-h-screen`}
+        suppressHydrationWarning={true}
+      >
+        {children}
+      </body>
     </html>
   );
 }
