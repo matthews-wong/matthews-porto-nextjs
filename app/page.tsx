@@ -15,6 +15,7 @@ const Certifications = lazy(() => import("./components/Certifications"))
 const Hackathon = lazy(() => import("./components/Hackathon"))
 const Projects = lazy(() => import("./components/Projects"))
 const Footer = lazy(() => import("./components/Footer"))
+const SplashCursor = lazy(() => import("./components/SplashCursor"))
 
 // Loading component with skeleton
 const LoadingComponent = () => (
@@ -63,6 +64,11 @@ export default function Home() {
 
       {/* Chatbot component */}
       <Chatbot />
+
+      {/* Fix: Wrap SplashCursor in Suspense */}
+      <Suspense fallback={null}>
+        <SplashCursor />
+      </Suspense>
 
       {/* Speed Insights for performance monitoring */}
       <SpeedInsights />
