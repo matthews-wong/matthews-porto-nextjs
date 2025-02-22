@@ -177,7 +177,21 @@ const About: React.FC = () => {
             </div>
           </motion.div>
 
+          {/* Tech Stack Title */}
+          <motion.h2
+            className="text-4xl md:text-5xl font-bold text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-200 via-white to-purple-200">
+              My Tech Stack
+            </span>
+          </motion.h2>
+          
           {/* Tech Stacks */}
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {techStacks.map((stack) => (
               <motion.div

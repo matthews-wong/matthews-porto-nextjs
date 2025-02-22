@@ -28,7 +28,7 @@ const LoadingComponent = () => (
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-900">
+    <div className="min-h-screen w-full max-w-full bg-slate-900 overflow-x-hidden">
       {/* Header and Hero are loaded immediately */}
       <Header />
       <Hero />
