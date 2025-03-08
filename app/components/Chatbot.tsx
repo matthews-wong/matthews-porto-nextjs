@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Loader2, Trash2 } from "lucide-react";
+import { MessageCircle, X, Send, Loader2, Trash2, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -141,28 +141,43 @@ export default function Chatbot() {
     }, [messages]);
   
     const formatResponse = (response: string) => {
-      // Handle Bullet points (starting with - or +) properly
-      response = response.replace(/(?:^|\n)[-+]\s+(.*?)(?=\n|$)/g, "<br />• $1");
+      // Enhanced text formatting for better chat appearance with responsive fixes
+      
+      // Handle code blocks ```code``` with responsive overflow
+      response = response.replace(/```([\s\S]*?)```/g, '<pre class="bg-slate-800 p-3 rounded-lg my-2 overflow-x-auto text-xs text-green-400 max-w-full whitespace-pre-wrap break-words">$1</pre>');
+      
+      // Handle inline code `code` with word-break
+      response = response.replace(/`([^`]+)`/g, '<code class="bg-slate-800 px-1 py-0.5 rounded text-xs text-green-400 break-words">$1</code>');
+      
+      // Handle Bullet points with responsive design
+      response = response.replace(/(?:^|\n)[-+]\s+(.*?)(?=\n|$)/g, '<div class="flex items-start my-1 gap-2"><span class="text-blue-400 flex-shrink-0">•</span><span class="flex-1 break-words">$1</span></div>');
   
-      // Handle Numbered lists (1. 2. 3.)
-      response = response.replace(/(\d+\.\s+)/g, "<br />$1");
+      // Handle Numbered lists with responsive design
+      response = response.replace(/(?:^|\n)(\d+)\.\s+(.*?)(?=\n|$)/g, '<div class="flex items-start my-1 gap-2"><span class="text-blue-400 font-medium flex-shrink-0">$1.</span><span class="flex-1 break-words">$2</span></div>');
   
-      // Handle Bold (**text**) properly
-      response = response.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+      // Handle Bold (**text**) with responsive text
+      response = response.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-blue-300 break-words">$1</strong>');
   
-      // Handle Italic (*text* or _text_) properly
-      response = response.replace(/\*(.*?)\*/g, "<em>$1</em>");
-      response = response.replace(/_(.*?)_/g, "<em>$1</em>");
+      // Handle Italic (*text* or _text_) with responsive text
+      response = response.replace(/\*(.*?)\*/g, '<em class="italic text-slate-300 break-words">$1</em>');
+      response = response.replace(/_(.*?)_/g, '<em class="italic text-slate-300 break-words">$1</em>');
   
-      // Fix cases where both Bold and Italic are mixed, e.g., **_bold italic_**
-      response = response.replace(/<strong>\s*<em>(.*?)<\/em>\s*<\/strong>/g, "<strong><em>$1</em></strong>");
+      // Fix cases where both Bold and Italic are mixed
+      response = response.replace(/<strong[^>]*>\s*<em[^>]*>(.*?)<\/em>\s*<\/strong>/g, '<strong class="font-bold italic text-blue-300 break-words">$1</strong>');
   
-      // Convert newline characters to <br /> for spacing
-      response = response.replace(/\n/g, "<br />");
+      // Convert newline characters to <br /> with better spacing
+      response = response.replace(/\n\n/g, '<div class="h-4"></div>');
+      response = response.replace(/\n/g, '<br />');
   
-      // Ensure there are no empty bullet points or strange formatting issues.
-      response = response.replace(/<br \/>\s*•/g, "");
+      // Handle horizontal rules
+      response = response.replace(/(?:^|\n)---(?:\n|$)/g, '<hr class="my-3 border-slate-700" />');
   
+      // Handle blockquotes with word-break
+      response = response.replace(/(?:^|\n)>\s+(.*?)(?=\n|$)/g, '<blockquote class="border-l-4 border-blue-500 pl-3 italic text-slate-400 my-2 break-words">$1</blockquote>');
+      
+      // Ensure URLs are properly handled and don't overflow 
+      response = response.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" class="text-blue-400 hover:underline break-all" target="_blank" rel="noopener noreferrer">$1</a>');
+      
       return response;
     };
   
@@ -180,7 +195,7 @@ export default function Chatbot() {
               role: "system",
               content: `You are an AI assistant for Matthews Wong. Use the following context to answer questions about Matthews:
               ${CONTEXT}
-              Provide concise and friendly responses. Format the response with **bold** for emphasis, *italic* for subtle highlights, and use bullet points or numbered lists for clarity.`,
+              Provide concise and friendly responses. Format the response with **bold** for emphasis, *italic* for subtle highlights, and use bullet points or numbered lists for clarity. For mobile users, keep your responses relatively brief and well-formatted.`,
             },
             {
               role: "user",
@@ -233,7 +248,7 @@ export default function Chatbot() {
   
     return (
       <>
-        {/* Floating Bubble When Chat is Closed */}
+        {/* Improved Floating Bubble - Mobile Responsive */}
         <AnimatePresence>
           {!isOpen && showBubble && (
             <motion.div
@@ -241,19 +256,26 @@ export default function Chatbot() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5 }}
-              className="fixed bottom-20 right-4 z-50"
+              className="fixed bottom-20 right-4 z-50 max-w-[calc(100vw-32px)]"
             >
               <div className="relative">
                 <div
-                  className="bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg p-3 sm:p-4 cursor-pointer hover:shadow-xl transition-all duration-300"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl shadow-lg p-3 sm:p-4 cursor-pointer hover:shadow-xl transition-all duration-300 border border-blue-400/30 backdrop-blur-sm"
                   onClick={() => setIsOpen(true)}
                 >
-                  <p className="text-xs sm:text-sm">I am Matthews' AI, Feel free to ask...</p>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Bot size={18} className="text-blue-200 animate-pulse flex-shrink-0" />
+                    <p className="text-sm font-medium text-blue-100 truncate">Matthews' AI Assistant</p>
+                  </div>
+                  <p className="text-xs text-blue-50 break-words">👋 Hi there! Feel free to ask me anything about Matthews.</p>
                 </div>
-                {/* Close Button */}
+                {/* Improved Close Button */}
                 <button
-                  onClick={() => setShowBubble(false)}
-                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors duration-300"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowBubble(false);
+                  }}
+                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors duration-300 border border-red-400/30 shadow-md"
                   aria-label="Close Bubble"
                 >
                   <X size={14} />
@@ -263,10 +285,10 @@ export default function Chatbot() {
           )}
         </AnimatePresence>
   
-        {/* Chat Toggle Button */}
+        {/* Enhanced Chat Toggle Button - Mobile Friendly */}
         <motion.button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-4 right-4 p-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50"
+          className="fixed bottom-4 right-4 p-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 border border-blue-400/30"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           aria-label="Open Chat"
@@ -274,7 +296,7 @@ export default function Chatbot() {
           <MessageCircle size={24} />
         </motion.button>
   
-        {/* Chat Window */}
+        {/* Enhanced Chat Window with Mobile-First Responsiveness */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -282,48 +304,74 @@ export default function Chatbot() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="fixed bottom-20 right-4 z-50"
+              className="fixed bottom-4 sm:bottom-20 right-0 sm:right-4 z-50 w-full sm:w-auto max-h-[90vh] px-4 sm:px-0"
             >
-              <Card className="w-[320px] sm:w-[380px] shadow-xl bg-slate-900/90 backdrop-blur-lg border-slate-800 rounded-xl">
-                <CardHeader className="border-b border-slate-800">
+              <Card className="w-full sm:w-[320px] md:w-[380px] shadow-xl bg-slate-900/95 backdrop-blur-lg border-slate-700 rounded-xl overflow-hidden mx-auto sm:mx-0">
+                <CardHeader className="border-b border-slate-700 bg-gradient-to-r from-slate-900 to-slate-800 py-3 px-4">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg font-semibold">Chat with Matthews&apos; AI</CardTitle>
+                    <CardTitle className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
+                      <div className="relative">
+                        <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                        <div className="h-2 w-2 rounded-full bg-green-500/50 animate-ping absolute top-0 left-0"></div>
+                      </div>
+                      <span className="truncate">Chat with Matthews&apos; AI</span>
+                    </CardTitle>
                     <div className="flex items-center gap-2">
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={handleNewChat}
-                        className="h-8 w-8 rounded-full hover:bg-slate-800/50 transition-colors" // Adjusted hover style
+                        className="h-8 w-8 rounded-full hover:bg-slate-700/70 text-slate-300 hover:text-white transition-colors flex-shrink-0" 
                         aria-label="New Chat"
                       >
-                        <Trash2 size={18} />
+                        <Trash2 size={16} />
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={() => setIsOpen(false)}
-                        className="h-8 w-8 rounded-full hover:bg-slate-800/50 transition-colors" // Adjusted hover style
+                        className="h-8 w-8 rounded-full hover:bg-slate-700/70 text-slate-300 hover:text-white transition-colors flex-shrink-0"
                         aria-label="Close Chat"
                       >
-                        <X size={18} />
+                        <X size={16} />
                       </Button>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="p-0">
-                  <ScrollArea className="h-[400px] p-4" ref={scrollAreaRef}>
+                  <ScrollArea className="h-[60vh] sm:h-[400px] p-3 sm:p-4" ref={scrollAreaRef}>
                     {messages.length === 0 ? (
                       <div className="space-y-4">
-                        <p className="text-sm text-slate-400">
-                          Hello! I&apos;m Matthews&apos; AI assistant. Feel free to ask me anything about him, or choose
-                          from these suggested questions:
-                        </p>
+                        <div className="bg-slate-800/60 rounded-xl p-3 sm:p-4 border border-slate-700/50">
+                          <p className="text-sm text-slate-300 mb-2">
+                            👋 Hi! I&apos;m Matthews&apos; AI assistant. I can help you learn more about:
+                          </p>
+                          <ul className="space-y-1 ml-4 text-xs text-slate-400">
+                            <li className="flex items-start gap-1">
+                              <span className="text-blue-400 flex-shrink-0">•</span> 
+                              <span className="break-words">His work experience and projects</span>
+                            </li>
+                            <li className="flex items-start gap-1">
+                              <span className="text-blue-400 flex-shrink-0">•</span> 
+                              <span className="break-words">Skills and certifications</span>
+                            </li>
+                            <li className="flex items-start gap-1">
+                              <span className="text-blue-400 flex-shrink-0">•</span> 
+                              <span className="break-words">Education and interests</span>
+                            </li>
+                            <li className="flex items-start gap-1">
+                              <span className="text-blue-400 flex-shrink-0">•</span> 
+                              <span className="break-words">Contact information</span>
+                            </li>
+                          </ul>
+                        </div>
+                        <p className="text-xs text-slate-400 px-1">You can ask me anything, or choose from these questions:</p>
                         <div className="space-y-2">
                           {suggestedQuestions.map((question) => (
                             <Button
                               key={question}
                               variant="secondary"
-                              className="w-full justify-start text-left h-auto whitespace-normal rounded-lg"
+                              className="w-full justify-start text-left h-auto py-2 px-3 whitespace-normal rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700/50 shadow-sm transition-all duration-200 hover:translate-x-1 text-xs sm:text-sm"
                               onClick={() => handleSend(question)}
                             >
                               {question}
@@ -339,29 +387,37 @@ export default function Chatbot() {
                             className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
                           >
                             <div
-                              className={`rounded-xl px-4 py-2 max-w-[85%] ${
-                                message.type === "user" ? "bg-blue-600 text-white" : "bg-slate-800 text-slate-200"
+                              className={`rounded-2xl px-3 sm:px-4 py-2 sm:py-3 max-w-[85%] ${
+                                message.type === "user" 
+                                  ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-md" 
+                                  : "bg-slate-800 text-slate-200 border border-slate-700/50 shadow-md"
                               }`}
                             >
                               {message.type === "bot" ? (
-                                <p className="text-sm" dangerouslySetInnerHTML={{ __html: message.content }} />
+                                <div 
+                                  className="text-xs sm:text-sm leading-relaxed prose prose-invert prose-sm max-w-none break-words"
+                                  dangerouslySetInnerHTML={{ __html: message.content }} 
+                                />
                               ) : (
-                                <p className="text-sm">{message.content}</p>
+                                <p className="text-xs sm:text-sm break-words">{message.content}</p>
                               )}
                             </div>
                           </div>
                         ))}
                         {isLoading && (
                           <div className="flex justify-start">
-                            <div className="rounded-xl px-4 py-2 bg-slate-800">
-                              <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
+                            <div className="rounded-xl px-3 py-2 bg-slate-800 border border-slate-700/50">
+                              <div className="flex items-center gap-2">
+                                <Loader2 className="h-4 w-4 animate-spin text-blue-400" />
+                                <span className="text-xs text-slate-400">Thinking...</span>
+                              </div>
                             </div>
                           </div>
                         )}
                       </div>
                     )}
                   </ScrollArea>
-                  <div className="border-t border-slate-800 p-4">
+                  <div className="border-t border-slate-700 p-3 sm:p-4 bg-slate-900/95">
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
@@ -374,11 +430,20 @@ export default function Chatbot() {
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         placeholder="Type your message..."
-                        className="flex-1 bg-slate-800 text-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="flex-1 bg-slate-800 text-slate-200 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700 placeholder-slate-500"
                         disabled={isLoading}
                       />
-                      <Button type="submit" size="icon" className="rounded-xl" disabled={isLoading || !inputValue.trim()}>
-                        <Send size={18} />
+                      <Button 
+                        type="submit" 
+                        size="icon" 
+                        className="rounded-xl bg-blue-600 hover:bg-blue-500 transition-colors flex-shrink-0" 
+                        disabled={isLoading || !inputValue.trim()}
+                      >
+                        {isLoading ? (
+                          <Loader2 size={16} className="animate-spin" />
+                        ) : (
+                          <Send size={16} />
+                        )}
                       </Button>
                     </form>
                   </div>
