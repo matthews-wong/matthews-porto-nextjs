@@ -40,6 +40,11 @@ export default function sitemap(): SitemapEntry[] {
           title: "Matthews Wong - Software Engineer Portfolio",
           caption: "Professional portfolio showcasing software engineering, AI, and DevOps projects",
         },
+        {
+            loc: `${BASE_URL}/images/profile-pic.avif`,
+            title: "Matthews Wong - Software Engineer Portfolio",
+            caption: "A Software Engineer based in Indonesia",
+          },
       ],
     },
     {
@@ -76,10 +81,7 @@ export default function sitemap(): SitemapEntry[] {
           loc: `${BASE_URL}/images/hackathon/PWC-Hackathon.jpg`,
           title: "PwC Capture the Flag - Hackaday Event",
         },
-        {
-          loc: `${BASE_URL}/images/hackathon/web3-training-documentation.jpg`,
-          title: "Blockchain Training Documentation",
-        },
+       
         {
           loc: `${BASE_URL}/images/hackathon/AI-Hackathon1.jpg`,
           title: "AI Hackathon Held By AI Indonesia Society",
