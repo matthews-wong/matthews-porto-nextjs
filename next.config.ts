@@ -39,6 +39,17 @@ const nextConfig = {
     ];
   },
 
+  // Redirect `/sitemap.xml` to `/api/sitemap`
+  async redirects() {
+    return [
+      {
+        source: "/sitemap.xml",
+        destination: "/api/sitemap",
+        permanent: true,
+      },
+    ];
+  },
+
   // Improve performance & SEO
   experimental: {
     optimizeCss: true, // Optimizes CSS loading

@@ -8,32 +8,32 @@ const hackathons = [
   {
     id: 1,
     title: "PwC Capture the Flag - Hackaday Event",
-    image: "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/IMG_0173.jpg?raw=true",
+    image: "/images/hackathon/PWC-Hackathon.jpg",
   },
   {
     id: 2,
     title: "Blockchain Training Documentation",
-    image: "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/WhatsApp%20Image%202025-01-11%20at%2018.07.47_82743a8b%20(1).jpg?raw=true",
+    image: "/images/hackathon/web3-training-documentation.jpg",
   },
   {
     id: 3,
     title: "AI Hackathon Held By AI Indonesia Society",
-    image: "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/IMG-20241022-WA0006.jpg?raw=true",
+    image: "/images/hackathon/AI-Hackathon1.jpg",
   },
   {
     id: 4,
     title: "PwC Capture the Flag - Hackaday Event",
-    image: "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/IMG_0290.jpg?raw=true",
+    image: "/images/hackathon/Pwc-hackathon-2024.jpg",
   },
   {
     id: 5,
     title: "Software Development Workshop held by commsult",
-    image: "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/WhatsApp%20Image%202025-01-31%20at%2015.19.06.jpeg?raw=true",
+    image: "/images/hackathon/commsult-software-workshop.jpeg",
   },
   {
     id: 6,
     title: "Blockchain Workshop and Training by Pelita Bangsa Academy",
-    image: "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/WhatsApp%20Image%202025-01-31%20at%2015.19.07.jpeg?raw=true",
+    image: "/images/hackathon/web3-networking-event.jpeg",
   },
   {
     id: 7,
