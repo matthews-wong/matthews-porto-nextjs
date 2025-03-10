@@ -5,7 +5,7 @@ import { useEffect, useRef, useMemo, useState } from "react"
 import { motion, useMotionValue, useTransform } from "framer-motion"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { Code2, Server, Brain } from "lucide-react"
+import { Code2, Server, BotMessageSquare } from "lucide-react"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -104,7 +104,7 @@ const About: React.FC = () => {
       },
       {
         id: "ai",
-        icon: <Brain className="w-8 h-8 md:w-10 md:h-10" />,
+        icon: <BotMessageSquare className="w-8 h-8 md:w-10 md:h-10" />,
         title: "AI Development",
         skills: ["Python", "XGBoost", "Scikit-Learn", "Hugging Face Transformers"],
         gradient: "from-green-500/20 to-emerald-500/20",

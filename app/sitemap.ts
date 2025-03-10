@@ -36,7 +36,7 @@ export default function sitemap(): SitemapEntry[] {
       changeFrequency: "weekly",
       images: [
         {
-          loc: `${BASE_URL}/images/og-image.svg`,
+          loc: `${BASE_URL}/og-image.svg`,
           title: "Matthews Wong - Software Engineer Portfolio",
           caption: "Professional portfolio showcasing software engineering, AI, and DevOps projects",
         },
