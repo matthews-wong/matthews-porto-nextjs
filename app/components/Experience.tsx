@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import type { FC } from "react"
+import { BriefcaseIcon } from "lucide-react"
 
 interface Role {
   title: string
@@ -86,16 +87,20 @@ const Experience: FC = () => {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#080808_1px,transparent_1px),linear-gradient(to_bottom,#080808_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-50" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <motion.h2
-          className="text-4xl md:text-5xl font-bold text-center mb-16 md:mb-20"
+        <motion.div
+          className="mb-16 md:mb-20 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-200 via-white to-purple-200">
-            Experiences
-          </span>
-        </motion.h2>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <BriefcaseIcon className="h-8 w-8 text-blue-400" />
+            <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-200 via-white to-purple-200">
+              Experiences
+            </h2>
+          </div>
+          <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+        </motion.div>
 
         <div className="grid gap-8 md:gap-12 relative z-10">
           {experiences.map((exp, index) => (
@@ -138,10 +143,13 @@ const Experience: FC = () => {
                         <h4 className="text-xl md:text-2xl font-semibold text-indigo-400 mb-2">{role.title}</h4>
                         <p className="text-lg md:text-xl text-slate-300 mb-2">{role.duration}</p>
                         <p className="text-base md:text-lg text-slate-400 mb-4">Internship</p>
-                        <ul className="list-disc list-inside text-slate-300 space-y-2 text-base md:text-lg">
+                        <ul className="space-y-2 text-base md:text-lg">
                           {role.description.map((point, i) => (
-                            <li key={i} className="transition-colors duration-300 hover:text-blue-400">
-                              {point}
+                            <li key={i} className="flex items-start gap-2.5 group">
+                              <span className="text-blue-400 inline-block w-5 flex-shrink-0">•</span>
+                              <span className="text-slate-300 group-hover:text-blue-400 transition-colors duration-300">
+                                {point}
+                              </span>
                             </li>
                           ))}
                         </ul>
@@ -159,4 +167,3 @@ const Experience: FC = () => {
 }
 
 export default Experience
-
