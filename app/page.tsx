@@ -14,7 +14,7 @@ const Certifications = lazy(() => import("./components/Certifications"))
 const Hackathon = lazy(() => import("./components/Hackathon"))
 const Projects = lazy(() => import("./components/Projects"))
 const Footer = lazy(() => import("./components/Footer"))
-const SplashCursor = lazy(() => import("./components/SplashCursor"))
+//const SplashCursor = lazy(() => import("./components/SplashCursor"))
 
 // Define cookie consent structure with proper types
 interface CookieConsent {
@@ -444,9 +444,9 @@ export default function Home() {
       {consentGiven && <Chatbot />}
 
       {/* Fix: Wrap SplashCursor in Suspense */}
-      <Suspense fallback={null}>
+      {/* <Suspense fallback={null}>
         <SplashCursor />
-      </Suspense>
+      </Suspense> */}
 
       {/* Cookie Consent Modals */}
       <CookieConsentModal 
