@@ -21,69 +21,76 @@ const hackathons = [
   {
     id: 2,
     title: "Blockchain Training Documentation",
-    shortDesc: "Comprehensive documentation of blockchain technologies for enterprise solutions.",
+    shortDesc: "Participated in a one-week bootcamp focused on Web3 and smart contract development.",
     description:
-      "Comprehensive documentation of blockchain technologies and implementation strategies for enterprise solutions.",
+      "An intensive full-day, one-week workshop held by Pelita Bangsa Academy, focusing on Web3 technologies and smart contract development. It provided hands-on experience and in-depth understanding of blockchain concepts.",
     image: "/images/hackathon/web3-training-documentation.jpg",
   },
   {
     id: 3,
     title: "AI Hackathon Held By AI Indonesia Society",
-    shortDesc: "Developing innovative AI solutions to address real-world problems.",
-    description: "Developed innovative AI solutions to address real-world problems in a collaborative environment.",
+    shortDesc: "Built a predictive model for insurance and analyzed data patterns during the hackathon.",
+    description: 
+      "An AI hackathon organized by the AI Indonesia Society, judged by data scientists from top companies. Over two days, I developed a machine learning model for insurance prediction and identified significant data patterns.",
     image: "/images/hackathon/AI-Hackathon1.jpg",
   },
   {
     id: 4,
     title: "PwC Capture the Flag - Hackaday Event",
-    shortDesc: "Advanced cybersecurity challenge with complex threat scenarios.",
-    description: "Second edition of the cybersecurity challenge with advanced threat scenarios and defense strategies.",
+    shortDesc: "Engaged in advanced cybersecurity challenges with real-world threat scenarios.",
+    description: 
+      "An annual Capture the Flag (CTF) event hosted by PwC Indonesia, featuring diverse and complex cybersecurity challenges. The event covered a wide range of threat scenarios and practical use cases.",
     image: "/images/hackathon/Pwc-hackathon-2024.jpg",
   },
   {
     id: 5,
-    title: "Software Development Workshop held by commsult",
-    shortDesc: "Hands-on workshop covering modern software development practices.",
+    title: "Software Development Workshop Held by Commsult",
+    shortDesc: "Hands-on workshop on modern software development with a final project competition.",
     description:
-      "Hands-on workshop covering modern software development practices and tools for enterprise applications.",
+      "A comprehensive workshop by Commsult Indonesia on software development practices. I successfully completed the final project and was awarded an internship placement for my performance.",
     image: "/images/hackathon/commsult-software-workshop.jpeg",
   },
   {
     id: 6,
     title: "Blockchain Workshop and Training by Pelita Bangsa Academy",
-    shortDesc: "Intensive training on blockchain fundamentals and smart contracts.",
-    description: "Intensive training on blockchain fundamentals, smart contracts, and decentralized applications.",
+    shortDesc: "Networked with Web3 developers and attended sessions featuring Indodax speakers.",
+    description: 
+      "A workshop focused on connecting with experienced Web3 developers and learning from speakers representing prominent companies like Indodax. I gained valuable insights into their professional journeys and the industry.",
     image: "/images/hackathon/web3-networking-event.jpeg",
   },
   {
     id: 7,
     title: "Blockchain Workshop and Training by Pelita Bangsa Academy",
-    shortDesc: "Advanced session on blockchain implementation and real-world use cases.",
-    description: "Advanced session focusing on blockchain implementation and real-world use cases.",
+    shortDesc: "Explored blockchain implementation and real-world applications in depth.",
+    description: 
+      "A deep dive into Web3 concepts, use cases, and the tech stack involved in real-world blockchain implementations. The bootcamp provided a strong foundation for understanding the ecosystem.",
     image: "/images/Blockchain1.jpeg",
   },
   {
     id: 8,
     title: "SGU IT Symposium & Project Showcase",
-    shortDesc: "Presenting innovative IT projects and networking with industry professionals.",
+    shortDesc: "Presented our Observer KPU web app to faculty members during the symposium.",
     description:
-      "Presented innovative IT projects and networked with industry professionals at this prestigious symposium.",
+      "At the SGU IT Symposium, we showcased our innovative web application, Observer KPU—a 2024 election web app integrated with LLM technology. It was well-received by the faculty and attendees.",
     image: "/images/Symposium1.jpeg",
   },
   {
     id: 9,
     title: "SGU IT Symposium & Project Showcase",
-    shortDesc: "Panel discussions and technology demonstrations at the symposium.",
-    description: "Second day of the symposium featuring panel discussions and technology demonstrations.",
+    shortDesc: "Presented our web application and received top honors for our project.",
+    description: 
+      "We showcased our product and were awarded 'Most Favorite Project' and 'Best Presentation' out of 60+ student projects at the symposium. It was a proud and memorable achievement.",
     image: "/images/Symposium2.jpeg",
   },
   {
     id: 10,
     title: "SGU IT Symposium & Project Showcase",
-    shortDesc: "Showcasing award-winning projects and future technology trends.",
-    description: "Final day showcasing award-winning projects and future technology trends.",
+    shortDesc: "Demonstrated and debugged our web app live during the symposium booth session.",
+    description: 
+      "The IT symposium required us not only to present but also to man our booth, simulate real use-cases, and troubleshoot our web application live for attendees. It was an engaging and interactive showcase.",
     image: "/images/Symposium3.jpeg",
   },
+  
 ]
 
 export default function HackathonGallery() {
@@ -294,9 +301,6 @@ export default function HackathonGallery() {
     const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.97])
     const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8])
 
-    // Removed rotateX for better performance
-    // const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [5, 0, -3])
-
     // Image parallax effect (more subtle)
     const imageY = useTransform(scrollYProgress, [0, 1], [0, -10])
 
@@ -335,6 +339,8 @@ export default function HackathonGallery() {
                   loading={index < 5 ? "eager" : "lazy"}
                   className="object-cover transition-transform duration-700 hover:scale-105"
                 />
+                {/* Blue gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-blue-700/20 mix-blend-overlay"></div>
               </motion.div>
             )}
 
@@ -365,23 +371,23 @@ export default function HackathonGallery() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-white to-purple-300">
+          <h2 className="text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-white to-blue-300">
             Hackathon Experiences
           </h2>
-          <div className="w-16 h-0.5 bg-gradient-to-r from-purple-500 to-purple-500 mx-auto rounded-full mt-3"></div>
+          <div className="w-16 h-0.5 bg-gradient-to-r from-blue-500 to-blue-500 mx-auto rounded-full mt-3"></div>
         </motion.div>
 
         <div
           ref={mobileScrollRef}
-          className="flex-1 overflow-y-auto overflow-x-hidden pb-16 pt-2 scroll-smooth will-change-scroll"
+          className="flex-1 overflow-y-auto overflow-x-hidden pb-16 pt-2 scroll-smooth will-change-scroll no-scrollbar"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
-            WebkitOverflowScrolling: "touch", // Add smooth scrolling for iOS
+            WebkitOverflowScrolling: "touch",
           }}
         >
           <style jsx global>{`
-            #mobile-gallery-container::-webkit-scrollbar {
+            .no-scrollbar::-webkit-scrollbar {
               display: none;
             }
           `}</style>
@@ -455,17 +461,17 @@ export default function HackathonGallery() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-white to-purple-300">
+          <h2 className="text-4xl md:text-5xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-white to-blue-300">
             Hackathon Experiences
           </h2>
-          <div className="w-16 h-0.5 bg-gradient-to-r from-purple-500 to-purple-500 mx-auto rounded-full mt-3"></div>
+          <div className="w-16 h-0.5 bg-gradient-to-r from-blue-500 to-blue-500 mx-auto rounded-full mt-3"></div>
         </motion.div>
 
         <div className="relative mx-auto w-full max-w-5xl aspect-[16/9]">
           <div className="relative w-full h-full overflow-hidden rounded-xl shadow-[0_20px_80px_rgba(8,_112,_184,_0.3)]">
             {/* Decorative background elements */}
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900/80 to-gray-950/90 backdrop-blur-sm rounded-xl p-0.5">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-purple-500/10 rounded-xl" />
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-blue-500/10 rounded-xl" />
             </div>
 
             {/* Main image carousel - separate image from caption for stable title */}
@@ -523,9 +529,12 @@ export default function HackathonGallery() {
                         )}
                         onLoadingComplete={() => setIsLoading(false)}
                       />
+                      {/* Blue gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 via-blue-400/20 to-blue-500/20 mix-blend-overlay"></div>
+
                       {isLoading && (
                         <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                          <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+                          <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
                         </div>
                       )}
                     </div>
@@ -537,14 +546,14 @@ export default function HackathonGallery() {
             {/* Navigation buttons */}
             <button
               onClick={handlePrevious}
-              className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 z-10"
+              className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 z-10"
               aria-label="Previous slide"
             >
               <ChevronLeft size={20} />
             </button>
             <button
               onClick={handleNext}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 z-10"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 z-10"
               aria-label="Next slide"
             >
               <ChevronRight size={20} />
@@ -555,8 +564,8 @@ export default function HackathonGallery() {
               <button
                 onClick={toggleInfo}
                 className={cn(
-                  "p-2 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-purple-500",
-                  showInfo ? "bg-purple-500 text-white" : "bg-black/50 text-white hover:bg-black/70",
+                  "p-2 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-blue-500",
+                  showInfo ? "bg-blue-500 text-white" : "bg-black/50 text-white hover:bg-black/70",
                 )}
                 aria-label={showInfo ? "Hide details" : "Show details"}
               >
@@ -565,8 +574,8 @@ export default function HackathonGallery() {
               <button
                 onClick={toggleAutoplay}
                 className={cn(
-                  "p-2 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-purple-500",
-                  isAutoplay ? "bg-purple-500 text-white" : "bg-black/50 text-white hover:bg-black/70",
+                  "p-2 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-blue-500",
+                  isAutoplay ? "bg-blue-500 text-white" : "bg-black/50 text-white hover:bg-black/70",
                 )}
                 aria-label={isAutoplay ? "Pause slideshow" : "Play slideshow"}
               >
@@ -574,7 +583,7 @@ export default function HackathonGallery() {
               </button>
               <button
                 onClick={toggleFullscreen}
-                className="p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500"
                 aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
               >
                 {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
@@ -591,7 +600,18 @@ export default function HackathonGallery() {
         {/* Thumbnails row with improved styling */}
         <div className="mt-8 max-w-5xl mx-auto">
           <div className="relative overflow-hidden px-1">
-            <div className="flex gap-3 overflow-x-auto py-3 px-1 scrollbar-hide snap-x snap-mandatory">
+            <div
+              className="flex gap-3 overflow-x-auto py-3 px-1 snap-x snap-mandatory no-scrollbar"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+            >
+              <style jsx global>{`
+                .no-scrollbar::-webkit-scrollbar {
+                  display: none;
+                }
+              `}</style>
               {hackathons.map((hackathon, index) => (
                 <motion.div
                   key={hackathon.id}
@@ -601,9 +621,11 @@ export default function HackathonGallery() {
                   transition={{ duration: 0.3 }}
                   className={cn(
                     "shrink-0 cursor-pointer snap-start",
-                    "w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden",
+                    "w-20 h-20 md:w-28 md:h-28 rounded-xl overflow-hidden",
                     "border-2 transition-all duration-300 transform hover:scale-105",
-                    currentIndex === index ? "border-purple-500 ring-2 ring-purple-500/50" : "border-transparent",
+                    currentIndex === index
+                      ? "border-blue-500 ring-2 ring-blue-500/50 shadow-lg shadow-blue-500/20"
+                      : "border-transparent",
                   )}
                   onClick={() => setCurrentIndex(index)}
                   whileHover={{ y: -4 }}
@@ -620,6 +642,12 @@ export default function HackathonGallery() {
                         currentIndex === index ? "scale-110" : "scale-100",
                       )}
                     />
+                    {/* Blue gradient overlay for thumbnails */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-blue-400/20 mix-blend-overlay"></div>
+
+                    {currentIndex === index && (
+                      <div className="absolute inset-0 bg-blue-500/10 backdrop-blur-[1px]"></div>
+                    )}
                   </div>
                 </motion.div>
               ))}
@@ -664,6 +692,8 @@ export default function HackathonGallery() {
                         showInfo ? "brightness-50" : "brightness-100",
                       )}
                     />
+                    {/* Blue gradient overlay in fullscreen */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 via-blue-400/20 to-blue-500/20 mix-blend-overlay"></div>
                   </div>
 
                   <motion.div
@@ -697,14 +727,14 @@ export default function HackathonGallery() {
               {/* Navigation buttons - larger in fullscreen */}
               <button
                 onClick={handlePrevious}
-                className="absolute top-1/2 left-6 transform -translate-y-1/2 bg-black/50 text-white p-4 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 z-10"
+                className="absolute top-1/2 left-6 transform -translate-y-1/2 bg-black/50 text-white p-4 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 z-10"
                 aria-label="Previous slide"
               >
                 <ChevronLeft size={28} />
               </button>
               <button
                 onClick={handleNext}
-                className="absolute top-1/2 right-6 transform -translate-y-1/2 bg-black/50 text-white p-4 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 z-10"
+                className="absolute top-1/2 right-6 transform -translate-y-1/2 bg-black/50 text-white p-4 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 z-10"
                 aria-label="Next slide"
               >
                 <ChevronRight size={28} />
@@ -715,8 +745,8 @@ export default function HackathonGallery() {
                 <button
                   onClick={toggleInfo}
                   className={cn(
-                    "p-3 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-purple-500",
-                    showInfo ? "bg-purple-500 text-white" : "bg-black/50 text-white hover:bg-black/70",
+                    "p-3 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-blue-500",
+                    showInfo ? "bg-blue-500 text-white" : "bg-black/50 text-white hover:bg-black/70",
                   )}
                   aria-label={showInfo ? "Hide details" : "Show details"}
                 >
@@ -725,8 +755,8 @@ export default function HackathonGallery() {
                 <button
                   onClick={toggleAutoplay}
                   className={cn(
-                    "p-3 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-purple-500",
-                    isAutoplay ? "bg-purple-500 text-white" : "bg-black/50 text-white hover:bg-black/70",
+                    "p-3 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-blue-500",
+                    isAutoplay ? "bg-blue-500 text-white" : "bg-black/50 text-white hover:bg-black/70",
                   )}
                   aria-label={isAutoplay ? "Pause slideshow" : "Play slideshow"}
                 >
@@ -734,7 +764,7 @@ export default function HackathonGallery() {
                 </button>
                 <button
                   onClick={toggleFullscreen}
-                  className="p-3 bg-black/50 text-white rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="p-3 bg-black/50 text-white rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500"
                   aria-label="Exit fullscreen"
                 >
                   <Minimize size={18} />
@@ -772,7 +802,7 @@ export default function HackathonGallery() {
       {/* Background effects - only visible when not in fullscreen */}
       {!isFullscreen && (
         <>
-          <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-purple-500/5" />
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-blue-500/5" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900/0 via-slate-900/80 to-slate-900" />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#080808_1px,transparent_1px),linear-gradient(to_bottom,#080808_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30" />
         </>

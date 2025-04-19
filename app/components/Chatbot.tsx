@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { MessageCircle, X, Send, Loader2, Trash2, Bot } from "lucide-react"
+import { MessageCircle, X, Send, Loader2, Trash2, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -106,7 +106,7 @@ const suggestedQuestions = [
 ]
 
 const groq = new Groq({
-  apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY, // API key moved to environment variable
+  apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,
   dangerouslyAllowBrowser: true,
 })
 
@@ -117,6 +117,7 @@ export default function Chatbot() {
   const [isLoading, setIsLoading] = useState(false)
   const [showBubble, setShowBubble] = useState(false)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
+  const chatWindowRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -139,33 +140,58 @@ export default function Chatbot() {
     }
   }, [messages])
 
-  // Prevent background scrolling when chat is open
+  // Fix for scrolling issue - only prevent background scrolling on mobile when scrolling inside chat
   useEffect(() => {
+    // Function to handle touch events on mobile
     const handleTouchMove = (e: TouchEvent) => {
-      // Check if the touch is happening inside the chat window
-      const target = e.target as HTMLElement
-      const chatWindow = document.querySelector("[data-radix-scroll-area-viewport]")
+      // Only for mobile devices
+      if (window.innerWidth < 768) {
+        const target = e.target as HTMLElement
+        const chatScrollArea = scrollAreaRef.current?.querySelector("[data-radix-scroll-area-viewport]")
 
-      // If we're in the chat window but not in the scrollable area, prevent default
-      if (isOpen && !chatWindow?.contains(target)) {
+        // If we're in the chat window but not in the scrollable area, prevent default
+        if (isOpen && chatWindowRef.current?.contains(target) && !chatScrollArea?.contains(target)) {
+          e.preventDefault()
+        }
+      }
+    }
+
+    // Function to handle wheel events on desktop
+    const handleWheel = (e: WheelEvent) => {
+      // Don't prevent scrolling on desktop
+      if (window.innerWidth >= 768) {
+        return
+      }
+
+      // For mobile, only prevent if not in scroll area
+      const target = e.target as HTMLElement
+      const chatScrollArea = scrollAreaRef.current?.querySelector("[data-radix-scroll-area-viewport]")
+
+      if (isOpen && chatWindowRef.current?.contains(target) && !chatScrollArea?.contains(target)) {
         e.preventDefault()
       }
     }
 
     if (isOpen) {
-      // Add overflow hidden to body when chat is open
-      document.body.style.overflow = "hidden"
-      // Add touch event listener with passive: false to allow preventDefault
+      // Only add overflow hidden to body on mobile
+      if (window.innerWidth < 768) {
+        document.body.style.overflow = "hidden"
+      }
+
+      // Add event listeners
       document.addEventListener("touchmove", handleTouchMove, { passive: false })
+      document.addEventListener("wheel", handleWheel, { passive: false })
     } else {
       // Restore normal scrolling when chat is closed
       document.body.style.overflow = ""
       document.removeEventListener("touchmove", handleTouchMove)
+      document.removeEventListener("wheel", handleWheel)
     }
 
     return () => {
       document.body.style.overflow = ""
       document.removeEventListener("touchmove", handleTouchMove)
+      document.removeEventListener("wheel", handleWheel)
     }
   }, [isOpen])
 
@@ -175,29 +201,29 @@ export default function Chatbot() {
     // Handle code blocks \`\`\`code\`\`\` with responsive overflow
     response = response.replace(
       /```([\s\S]*?)```/g,
-      '<pre class="bg-slate-800 p-3 rounded-lg my-2 overflow-x-auto text-xs text-green-400 max-w-full whitespace-pre-wrap break-words">$1</pre>',
+      '<pre class="bg-slate-800/80 p-3 rounded-lg my-2 overflow-x-auto text-xs text-emerald-400 max-w-full whitespace-pre-wrap break-words backdrop-blur-sm border border-slate-700/50">$1</pre>',
     )
 
     // Handle inline code `code` with word-break
     response = response.replace(
       /`([^`]+)`/g,
-      '<code class="bg-slate-800 px-1 py-0.5 rounded text-xs text-green-400 break-words">$1</code>',
+      '<code class="bg-slate-800/80 px-1.5 py-0.5 rounded text-xs text-emerald-400 break-words border border-slate-700/50">$1</code>',
     )
 
     // Handle Bullet points with responsive design
     response = response.replace(
       /(?:^|\n)[-+]\s+(.*?)(?=\n|$)/g,
-      '<div class="flex items-start my-1 gap-2"><span class="text-blue-400 flex-shrink-0">•</span><span class="flex-1 break-words">$1</span></div>',
+      '<div class="flex items-start my-1.5 gap-2"><span class="text-violet-400 flex-shrink-0">•</span><span class="flex-1 break-words">$1</span></div>',
     )
 
     // Handle Numbered lists with responsive design
     response = response.replace(
       /(?:^|\n)(\d+)\.\s+(.*?)(?=\n|$)/g,
-      '<div class="flex items-start my-1 gap-2"><span class="text-blue-400 font-medium flex-shrink-0">$1.</span><span class="flex-1 break-words">$2</span></div>',
+      '<div class="flex items-start my-1.5 gap-2"><span class="text-violet-400 font-medium flex-shrink-0">$1.</span><span class="flex-1 break-words">$2</span></div>',
     )
 
     // Handle Bold (**text**) with responsive text
-    response = response.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-blue-300 break-words">$1</strong>')
+    response = response.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-violet-300 break-words">$1</strong>')
 
     // Handle Italic (*text* or _text_) with responsive text
     response = response.replace(/\*(.*?)\*/g, '<em class="italic text-slate-300 break-words">$1</em>')
@@ -206,7 +232,7 @@ export default function Chatbot() {
     // Fix cases where both Bold and Italic are mixed
     response = response.replace(
       /<strong[^>]*>\s*<em[^>]*>(.*?)<\/em>\s*<\/strong>/g,
-      '<strong class="font-bold italic text-blue-300 break-words">$1</strong>',
+      '<strong class="font-bold italic text-violet-300 break-words">$1</strong>',
     )
 
     // Convert newline characters to <br /> with better spacing
@@ -219,13 +245,13 @@ export default function Chatbot() {
     // Handle blockquotes with word-break
     response = response.replace(
       /(?:^|\n)>\s+(.*?)(?=\n|$)/g,
-      '<blockquote class="border-l-4 border-blue-500 pl-3 italic text-slate-400 my-2 break-words">$1</blockquote>',
+      '<blockquote class="border-l-4 border-violet-500 pl-3 italic text-slate-400 my-2 break-words">$1</blockquote>',
     )
 
     // Ensure URLs are properly handled and don't overflow
     response = response.replace(
       /(https?:\/\/[^\s]+)/g,
-      '<a href="$1" class="text-blue-400 hover:underline break-all" target="_blank" rel="noopener noreferrer">$1</a>',
+      '<a href="$1" class="text-violet-400 hover:underline break-all" target="_blank" rel="noopener noreferrer">$1</a>',
     )
 
     return response
@@ -295,7 +321,7 @@ export default function Chatbot() {
 
   return (
     <>
-      {/* Improved Floating Bubble - Mobile Responsive */}
+      {/* Modernized Floating Bubble */}
       <AnimatePresence>
         {!isOpen && showBubble && (
           <motion.div
@@ -307,14 +333,19 @@ export default function Chatbot() {
           >
             <div className="relative">
               <div
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl shadow-lg p-3 sm:p-4 cursor-pointer hover:shadow-xl transition-all duration-300 border border-blue-400/30 backdrop-blur-sm"
+                className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-2xl shadow-lg p-3 sm:p-4 cursor-pointer hover:shadow-xl transition-all duration-300 border border-violet-400/30 backdrop-blur-sm"
                 onClick={() => setIsOpen(true)}
               >
                 <div className="flex items-center gap-2 mb-1">
-                  <Bot size={18} className="text-blue-200 animate-pulse flex-shrink-0" />
-                  <p className="text-sm font-medium text-blue-100 truncate">Matthews' AI Assistant</p>
+                  <div className="relative">
+                    <Sparkles size={18} className="text-violet-200 flex-shrink-0" />
+                    <div className="absolute inset-0 animate-ping opacity-30">
+                      <Sparkles size={18} className="text-violet-200 flex-shrink-0" />
+                    </div>
+                  </div>
+                  <p className="text-sm font-medium text-violet-100 truncate">Matthews' AI Assistant</p>
                 </div>
-                <p className="text-xs text-blue-50 break-words">
+                <p className="text-xs text-violet-50 break-words">
                   👋 Hi there! Feel free to ask me anything about Matthews.
                 </p>
               </div>
@@ -334,18 +365,18 @@ export default function Chatbot() {
         )}
       </AnimatePresence>
 
-      {/* Enhanced Chat Toggle Button - Mobile Friendly */}
+      {/* Enhanced Chat Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 p-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 border border-blue-400/30"
+        className="fixed bottom-4 right-4 p-3.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 border border-violet-400/30"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         aria-label="Open Chat"
       >
-        <MessageCircle size={24} />
+        <MessageCircle size={22} className="drop-shadow-md" />
       </motion.button>
 
-      {/* Enhanced Chat Window with Mobile-First Responsiveness */}
+      {/* Modernized Chat Window */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -357,17 +388,18 @@ export default function Chatbot() {
             onClick={(e) => e.target === e.currentTarget && setIsOpen(false)}
           >
             <Card
-              className="w-full sm:w-[320px] md:w-[380px] shadow-xl bg-slate-900/95 backdrop-blur-lg border-slate-700 rounded-xl overflow-hidden mx-auto sm:mx-0 mb-4 sm:mb-0 max-h-[90vh]"
+              ref={chatWindowRef}
+              className="w-full sm:w-[350px] md:w-[400px] shadow-2xl bg-slate-900/95 backdrop-blur-lg border-slate-700/50 rounded-2xl overflow-hidden mx-auto sm:mx-0 mb-4 sm:mb-0 max-h-[90vh]"
               onClick={(e) => e.stopPropagation()}
             >
-              <CardHeader className="border-b border-slate-700 bg-gradient-to-r from-slate-900 to-slate-800 py-3 px-4">
+              <CardHeader className="border-b border-slate-700/50 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 py-3 px-4">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
-                    <div className="relative">
-                      <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
-                      <div className="h-2 w-2 rounded-full bg-green-500/50 animate-ping absolute top-0 left-0"></div>
+                    <div className="relative flex items-center justify-center w-6 h-6 rounded-full bg-violet-600/20">
+                      <div className="h-2 w-2 rounded-full bg-violet-500 animate-pulse"></div>
+                      <div className="h-2 w-2 rounded-full bg-violet-500/50 animate-ping absolute"></div>
                     </div>
-                    <span className="truncate">Chat with Matthews&apos; AI</span>
+                    <span className="truncate">Chat with Matthews' AI</span>
                   </CardTitle>
                   <div className="flex items-center gap-2">
                     <Button
@@ -399,25 +431,25 @@ export default function Chatbot() {
                 >
                   {messages.length === 0 ? (
                     <div className="space-y-4">
-                      <div className="bg-slate-800/60 rounded-xl p-3 sm:p-4 border border-slate-700/50">
-                        <p className="text-sm text-slate-300 mb-2">
-                          👋 Hi! I&apos;m Matthews&apos; AI assistant. I can help you learn more about:
+                      <div className="bg-gradient-to-br from-slate-800/80 to-slate-800/40 rounded-xl p-3 sm:p-4 border border-slate-700/30 backdrop-blur-sm">
+                        <p className="text-sm text-slate-200 mb-2 font-medium">
+                          👋 Hi! I'm Matthews' AI assistant. I can help you learn more about:
                         </p>
-                        <ul className="space-y-1 ml-4 text-xs text-slate-400">
-                          <li className="flex items-start gap-1">
-                            <span className="text-blue-400 flex-shrink-0">•</span>
+                        <ul className="space-y-1.5 ml-4 text-xs text-slate-300">
+                          <li className="flex items-start gap-1.5">
+                            <span className="text-violet-400 flex-shrink-0">•</span>
                             <span className="break-words">His work experience and projects</span>
                           </li>
-                          <li className="flex items-start gap-1">
-                            <span className="text-blue-400 flex-shrink-0">•</span>
+                          <li className="flex items-start gap-1.5">
+                            <span className="text-violet-400 flex-shrink-0">•</span>
                             <span className="break-words">Skills and certifications</span>
                           </li>
-                          <li className="flex items-start gap-1">
-                            <span className="text-blue-400 flex-shrink-0">•</span>
+                          <li className="flex items-start gap-1.5">
+                            <span className="text-violet-400 flex-shrink-0">•</span>
                             <span className="break-words">Education and interests</span>
                           </li>
-                          <li className="flex items-start gap-1">
-                            <span className="text-blue-400 flex-shrink-0">•</span>
+                          <li className="flex items-start gap-1.5">
+                            <span className="text-violet-400 flex-shrink-0">•</span>
                             <span className="break-words">Contact information</span>
                           </li>
                         </ul>
@@ -430,7 +462,7 @@ export default function Chatbot() {
                           <Button
                             key={question}
                             variant="secondary"
-                            className="w-full justify-start text-left h-auto py-2 px-3 whitespace-normal rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700/50 shadow-sm transition-all duration-200 hover:translate-x-1 text-xs sm:text-sm"
+                            className="w-full justify-start text-left h-auto py-2 px-3 whitespace-normal rounded-lg bg-slate-800/60 hover:bg-slate-700/80 text-slate-200 border border-slate-700/30 shadow-sm transition-all duration-200 hover:translate-x-1 text-xs sm:text-sm backdrop-blur-sm"
                             onClick={() => handleSend(question)}
                           >
                             {question}
@@ -448,8 +480,8 @@ export default function Chatbot() {
                           <div
                             className={`rounded-2xl px-3 sm:px-4 py-2 sm:py-3 max-w-[85%] ${
                               message.type === "user"
-                                ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-md"
-                                : "bg-slate-800 text-slate-200 border border-slate-700/50 shadow-md"
+                                ? "bg-gradient-to-r from-violet-600 to-indigo-500 text-white shadow-md"
+                                : "bg-gradient-to-br from-slate-800/90 to-slate-800/60 text-slate-200 border border-slate-700/30 shadow-md backdrop-blur-sm"
                             }`}
                           >
                             {message.type === "bot" ? (
@@ -465,10 +497,10 @@ export default function Chatbot() {
                       ))}
                       {isLoading && (
                         <div className="flex justify-start">
-                          <div className="rounded-xl px-3 py-2 bg-slate-800 border border-slate-700/50">
+                          <div className="rounded-xl px-3 py-2 bg-slate-800/60 border border-slate-700/30 backdrop-blur-sm">
                             <div className="flex items-center gap-2">
-                              <Loader2 className="h-4 w-4 animate-spin text-blue-400" />
-                              <span className="text-xs text-slate-400">Thinking...</span>
+                              <Loader2 className="h-4 w-4 animate-spin text-violet-400" />
+                              <span className="text-xs text-slate-300">Thinking...</span>
                             </div>
                           </div>
                         </div>
@@ -476,7 +508,7 @@ export default function Chatbot() {
                     </div>
                   )}
                 </ScrollArea>
-                <div className="border-t border-slate-700 p-3 sm:p-4 bg-slate-900/95">
+                <div className="border-t border-slate-700/50 p-3 sm:p-4 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900">
                   <form
                     onSubmit={(e) => {
                       e.preventDefault()
@@ -489,16 +521,16 @@ export default function Chatbot() {
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       placeholder="Type your message..."
-                      className="flex-1 bg-slate-800 text-slate-200 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700 placeholder-slate-500"
+                      className="flex-1 bg-slate-800/60 text-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 border border-slate-700/30 placeholder-slate-500 backdrop-blur-sm"
                       disabled={isLoading}
                     />
                     <Button
                       type="submit"
                       size="icon"
-                      className="rounded-xl bg-blue-600 hover:bg-blue-500 transition-colors flex-shrink-0"
+                      className="rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-colors flex-shrink-0 h-10 w-10 shadow-md"
                       disabled={isLoading || !inputValue.trim()}
                     >
-                      {isLoading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+                      {isLoading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
                     </Button>
                   </form>
                 </div>
@@ -510,4 +542,3 @@ export default function Chatbot() {
     </>
   )
 }
-
