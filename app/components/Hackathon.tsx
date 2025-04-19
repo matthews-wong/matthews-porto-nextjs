@@ -47,7 +47,7 @@ const hackathons = [
     title: "Software Development Workshop Held by Commsult",
     shortDesc: "Hands-on workshop on modern software development with a final project competition.",
     description:
-      "A comprehensive workshop by Commsult Indonesia on software development practices. I successfully completed the final project and was awarded an internship placement for my performance.",
+      "A comprehensive workshop by Commsult Indonesia on software development best practices. I successfully completed the final project, which was selected as the Best Project, and earned an internship placement as a result of my performance.",
     image: "/images/hackathon/commsult-software-workshop.jpeg",
   },
   {
@@ -79,7 +79,7 @@ const hackathons = [
     title: "SGU IT Symposium & Project Showcase",
     shortDesc: "Presented our web application and received top honors for our project.",
     description: 
-      "We showcased our product and were awarded 'Most Favorite Project' and 'Best Presentation' out of 60+ student projects at the symposium. It was a proud and memorable achievement.",
+      "We showcased our product and were awarded 'Most Favorite Project' and 'Best Presentation' out of 20+ student projects at the symposium. It was a proud and memorable achievement.",
     image: "/images/Symposium2.jpeg",
   },
   {
