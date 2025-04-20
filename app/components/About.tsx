@@ -358,26 +358,94 @@ const About: React.FC = () => {
                     <div className="space-y-4 md:space-y-5 text-slate-300">
                       {/* Mobile-optimized content with collapsible sections */}
                       <div className="md:hidden">
-                        <p className="text-base leading-relaxed">
-                          Hello! I'm a <span className="text-white font-medium">software engineer</span> solving
-                          real-world problems through innovative solutions.
-                        </p>
-
-                        <div className="mt-3 flex flex-col gap-2">
-                          <div className="p-3 rounded-lg bg-white/5 border border-white/10">
-                            <h4 className="text-white font-medium mb-1">Current Focus</h4>
-                            <p className="text-sm text-slate-300">
-                              IT student at Swiss German University & DevOps Engineer intern at Commsult Indonesia.
+                        {isSimplified ? (
+                          <div>
+                            <p className="text-base leading-relaxed">
+                              {generatingText ? (
+                                <>
+                                  {generatedText}
+                                  <span className="inline-block w-1 h-4 bg-blue-400 animate-pulse ml-1"></span>
+                                </>
+                              ) : (
+                                generatedText ||
+                                "Hello! I'm a software engineer solving real-world problems through innovative solutions."
+                              )}
                             </p>
-                          </div>
 
-                          <div className="p-3 rounded-lg bg-white/5 border border-white/10">
-                            <h4 className="text-white font-medium mb-1">Location & Interests</h4>
-                            <p className="text-sm text-slate-300">
-                              Based in Tangerang, Indonesia. Passionate about AI, machine learning, and staying active
-                              with badminton and gym.
-                            </p>
+                            <div className="mt-3 flex flex-col gap-2">
+                              <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+                                <h4 className="text-white font-medium mb-1">Current Focus</h4>
+                                <p className="text-sm text-slate-300">
+                                  IT student at Swiss German University & DevOps Engineer intern at Commsult Indonesia.
+                                </p>
+                              </div>
+
+                              <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+                                <h4 className="text-white font-medium mb-1">Location & Interests</h4>
+                                <p className="text-sm text-slate-300">
+                                  Based in Tangerang, Indonesia. Passionate about AI, machine learning, and staying
+                                  active with badminton and gym.
+                                </p>
+                              </div>
+                            </div>
                           </div>
+                        ) : (
+                          <>
+                            <p className="text-base leading-relaxed">
+                              Hello! I'm a <span className="text-white font-medium">passionate software engineer</span>{" "}
+                              with a strong drive to solve real-world problems through innovative solutions. My journey
+                              in technology is driven by curiosity and a desire to build meaningful digital experiences.
+                            </p>
+
+                            <p className="text-base leading-relaxed mt-3">
+                              Currently, I'm pursuing an{" "}
+                              <span className="text-white font-medium">Information Technology degree</span> at Swiss
+                              German University while working as a{" "}
+                              <span className="text-white font-medium">DevOps Engineer intern</span> at Commsult
+                              Indonesia.
+                            </p>
+
+                            <p className="text-base leading-relaxed mt-3">
+                              Based in <span className="text-white font-medium">Tangerang, Indonesia</span>, I'm
+                              constantly exploring new technologies and approaches to solving complex problems.
+                            </p>
+                          </>
+                        )}
+
+                        {/* Mobile Simplify button */}
+                        <div className="mt-4">
+                          <motion.div
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.97 }}
+                            className="inline-block w-full"
+                          >
+                            <Button
+                              onClick={toggleSimplifiedView}
+                              className={`relative overflow-hidden group w-full ${
+                                isSimplified
+                                  ? "bg-gradient-to-r from-purple-500/20 to-blue-500/20 hover:from-purple-500/30 hover:to-blue-500/30"
+                                  : "bg-gradient-to-r from-blue-500/20 to-purple-500/20 hover:from-blue-500/30 hover:to-purple-500/30"
+                              } text-white border-0 shadow-md`}
+                              size="sm"
+                            >
+                              <div className="absolute inset-0 w-full h-full transition-all duration-300 ease-out group-hover:bg-gradient-to-r group-hover:from-blue-500/10 group-hover:to-purple-500/10"></div>
+                              <div className="absolute inset-0 w-3/4 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] translate-x-[-100%] group-hover:translate-x-[200%] transition-all duration-1000 ease-out"></div>
+                              <div className="relative flex items-center justify-center gap-2">
+                                {isSimplified ? (
+                                  <>
+                                    <Maximize2 className="w-3.5 h-3.5 text-blue-200" />
+                                    <span>Show Detailed</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Minimize2 className="w-3.5 h-3.5 text-purple-200" />
+                                    <span>Simplify</span>
+                                    <Sparkles className="w-3.5 h-3.5 text-purple-200" />
+                                  </>
+                                )}
+                              </div>
+                            </Button>
+                          </motion.div>
                         </div>
                       </div>
 
