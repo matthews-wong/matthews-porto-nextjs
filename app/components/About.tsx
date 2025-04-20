@@ -17,7 +17,6 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { useIsMobile } from "@/hooks/use-mobile"
 
 interface FloatingOrbProps {
   className?: string
@@ -58,11 +57,10 @@ const ParallaxText: React.FC<{ children: React.ReactNode; className?: string }> 
   )
 }
 
-const Card3D: React.FC<{ children: React.ReactNode; className?: string; depth?: number; isMobile: boolean }> = ({
+const Card3D: React.FC<{ children: React.ReactNode; className?: string; depth?: number }> = ({
   children,
   className = "",
   depth = 20,
-  isMobile,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -71,32 +69,23 @@ const Card3D: React.FC<{ children: React.ReactNode; className?: string; depth?: 
     offset: ["start end", "end start"],
   })
 
-  // Simplified animation for mobile
-  const baseScale = useRef(isMobile ? 0.98 : 0.95)
-  const scale = useTransform(scrollYProgress, [0, 0.5], [baseScale.current, 1])
-
-  const springConfig = useRef(isMobile ? { stiffness: 300, damping: 70 } : { stiffness: 400, damping: 90 })
-
-  const springScale = useSpring(scale, springConfig.current)
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1])
+  const springScale = useSpring(scale, { stiffness: 400, damping: 90 })
 
   return (
     <motion.div
       ref={ref}
-      className={`${className}`}
+      className={`perspective-1000 ${className}`}
       style={{
         scale: springScale,
-        transformStyle: isMobile ? "flat" : "preserve-3d",
+        transformStyle: "preserve-3d",
       }}
-      whileHover={
-        isMobile
-          ? {}
-          : {
-              scale: 1.02,
-              transition: { type: "tween", duration: 0.2 },
-            }
-      }
+      whileHover={{
+        scale: 1.02,
+        transition: { type: "tween", duration: 0.2 },
+      }}
     >
-      <div style={isMobile ? {} : { transform: `translateZ(${depth}px)` }}>{children}</div>
+      <div style={{ transform: `translateZ(${depth}px)` }}>{children}</div>
     </motion.div>
   )
 }
@@ -120,25 +109,16 @@ const ScrollReveal: React.FC<{
   delay?: number
   duration?: number
   threshold?: number
-  isMobile?: boolean
-}> = ({ children, className = "", direction = "up", delay = 0, duration = 0.5, threshold = 0.1, isMobile = false }) => {
+}> = ({ children, className = "", direction = "up", delay = 0, duration = 0.5, threshold = 0.1 }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: threshold })
 
-  // Simplified animations for mobile
-  const directionMap = isMobile
-    ? {
-        up: { y: 30, opacity: 0 },
-        down: { y: -30, opacity: 0 },
-        left: { x: 30, opacity: 0 },
-        right: { x: -30, opacity: 0 },
-      }
-    : {
-        up: { y: 50, opacity: 0 },
-        down: { y: -50, opacity: 0 },
-        left: { x: 50, opacity: 0 },
-        right: { x: -50, opacity: 0 },
-      }
+  const directionMap = {
+    up: { y: 50, opacity: 0 },
+    down: { y: -50, opacity: 0 },
+    left: { x: 50, opacity: 0 },
+    right: { x: -50, opacity: 0 },
+  }
 
   return (
     <motion.div
@@ -146,7 +126,7 @@ const ScrollReveal: React.FC<{
       initial={directionMap[direction]}
       animate={isInView ? { y: 0, x: 0, opacity: 1 } : directionMap[direction]}
       transition={{
-        duration: isMobile ? duration * 0.8 : duration,
+        duration,
         delay,
         ease: [0.22, 1, 0.36, 1],
       }}
@@ -183,7 +163,6 @@ const SkillPill: React.FC<{
 }
 
 const About: React.FC = () => {
-  const isMobile = useIsMobile()
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: containerRef })
 
@@ -246,20 +225,17 @@ const About: React.FC = () => {
     [],
   )
 
-  // Reduced particles for better performance - even fewer on mobile
-  const particles = useMemo(() => {
-    const count = isMobile ? 3 : 6
-    return Array(count)
-      .fill(0)
-      .map((_, i) => ({
-        id: i,
-        position: {
-          x: (i % 3) * 30 - 45,
-          y: Math.floor(i / 3) * 30 - 45,
-        },
-        color: ["bg-blue-500", "bg-purple-500", "bg-indigo-500"][i % 3],
-      }))
-  }, [isMobile])
+  // Reduced particles for better performance
+  const particles = Array(6)
+    .fill(0)
+    .map((_, i) => ({
+      id: i,
+      position: {
+        x: (i % 3) * 30 - 45,
+        y: Math.floor(i / 3) * 30 - 45,
+      },
+      color: ["bg-blue-500", "bg-purple-500", "bg-indigo-500"][i % 3],
+    }))
 
   // In the About component, add this to handle client-side animations only:
   const [isMounted, setIsMounted] = useState(false)
@@ -270,19 +246,11 @@ const About: React.FC = () => {
 
   useEffect(() => {
     setIsMounted(true)
-
-    // Start with simplified view on mobile for better performance
-    if (window.innerWidth < 768) {
-      setIsSimplified(true)
-      setGeneratedText("Hello! I'm a software engineer solving real-world problems through innovative solutions.")
-    }
   }, [])
 
   useEffect(() => {
     if (generatingText && textToGenerate) {
       let currentIndex = 0
-      const speed = isMobile ? 20 : 15 // Slightly faster on mobile
-
       const interval = setInterval(() => {
         if (currentIndex <= textToGenerate.length) {
           setGeneratedText(textToGenerate.substring(0, currentIndex))
@@ -291,11 +259,11 @@ const About: React.FC = () => {
           clearInterval(interval)
           setGeneratingText(false)
         }
-      }, speed)
+      }, 15) // Speed of text generation
 
       return () => clearInterval(interval)
     }
-  }, [generatingText, textToGenerate, isMobile])
+  }, [generatingText, textToGenerate])
 
   const toggleSimplifiedView = useCallback(() => {
     if (!isSimplified) {
@@ -316,29 +284,24 @@ const About: React.FC = () => {
     >
       <ProgressTracker />
 
-      {/* Background effects - conditionally rendered based on device */}
+      {/* Background effects */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-purple-500/5"
         style={{ opacity: backgroundOpacity }}
       />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900/0 via-slate-900/80 to-slate-900" />
 
-      {/* Grid background - simplified on mobile */}
-      {!isMobile && (
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#080808_1px,transparent_1px),linear-gradient(to_bottom,#080808_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-50" />
-      )}
+      {/* Grid background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#080808_1px,transparent_1px),linear-gradient(to_bottom,#080808_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-50" />
 
-      {/* Background orbs - only on desktop */}
-      {!isMobile && (
-        <>
-          <div className="absolute -left-24 top-1/4 w-96 h-screen">
-            <FloatingOrb className="bg-blue-500/5 blur-3xl" duration={25} />
-          </div>
-          <div className="absolute -right-24 top-1/4 w-96 h-screen">
-            <FloatingOrb className="bg-indigo-500/5 blur-3xl" delay={2} duration={30} />
-          </div>
-        </>
-      )}
+      {/* Background orbs */}
+      <div className="absolute -left-24 top-1/4 w-96 h-screen">
+        <FloatingOrb className="bg-blue-500/5 blur-3xl" duration={25} />
+      </div>
+
+      <div className="absolute -right-24 top-1/4 w-96 h-screen">
+        <FloatingOrb className="bg-indigo-500/5 blur-3xl" delay={2} duration={30} />
+      </div>
 
       {/* Reduced particle effects for better performance */}
       {isMounted && (
@@ -349,16 +312,12 @@ const About: React.FC = () => {
               className={`absolute w-1 h-1 rounded-full ${particle.color}`}
               initial={{ x: `${particle.position.x}vw`, y: `${particle.position.y}vh`, opacity: 0.2 }}
               animate={{
-                y: [
-                  `${particle.position.y}vh`,
-                  `${particle.position.y + (isMobile ? 3 : 5)}vh`,
-                  `${particle.position.y}vh`,
-                ],
+                y: [`${particle.position.y}vh`, `${particle.position.y + 5}vh`, `${particle.position.y}vh`],
                 opacity: [0.2, 0.5, 0.2],
               }}
               transition={{
                 repeat: Number.POSITIVE_INFINITY,
-                duration: isMobile ? 5 : 4,
+                duration: 4,
                 delay: particle.id * 0.5,
               }}
             />
@@ -368,7 +327,7 @@ const About: React.FC = () => {
 
       <div className="container mx-auto px-4 sm:px-6 relative">
         <ParallaxText className="mx-auto text-center mb-16 relative">
-          <ScrollReveal isMobile={isMobile}>
+          <ScrollReveal>
             <div className="inline-block relative">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white text-4xl md:text-6xl font-bold tracking-tight">
                 About Me
@@ -385,7 +344,7 @@ const About: React.FC = () => {
         {/* Bento Grid Layout */}
         <div className="mx-auto space-y-16">
           {/* Bio Section - Narrative Format with Photo */}
-          <ScrollReveal isMobile={isMobile}>
+          <ScrollReveal>
             <div className="max-w-6xl mx-auto">
               <div className="glass-effect backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl transition-all duration-300 hover:border-white/20 shadow-md shadow-blue-500/5">
                 <div className="flex flex-col lg:flex-row">
@@ -399,86 +358,26 @@ const About: React.FC = () => {
                     <div className="space-y-4 md:space-y-5 text-slate-300">
                       {/* Mobile-optimized content with collapsible sections */}
                       <div className="md:hidden">
-                        {isSimplified ? (
-                          <div>
-                            <p className="text-base leading-relaxed">
-                              {generatingText ? (
-                                <>
-                                  {generatedText}
-                                  <span className="inline-block w-1 h-4 bg-blue-400 animate-pulse ml-1"></span>
-                                </>
-                              ) : (
-                                generatedText ||
-                                "Hello! I'm a software engineer solving real-world problems through innovative solutions."
-                              )}
+                        <p className="text-base leading-relaxed">
+                          Hello! I'm a <span className="text-white font-medium">software engineer</span> solving
+                          real-world problems through innovative solutions.
+                        </p>
+
+                        <div className="mt-3 flex flex-col gap-2">
+                          <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+                            <h4 className="text-white font-medium mb-1">Current Focus</h4>
+                            <p className="text-sm text-slate-300">
+                              IT student at Swiss German University & DevOps Engineer intern at Commsult Indonesia.
                             </p>
-
-                            <div className="mt-3 flex flex-col gap-2">
-                              <div className="p-3 rounded-lg bg-white/5 border border-white/10">
-                                <h4 className="text-white font-medium mb-1">Current Focus</h4>
-                                <p className="text-sm text-slate-300">
-                                  IT student at Swiss German University & DevOps Engineer intern at Commsult Indonesia.
-                                </p>
-                              </div>
-
-                              <div className="p-3 rounded-lg bg-white/5 border border-white/10">
-                                <h4 className="text-white font-medium mb-1">Location & Interests</h4>
-                                <p className="text-sm text-slate-300">
-                                  Based in Tangerang, Indonesia. Passionate about AI, machine learning, and staying
-                                  active with badminton and gym.
-                                </p>
-                              </div>
-                            </div>
                           </div>
-                        ) : (
-                          <>
-                            <p className="text-base leading-relaxed">
-                              Hello! I'm a <span className="text-white font-medium">passionate software engineer</span>{" "}
-                              with a strong drive to solve real-world problems through innovative solutions. My journey
-                              in technology is driven by curiosity and a desire to build meaningful digital experiences.
-                            </p>
 
-                            <p className="text-base leading-relaxed mt-3">
-                              Currently, I'm pursuing an{" "}
-                              <span className="text-white font-medium">Information Technology degree</span> at Swiss
-                              German University while working as a{" "}
-                              <span className="text-white font-medium">DevOps Engineer intern</span> at Commsult
-                              Indonesia.
+                          <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+                            <h4 className="text-white font-medium mb-1">Location & Interests</h4>
+                            <p className="text-sm text-slate-300">
+                              Based in Tangerang, Indonesia. Passionate about AI, machine learning, and staying active
+                              with badminton and gym.
                             </p>
-
-                            <p className="text-base leading-relaxed mt-3">
-                              Based in <span className="text-white font-medium">Tangerang, Indonesia</span>, I'm
-                              constantly exploring new technologies and approaches to solving complex problems.
-                            </p>
-                          </>
-                        )}
-
-                        {/* Mobile Simplify button - optimized */}
-                        <div className="mt-4">
-                          <Button
-                            onClick={toggleSimplifiedView}
-                            className={`relative overflow-hidden w-full ${
-                              isSimplified
-                                ? "bg-gradient-to-r from-purple-500/20 to-blue-500/20 hover:from-purple-500/30 hover:to-blue-500/30"
-                                : "bg-gradient-to-r from-blue-500/20 to-purple-500/20 hover:from-blue-500/30 hover:to-purple-500/30"
-                            } text-white border-0 shadow-md`}
-                            size="sm"
-                          >
-                            <div className="relative flex items-center justify-center gap-2">
-                              {isSimplified ? (
-                                <>
-                                  <Maximize2 className="w-3.5 h-3.5 text-blue-200" />
-                                  <span>Show Detailed</span>
-                                </>
-                              ) : (
-                                <>
-                                  <Minimize2 className="w-3.5 h-3.5 text-purple-200" />
-                                  <span>Simplify</span>
-                                  <Sparkles className="w-3.5 h-3.5 text-purple-200" />
-                                </>
-                              )}
-                            </div>
-                          </Button>
+                          </div>
                         </div>
                       </div>
 
@@ -546,54 +445,64 @@ const About: React.FC = () => {
                           </>
                         )}
 
-                        {/* Enhanced Simplify button - optimized */}
+                        {/* Enhanced Simplify button */}
                         <div className="mt-6">
-                          <Button
-                            onClick={toggleSimplifiedView}
-                            className={`relative overflow-hidden ${
-                              isSimplified
-                                ? "bg-gradient-to-r from-purple-500/20 to-blue-500/20 hover:from-purple-500/30 hover:to-blue-500/30"
-                                : "bg-gradient-to-r from-blue-500/20 to-purple-500/20 hover:from-blue-500/30 hover:to-purple-500/30"
-                            } text-white border-0 shadow-lg`}
-                          >
-                            <div className="relative flex items-center gap-2">
-                              {isSimplified ? (
-                                <>
-                                  <Maximize2 className="w-4 h-4 text-blue-200" />
-                                  <span>Show Detailed</span>
-                                </>
-                              ) : (
-                                <>
-                                  <Minimize2 className="w-4 h-4 text-purple-200" />
-                                  <span>Simplify</span>
-                                  <Sparkles className="w-4 h-4 text-purple-200" />
-                                </>
-                              )}
-                            </div>
-                          </Button>
+                          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
+                            <Button
+                              onClick={toggleSimplifiedView}
+                              className={`relative overflow-hidden group ${
+                                isSimplified
+                                  ? "bg-gradient-to-r from-purple-500/20 to-blue-500/20 hover:from-purple-500/30 hover:to-blue-500/30"
+                                  : "bg-gradient-to-r from-blue-500/20 to-purple-500/20 hover:from-blue-500/30 hover:to-purple-500/30"
+                              } text-white border-0 shadow-lg`}
+                            >
+                              <div className="absolute inset-0 w-full h-full transition-all duration-300 ease-out group-hover:bg-gradient-to-r group-hover:from-blue-500/10 group-hover:to-purple-500/10"></div>
+                              <div className="absolute inset-0 w-3/4 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] translate-x-[-100%] group-hover:translate-x-[200%] transition-all duration-1000 ease-out"></div>
+                              <div className="relative flex items-center gap-2">
+                                {isSimplified ? (
+                                  <>
+                                    <Maximize2 className="w-4 h-4 text-blue-200" />
+                                    <span>Show Detailed</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Minimize2 className="w-4 h-4 text-purple-200" />
+                                    <span>Simplify</span>
+                                    <Sparkles className="w-4 h-4 text-purple-200" />
+                                  </>
+                                )}
+                              </div>
+                            </Button>
+                          </motion.div>
                         </div>
                       </div>
                     </div>
 
-                    <div className="mt-8 flex flex-wrap justify-between gap-1.5 sm:gap-2 md:gap-3">
-                      <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/15 transition-colors duration-200">
-                        <Briefcase className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-blue-300" />
-                        <span className="text-blue-100 text-xs sm:text-sm font-medium whitespace-nowrap">
-                          DevOps Engineer
-                        </span>
-                      </div>
-                      <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-purple-500/10 border border-purple-500/20 hover:bg-purple-500/15 transition-colors duration-200">
-                        <GraduationCap className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-purple-300" />
-                        <span className="text-purple-100 text-xs sm:text-sm font-medium whitespace-nowrap">
-                          IT Student
-                        </span>
-                      </div>
-                      <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/15 transition-colors duration-200">
-                        <MapPin className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-cyan-300" />
-                        <span className="text-cyan-100 text-xs sm:text-sm font-medium whitespace-nowrap">
-                          Tangerang, Indonesia
-                        </span>
-                      </div>
+                    <div className="mt-8 flex flex-wrap gap-3">
+                      <motion.div
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20"
+                        whileHover={{ scale: 1.05, backgroundColor: "rgba(59, 130, 246, 0.2)" }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      >
+                        <Briefcase className="w-4 h-4 text-blue-300" />
+                        <span className="text-blue-100 text-sm font-medium">DevOps Engineer</span>
+                      </motion.div>
+                      <motion.div
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20"
+                        whileHover={{ scale: 1.05, backgroundColor: "rgba(168, 85, 247, 0.2)" }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      >
+                        <GraduationCap className="w-4 h-4 text-purple-300" />
+                        <span className="text-purple-100 text-sm font-medium">IT Student</span>
+                      </motion.div>
+                      <motion.div
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20"
+                        whileHover={{ scale: 1.05, backgroundColor: "rgba(6, 182, 212, 0.2)" }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      >
+                        <MapPin className="w-4 h-4 text-cyan-300" />
+                        <span className="text-cyan-100 text-sm font-medium">Tangerang, Indonesia</span>
+                      </motion.div>
                     </div>
                   </div>
 
@@ -631,7 +540,7 @@ const About: React.FC = () => {
           </ScrollReveal>
 
           {/* Tech Expertise Title */}
-          <ScrollReveal isMobile={isMobile}>
+          <ScrollReveal>
             <ParallaxText className="mx-auto text-center mb-10 relative">
               <div className="inline-block relative">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-100 to-white text-4xl md:text-5xl font-bold tracking-tight">
@@ -649,8 +558,12 @@ const About: React.FC = () => {
           {/* Tech Stacks - Optimized for performance */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {techStacks.map((stack, stackIndex) => (
-              <ScrollReveal key={stack.id} direction="up" delay={stackIndex * 0.1} duration={0.5} isMobile={isMobile}>
-                <div className="relative h-full rounded-xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300">
+              <ScrollReveal key={stack.id} direction="up" delay={stackIndex * 0.1} duration={0.5}>
+                <motion.div
+                  className="relative h-full rounded-xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300"
+                  whileHover={{ y: -5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                >
                   <div className={`absolute inset-0 bg-gradient-to-br ${stack.gradient} opacity-40`} />
                   <div className="glass-effect p-5 sm:p-6 backdrop-blur-sm bg-white/5 relative h-full">
                     <div className="flex items-center gap-3 mb-5">
@@ -662,24 +575,25 @@ const About: React.FC = () => {
 
                     <div className="space-y-2.5 mt-5">
                       {stack.skills.map((skill, index) => (
-                        <div
+                        <motion.div
                           key={skill.name}
-                          className="opacity-0 animate-[fadeIn_0.4s_ease-in-out_forwards]"
-                          style={{ animationDelay: `${0.1 + index * 0.1}s` }}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.1 + index * 0.1, duration: 0.4 }}
                         >
                           <SkillPill skill={skill.name} color={skill.color} />
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </ScrollReveal>
             ))}
           </div>
 
           {/* Call to Action */}
-          <ScrollReveal direction="up" className="mt-12 md:mt-16" isMobile={isMobile}>
-            <Card3D className="relative" depth={40} isMobile={isMobile}>
+          <ScrollReveal direction="up" className="mt-12 md:mt-16">
+            <Card3D className="relative" depth={40}>
               <div className="relative overflow-hidden rounded-xl">
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-blue-600/30 via-purple-600/30 to-pink-600/30 rounded-xl"
@@ -688,7 +602,7 @@ const About: React.FC = () => {
                     filter: ["blur(20px)", "blur(25px)", "blur(20px)"],
                   }}
                   transition={{
-                    duration: isMobile ? 15 : 10,
+                    duration: 10,
                     repeat: Number.POSITIVE_INFINITY,
                     ease: "easeInOut",
                   }}
@@ -697,7 +611,12 @@ const About: React.FC = () => {
                 <div className="relative glass-effect p-6 sm:p-8 md:p-10 backdrop-blur-xl bg-black/20 border border-white/10 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/20 hover:border-white/20">
                   <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                     <div className="text-center md:text-left w-full md:w-2/3">
-                      <div>
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                      >
                         <h3 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white mb-3 md:mb-4 tracking-tight">
                           Let's Create Something Amazing
                         </h3>
@@ -705,10 +624,15 @@ const About: React.FC = () => {
                           Interested in collaborating or learning more about my projects? Feel free to reach out and
                           let's explore how we can bring your ideas to life.
                         </p>
-                      </div>
+                      </motion.div>
                     </div>
 
-                    <div className="flex w-full md:w-auto mt-4 md:mt-0">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                      className="flex w-full md:w-auto mt-4 md:mt-0"
+                    >
                       <a href="#contact" className="relative inline-flex group w-full md:w-auto">
                         <div className="absolute transitiona-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-xl blur-md group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
                         <button className="relative inline-flex items-center justify-center w-full px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold text-white transition-all duration-200 bg-slate-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -716,7 +640,7 @@ const About: React.FC = () => {
                           <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
                         </button>
                       </a>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               </div>
