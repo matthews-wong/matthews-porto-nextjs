@@ -88,7 +88,8 @@ const Education: FC = () => {
         <div className="absolute left-1/3 bottom-1/4 w-2 h-2 bg-indigo-500 rounded-full animate-ping" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+      {/* Improved container width for better desktop experience */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <motion.div
           className="mb-12"
           initial={{ opacity: 0, y: 20 }}
@@ -101,11 +102,10 @@ const Education: FC = () => {
               Education
             </h2>
           </div>
-          <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
         </motion.div>
 
         <motion.div
-          className="max-w-6xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -113,7 +113,7 @@ const Education: FC = () => {
           <div className="relative">
             {/* Main education card */}
             <div className="backdrop-blur-xl bg-white/5 rounded-2xl border border-white/10 overflow-hidden shadow-xl">
-              {/* Top university banner/header */}
+              {/* University banner */}
               <div className="h-48 md:h-56 relative overflow-hidden">
                 <Image
                   src="/images/sgu-location.webp"
@@ -122,7 +122,6 @@ const Education: FC = () => {
                   className="object-cover"
                   priority
                   onError={(e) => {
-                    // Fallback in case of error
                     const target = e.target as HTMLImageElement
                     target.onerror = null
                     target.src = "/api/placeholder/800/400"
@@ -130,63 +129,62 @@ const Education: FC = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/70 to-transparent"></div>
 
-                {/* Logo positioned to be fully visible */}
-                <div className="absolute bottom-4 left-6 md:left-8 flex">
-                  <div className="p-1 bg-slate-900/80 border border-white/20 rounded-lg shadow-2xl">
+                {/* Logo positioning */}
+                <div className="absolute bottom-6 left-6 flex items-center">
+                  <div className="p-1.5 bg-slate-900/80 border border-white/20 rounded-lg shadow-2xl">
                     <Image
                       src="/images/sgu-logo.jpg"
                       alt="SGU Logo"
-                      width={60}
-                      height={60}
+                      width={64}
+                      height={64}
                       className="rounded-md bg-white"
                       priority
                       onError={(e) => {
-                        // Fallback in case of error
                         const target = e.target as HTMLImageElement
                         target.onerror = null
-                        target.src = "/api/placeholder/60/60"
+                        target.src = "/api/placeholder/64/64"
                       }}
                     />
                   </div>
-                  <div className="ml-3 flex flex-col justify-end">
-                    <h3 className="text-lg md:text-xl font-bold text-white">Swiss German University</h3>
+                  <div className="ml-4 flex flex-col justify-end">
+                    <h3 className="text-xl md:text-2xl font-bold text-white">Swiss German University</h3>
                     <p className="text-sm text-blue-200">Est. 2000</p>
                   </div>
                 </div>
               </div>
 
               {/* University info */}
-              <div className="px-6 md:px-8 py-8">
+              <div className="px-5 md:px-8 py-8">
                 <div className="flex flex-col lg:flex-row lg:items-end gap-4 lg:gap-8 mb-8">
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="hidden sm:inline-block w-1.5 h-6 bg-indigo-500 rounded-full"></div>
-                      <p className="text-xl text-indigo-300">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-1.5 h-6 bg-indigo-500 rounded-full"></div>
+                      <p className="text-xl text-indigo-300 font-medium">
                         Bachelor&apos;s degree, Information Technology
                       </p>
                     </div>
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6 ml-4">
                       <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4 text-white/60" />
-                        <span className="text-white/60">Aug 2022 - Aug 2026</span>
+                        <Calendar className="h-4 w-4 text-white/70" />
+                        <span className="text-white/70">Aug 2022 - Aug 2026</span>
                       </div>
                       <span className="hidden sm:inline-block text-white/60">•</span>
-                      <span className="inline-flex items-center px-2 py-0.5 bg-green-500/20 border border-green-400/30 rounded-full text-xs font-medium text-green-300 w-fit">
+                      <span className="inline-flex items-center px-3 py-1 bg-green-500/20 border border-green-400/30 rounded-full text-xs font-medium text-green-300 w-fit">
                         In Progress
                       </span>
                     </div>
                   </div>
 
-                  {/* Improved Specialization UI with reduced glow */}
+                  {/* Specialization card */}
                   <div className="lg:text-right">
                     <div className="relative">
                       {/* Subtle glow effect */}
-                      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-xl blur opacity-30 transition duration-1000"></div>
 
                       {/* Glass card */}
-                      <div className="relative px-5 py-3 bg-slate-800/90 backdrop-blur-md border border-white/10 rounded-xl shadow-md overflow-hidden flex items-center gap-3">
-                        {/* Handshake icon with minimal glow */}
-                        <div className="flex items-center justify-center p-1.5 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg border border-white/10">
+                      <div className="relative px-5 py-3 bg-slate-800/90 backdrop-blur-md border border-white/10 rounded-xl shadow-lg overflow-hidden flex items-center gap-3">
+                        {/* Icon container */}
+                        <div className="flex items-center justify-center p-2 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg border border-white/10">
                           <Handshake className="h-5 w-5 text-blue-300" />
                         </div>
 
@@ -201,16 +199,18 @@ const Education: FC = () => {
                   </div>
                 </div>
 
-                {/* Improved Technopreneurship highlight section */}
-                <div className="bg-gradient-to-r from-slate-800/90 to-slate-900/90 rounded-xl border border-blue-500/20 overflow-hidden mb-8 shadow-md">
+                {/* Technopreneurship highlight section */}
+                <div className="bg-gradient-to-r from-slate-800/90 to-slate-900/90 rounded-xl border border-blue-500/20 overflow-hidden mb-8 shadow-lg">
                   <div className="p-4 bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-b border-white/5 flex items-center gap-3">
-                    <LightbulbIcon className="h-6 w-6 text-yellow-400" />
-                    <h4 className="text-xl font-bold text-white flex items-center gap-2">
+                    <div className="p-1.5 bg-yellow-500/10 rounded-lg border border-yellow-400/20">
+                      <LightbulbIcon className="h-6 w-6 text-yellow-400" />
+                    </div>
+                    <h4 className="text-xl font-bold text-white">
                       Why I Chose Technopreneurship in IT
                     </h4>
                   </div>
 
-                  <div className="p-6">
+                  <div className="p-5 md:p-6">
                     <p className="text-slate-300 mb-6">
                       I'm pursuing a unique educational path that blends my passion for technology with an
                       entrepreneurial mindset. Through the Technopreneurship in IT specialization, I'm learning not only
@@ -218,73 +218,78 @@ const Education: FC = () => {
                       innovative ideas into impactful tech-driven businesses.
                     </p>
 
-                    <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                      <div className="p-1.5 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg">
+                    <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                      <div className="p-1.5 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-lg border border-green-500/20">
                         <BookOpenCheck className="h-5 w-5 text-green-400" />
                       </div>
                       What I've Learned
                     </h4>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                      <div className="flex gap-3 bg-slate-800/50 rounded-lg p-4 border border-white/5">
-                        <div className="flex-shrink-0">
+                    {/* Simplified grid for mobile */}
+                    <div className="space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:gap-4 mb-6">
+                      <div className="flex gap-3 bg-slate-800/50 rounded-xl p-4 border border-white/5 hover:border-blue-500/30 transition-all duration-300">
+                        <div className="flex-shrink-0 p-1.5 bg-blue-500/10 rounded-lg border border-blue-500/20">
                           <Code className="h-5 w-5 text-blue-400" />
                         </div>
                         <div>
-                          <h5 className="text-white font-medium mb-1">Technical Expertise</h5>
-                          <p className="text-slate-400 text-sm">
+                          <h5 className="text-white font-medium mb-1 text-lg">Technical Expertise</h5>
+                          <p className="text-slate-300">
                             Advanced software development, system architecture, and emerging technologies
                           </p>
                         </div>
                       </div>
 
-                      <div className="flex gap-3 bg-slate-800/50 rounded-lg p-4 border border-white/5">
-                        <div className="flex-shrink-0">
+                      <div className="flex gap-3 bg-slate-800/50 rounded-xl p-4 border border-white/5 hover:border-purple-500/30 transition-all duration-300">
+                        <div className="flex-shrink-0 p-1.5 bg-purple-500/10 rounded-lg border border-purple-500/20">
                           <BriefcaseIcon className="h-5 w-5 text-purple-400" />
                         </div>
                         <div>
-                          <h5 className="text-white font-medium mb-1">Business Acumen</h5>
-                          <p className="text-slate-400 text-sm">
+                          <h5 className="text-white font-medium mb-1 text-lg">Business Acumen</h5>
+                          <p className="text-slate-300">
                             Market analysis, business modeling, and entrepreneurial strategies
                           </p>
                         </div>
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2">
-                      <span className="px-3 py-1 bg-blue-500/10 border border-blue-400/20 rounded-full text-xs font-medium text-blue-300 flex items-center justify-center">
+                    {/* Simplify mobile skill tags with better wrapping */}
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-3 py-1 bg-blue-500/10 border border-blue-400/20 rounded-full text-xs font-medium text-blue-300">
                         Software Development
                       </span>
-                      <span className="px-3 py-1 bg-purple-500/10 border border-purple-400/20 rounded-full text-xs font-medium text-purple-300 flex items-center justify-center">
+                      <span className="px-3 py-1 bg-purple-500/10 border border-purple-400/20 rounded-full text-xs font-medium text-purple-300">
                         Startup Innovation
                       </span>
-                      <span className="px-3 py-1 bg-indigo-500/10 border border-indigo-400/20 rounded-full text-xs font-medium text-indigo-300 flex items-center justify-center">
+                      <span className="px-3 py-1 bg-indigo-500/10 border border-indigo-400/20 rounded-full text-xs font-medium text-indigo-300">
                         Business Development
                       </span>
-                      <span className="px-3 py-1 bg-pink-500/10 border border-pink-400/20 rounded-full text-xs font-medium text-pink-300 flex items-center justify-center">
+                      <span className="px-3 py-1 bg-pink-500/10 border border-pink-400/20 rounded-full text-xs font-medium text-pink-300">
                         Market Analysis
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Activities and Societies Section */}
+                {/* Activities section with improved mobile layout */}
                 <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <h4 className="text-xl font-semibold text-white flex items-center gap-2">
-                      <Users className="h-5 w-5 text-blue-400" />
+                  <div className="flex items-center justify-between mb-5">
+                    <h4 className="text-xl font-semibold text-white flex items-center gap-3">
+                      <div className="p-1.5 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                        <Users className="h-5 w-5 text-blue-400" />
+                      </div>
                       Activities & Societies
                     </h4>
-                    <div className="text-xs px-2 py-1 rounded bg-slate-800/70 text-slate-400">
+                    <div className="text-xs px-2 py-1 rounded-lg bg-slate-800/70 text-slate-400 border border-white/5">
                       Click cards for details
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Use flex-col for mobile instead of grid */}
+                  <div className="space-y-4 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-4">
                     {activities.map((activity, index) => (
                       <motion.div
                         key={index}
-                        className={`relative rounded-xl transition-all duration-300 overflow-hidden cursor-pointer border ${
+                        className={`relative rounded-xl transition-all duration-300 overflow-hidden cursor-pointer border shadow-md ${
                           activeActivity === index
                             ? "border-blue-500/50 bg-gradient-to-br from-blue-900/30 to-slate-900"
                             : "border-white/10 bg-gradient-to-br from-slate-800/50 to-slate-900/50 hover:border-blue-500/30"
@@ -292,8 +297,8 @@ const Education: FC = () => {
                         whileHover={{ y: -4 }}
                         onClick={() => setActiveActivity(activeActivity === index ? null : index)}
                       >
-                        <div className="p-5">
-                          <div className="flex gap-4 items-start">
+                        <div className="p-4">
+                          <div className="flex gap-3 items-start">
                             <div
                               className={`w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center bg-gradient-to-br ${
                                 activeActivity === index
@@ -304,8 +309,8 @@ const Education: FC = () => {
                               {activity.icon}
                             </div>
                             <div className="flex-1">
-                              <div className="flex items-start justify-between gap-2 mb-2">
-                                <h5 className="font-semibold text-lg text-white leading-tight">
+                              <div className="flex items-start justify-between gap-2 mb-1">
+                                <h5 className="font-semibold text-white leading-tight">
                                   {activity.organization}
                                 </h5>
                                 <motion.div
@@ -329,7 +334,7 @@ const Education: FC = () => {
                                   </svg>
                                 </motion.div>
                               </div>
-                              <div className="flex flex-wrap items-center gap-2 mb-2">
+                              <div className="flex flex-wrap items-center gap-2 mb-1">
                                 <span className="text-indigo-300 text-sm font-medium">{activity.role}</span>
                                 <span className="text-xs text-slate-400">•</span>
                                 <span className="text-xs text-blue-300 bg-blue-500/10 px-2 py-0.5 rounded-full">
@@ -350,7 +355,7 @@ const Education: FC = () => {
                                     {activity.skills.map((skill, idx) => (
                                       <span
                                         key={idx}
-                                        className="px-2 py-0.5 bg-white/5 rounded text-xs font-medium text-slate-300"
+                                        className="px-2 py-0.5 bg-white/5 rounded-full text-xs text-slate-300 border border-white/10"
                                       >
                                         {skill}
                                       </span>
