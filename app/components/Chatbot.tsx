@@ -271,7 +271,7 @@ export default function Chatbot() {
             role: "system",
             content: `You are an AI assistant for Matthews Wong. Use the following context to answer questions about Matthews:
               ${CONTEXT}
-              If the user ask in Bahasa Indonesia , please use slang language and short answers , For example Kenal Matthews ga ? Answer : Ya Gw kenal , lu mau tau apa Provide concise and friendly responses. Format the response with **bold** for emphasis, *italic* for subtle highlights, and use bullet points or numbered lists for clarity. For mobile users, keep your responses relatively brief and well-formatted.`,
+              Provide concise and friendly responses. Format the response with **bold** for emphasis, *italic* for subtle highlights, and use bullet points or numbered lists for clarity. For mobile users, keep your responses relatively brief and well-formatted.`,
           },
           {
             role: "user",
