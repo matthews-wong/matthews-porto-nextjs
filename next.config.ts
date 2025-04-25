@@ -49,12 +49,6 @@ const nextConfig = {
       },
     ];
   },
-
-  // Improve performance & SEO
-  experimental: {
-    optimizeCss: true, // Optimizes CSS loading
-    scrollRestoration: true, // Improves navigation UX
-  },
 };
 
 module.exports = nextConfig;
