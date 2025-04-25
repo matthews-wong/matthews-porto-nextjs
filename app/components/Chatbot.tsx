@@ -47,171 +47,230 @@ interface Section {
 }
 
 const CONTEXT_ENGLISH = `
-Matthews Wong is an Information Technology student at Swiss German University, specializing in Technopreneurship. He is passionate about continuous learning and is involved in various international tech communities to stay up-to-date with the latest advancements.
+Matthews Wong is an Information Technology student at Swiss German University, specializing in Technopreneurship. He is passionate about continuous learning and actively participates in international tech communities to stay current with emerging trends and technologies.
 
 ### Current Role:
-- **DevOps Engineer Intern at Commsult Indonesia** (Jan 2025 - Present)
-  - Responsible for managing infrastructure using tools such as Ansible and Docker Swarm.
-  - Works with deployment and CI/CD processes, focusing on automating tasks and improving system reliability.
-  - Ensure uptime for German and Indonesian websites with uptime alerts.
-  - Monitor system performance using Grafana
-  - 
+- **DevOps Engineer Intern at Commsult Indonesia** (Jan 2025 – Present)
+  - Manages infrastructure using tools such as Ansible and Docker Swarm.
+  - Implements deployment automation and CI/CD pipelines to enhance reliability.
+  - Maintains uptime for German and Indonesian websites, using monitoring and alerting tools.
+  - Uses Grafana for system performance monitoring.
 
 ### Previous Experience:
-- **Software Development Engineer in Test Intern(SDET) at Commsult Indonesia** (Jul 2024 - Jan 2025)
-  - Developed and executed automated UI tests using WebdriverIO, XPath Selector, and Mocha framework.
-  - Built dynamic API tests leveraging Supertest and Jest, ensuring data-driven testing with expected response validation.
-  - Integrated Allure reporting framework to provide detailed test reports.
+- **Software Development Engineer in Test Intern (SDET) at Commsult Indonesia** (Jul 2024 – Jan 2025)
+  - Built automated UI tests using WebdriverIO, XPath, and Mocha.
+  - Developed API tests with Supertest and Jest, supporting data-driven validation.
+  - Integrated Allure for test result reporting.
 
-- **Project-Based Virtual Intern: Data Scientist at id/x partners x Rakamin Academy** (May 2024 - Jun 2024)
-  - Conducted exploratory data analysis (EDA) to uncover key patterns and trends in datasets.
-  - Mastered data storytelling techniques and created visual representations of complex data.
-  - Worked on a machine learning model using XGBoost, achieving a portfolio consisting of 46% good loans and 0% risky loans.
+- **Data Scientist Intern at id/x partners x Rakamin Academy** (May 2024 – Jun 2024)
+  - Performed exploratory data analysis to identify patterns and trends.
+  - Presented insights through effective data storytelling and visualizations.
+  - Built a machine learning model using XGBoost, resulting in 46% good loans and 0% risky loans.
 
-- **Project-Based Virtual Intern: Mobile Apps Developer at PT Bank Mandiri (Persero) Tbk** (Jan 2024 - Feb 2024)
-  - Developed a real-time news platform Android application using Kotlin, AndroidX, Jetpack Compose, and Material Design.
-  - Applied object-oriented programming (OOP) principles and utilized SQLite for local storage.
+- **Mobile App Developer Intern at PT Bank Mandiri (Persero) Tbk** (Jan 2024 – Feb 2024)
+  - Developed a real-time news Android app using Kotlin, Jetpack Compose, and Material Design.
+  - Applied object-oriented principles and integrated SQLite for local data storage.
   - Conducted unit testing using JUnit.
 
 ### Certifications:
-- **Ethical Hacking Essentials & Network Defense Certification** - Issued by :  EC-Council
-- **DevOps Certified** - Issued by : PagerDuty
-- **Cybersecurity Awareness Certified** - Issued by : Certiprof
-- **SQL (Advanced) & Rest API** – Issued by : HackerRank
-- **Docker Foundation Professional Certificate** - Issued by : Docker
-- **Advanced Website Conversion rate Optimization** - Issued by : Simplilearn
-- **Large Language Models** Issued by : Google Cloud Skills Boost 
-- **Career Essential in Generative AI** Issued by : Microsoft and Linkedin
-- **Career Essential Software Development** Issued by Microsoft and Linkedin 
+
+- **Ethical Hacking Essentials** – issued by EC-Council  
+   Focuses on the fundamentals of ethical hacking, penetration testing, and network defense strategies to identify and mitigate cybersecurity threats.
+  
+- **Network Defense Essentials** – issued by EC-Council  
+   Covers key concepts of network defense, network security principles, and the implementation of effective security measures against cyberattacks.
+  
+- **Cybersecurity Awareness Certification** – issued by CertiProf  
+   Provides essential knowledge in cybersecurity practices to raise awareness of risks and best practices to secure digital assets.
+  
+- **Docker Foundation Professional** – issued by Docker  
+   Validates proficiency in containerization using Docker, including securing containerized applications in a cybersecurity context.
+  
+- **DevOps Certification** – issued by PagerDuty  
+   Focuses on the integration of development and operations processes with security practices for continuous security testing and vulnerability management.
+  
+- **REST API (Advanced)** – issued by HackerRank  
+   Covers the advanced principles of securing RESTful APIs and building secure, scalable systems.
+  
+- **SQL (Advanced)** – issued by HackerRank  
+   Specializes in advanced SQL techniques, including securing databases and preventing SQL injection attacks, a critical skill in cybersecurity.
+  
+- **Career Essentials in Software Development** – issued by Microsoft & LinkedIn  
+   Provides a foundation in secure software development practices and secure coding techniques to minimize vulnerabilities in software products.
+  
+- **Career Essentials in Generative AI** – issued by Microsoft & LinkedIn  
+   Explores the cybersecurity considerations of generative AI technologies, including data protection and ethical concerns in AI usage.
+  
+- **Large Language Models** – issued by Google Cloud Skills Boost  
+   Explains the intersection of AI and cybersecurity, focusing on how large language models can enhance threat detection and response strategies.
+  
+- **Advanced Website Conversion Rate Optimization** – issued by Simplilearn  
+   Focuses on website optimization with security best practices to ensure a secure and optimized user experience.
+
 
 ### Education:
-- **Bachelor's degree in Information Technology**, Swiss German University (Aug 2022 - Aug 2026)
-  - Active member of several clubs:
+- **Bachelor of Information Technology**, Swiss German University (Aug 2022 – Aug 2026)
+  - Member of:
     - Badminton Club (Secretary)
     - IT Student Association (Member)
-    - Chess Club (Head of Event Division)
-    - SGU Bible Fellowship (Head of Creative Division)
+    - Chess Club (Head of Events)
+    - SGU Bible Fellowship (Creative Division Head)
 
 ### Key Projects:
-1. **Observer KPU: All-in-One Election Solution** (Feb 2024 - Jun 2024)
-   - Developed a web application for real-time election data in Indonesia using React.js and Express.js.
-   - Integrated SIREKAP API and utilized web scraping techniques to display real-time news.
-   - Built a GROQ AI-powered chatbot to provide users with factual information about candidates and political dynamics.
+1. **Observer KPU – Real-time Election Platform** (Feb 2024 – Jun 2024)
+   - Built a React.js and Express.js web app to display real-time Indonesian election data.
+   - Integrated SIREKAP API and implemented web scraping for live news.
+   - Developed an AI chatbot using GROQ to deliver verified political information.
 
-2. **STADPASS - Stadium Navigation App Utilizing Bluetooth Low Energy** (Oct 2023 - Mar 2024)
-   - Developed a BLE-based app for stadium navigation, guiding users to amenities and seats.
-   - Enabled mobile food ordering and notifications about nearby food stalls.
-   - Focused on enhancing the fan experience using BLE technology.
+2. **STADPASS – Stadium Navigation App Using BLE** (Oct 2023 – Mar 2024)
+   - Created a mobile navigation app using Bluetooth Low Energy for stadium visitors.
+   - Enabled food ordering and real-time stall notifications.
+   - Focused on improving the fan experience through BLE technology.
 
-3. **Wazuh Implementation to Monitor IT Security (Windows and Linux Workstations)** (Sep 2023 - Dec 2023)
-   - Analyzed security logs from both Windows and Linux systems using Wazuh and SIEM tools.
-   - Utilized Elasticsearch and Kibana to perform in-depth log analysis and identify security threats.
+3. **Wazuh-Based IT Security Monitoring** (Sep 2023 – Dec 2023)
+   - Monitored Windows and Linux systems with Wazuh and SIEM tools.
+   - Conducted log analysis using Elasticsearch and Kibana to detect security threats.
 
-   ### Company Information  
-  Commsult Indonesia is a strategic partner of **Commsult AG**, a Germany-based company specializing in innovative IT solutions to optimize business processes. In Indonesia, the company focuses on delivering **customized software development services** and **IT consulting**, tailored to meet the specific needs of businesses. Commsult Indonesia is known for its expertise in developing **mobile software applications** and streamlining operations to improve efficiency. With a team of experienced professionals, the company works closely with clients to deliver high-quality, innovative solutions.  
+### Company Profile – Commsult Indonesia:
+Commsult Indonesia is a strategic partner of **Commsult AG**, a German IT company. It specializes in custom software development and IT consulting tailored for businesses. Known for its expertise in mobile solutions and business process optimization, the company delivers high-quality and innovative services.
 
-   ### Skills:
-- **Programming Languages**: JavaScript (React.js, Node.js), Python, Java
-- **DevOps Tools**: Ansible, Docker, Docker Swarm, CI/CD pipelines
-- **Testing**: WebdriverIO, Mocha, Jest, Supertest, JUnit, Allure Reporting
-- **Data Science & Machine Learning**: XGBoost, Data Storytelling, Exploratory Data Analysis (EDA)
-- **Web Development**: HTML, CSS, JavaScript, React.js, Express.js, REST API development , Next.js 
-- **Cloud & Infrastructure**: Docker
-- **Version Control & Collaboration**: Git
+### Skills:
+- **Languages**: JavaScript (React.js, Node.js), Python, Java  
+- **DevOps**: Ansible, Docker, Docker Swarm, CI/CD  
+- **Testing**: WebdriverIO, Mocha, Jest, Supertest, JUnit, Allure  
+- **Data Science**: EDA, Data Storytelling, XGBoost  
+- **Web Development**: HTML, CSS, JavaScript, React.js, Express.js, REST API, Next.js  
+- **Cloud & Infrastructure**: Docker  
+- **Version Control**: Git  
 
-### Hackathon Experience:
-- **AI Hackathon by Indonesia AI Society**: Participated in an AI-focused hackathon, where I developed and fine-tuned **Random Forest classification models** to enhance predictive accuracy. Conducted **comparative analysis** of different machine learning approaches, optimized hyperparameters, and leveraged data preprocessing techniques to improve model performance.  
-- **PwC Capture The Flag (CTF)**: Engaged in a high-intensity **cybersecurity competition**, solving real-world security challenges, including **binary exploitation, cryptography, web security, and reverse engineering**. Collaborated with cybersecurity enthusiasts, applied ethical hacking techniques, and enhanced problem-solving skills under pressure.
+### Hackathon Participation:
+- **Indonesia AI Society – AI Hackathon**
+  - Developed and fine-tuned Random Forest models.
+  - Conducted comparative analysis and hyperparameter tuning for ML models.
 
-### Contact  
-- **Matthews Wong**  
-  - **Email**: matthewswong2610@gmail.com  
-  - **LinkedIn**: Matthews Wong
-  - Open to collaborations, discussions, and knowledge-sharing opportunities.  
+- **PwC Capture the Flag (CTF)**
+  - Solved real-world cybersecurity challenges in cryptography, binary exploitation, web security, and reverse engineering.
+  - Applied ethical hacking skills in a competitive environment.
+
+### Contact:
+- Name: Matthews Wong  
+- Email: matthewswong2610@gmail.com  
+- LinkedIn: Matthews Wong  
+- Open to collaborations and professional opportunities.
 `
 
+
 const CONTEXT_INDONESIAN = `
-Matthews Wong adalah mahasiswa Teknologi Informasi di Swiss German University, dengan spesialisasi Technopreneurship. Dia memiliki semangat untuk terus belajar dan terlibat dalam berbagai komunitas teknologi internasional untuk tetap mengikuti perkembangan terbaru.
+Matthews Wong adalah mahasiswa Teknologi Informasi di Swiss German University, dengan spesialisasi di bidang Technopreneurship. Ia memiliki semangat belajar yang tinggi dan aktif dalam berbagai komunitas teknologi internasional untuk mengikuti perkembangan terkini.
 
 ### Peran Saat Ini:
-- **DevOps Engineer Intern di Commsult Indonesia** (Jan 2025 - Sekarang)
-  - Bertanggung jawab untuk mengelola infrastruktur menggunakan alat seperti Ansible dan Docker Swarm.
-  - Bekerja dengan proses deployment dan CI/CD, fokus pada otomatisasi tugas dan meningkatkan keandalan sistem.
-  - Memastikan uptime untuk website Jerman dan Indonesia dengan peringatan uptime.
-  - Memantau kinerja sistem menggunakan Grafana
+- **Magang DevOps Engineer di Commsult Indonesia** (Jan 2025 – Sekarang)
+  - Mengelola infrastruktur menggunakan Ansible dan Docker Swarm.
+  - Menerapkan otomasi proses deployment dan CI/CD untuk meningkatkan keandalan sistem.
+  - Memastikan uptime website Jerman dan Indonesia melalui monitoring dan notifikasi.
+  - Menggunakan Grafana untuk memantau kinerja sistem.
 
 ### Pengalaman Sebelumnya:
-- **Software Development Engineer in Test Intern(SDET) di Commsult Indonesia** (Jul 2024 - Jan 2025)
-  - Mengembangkan dan menjalankan tes UI otomatis menggunakan WebdriverIO, XPath Selector, dan framework Mocha.
-  - Membangun tes API dinamis memanfaatkan Supertest dan Jest, memastikan pengujian berbasis data dengan validasi respons yang diharapkan.
-  - Mengintegrasikan framework pelaporan Allure untuk memberikan laporan tes yang detail.
+- **Magang Software Development Engineer in Test (SDET) di Commsult Indonesia** (Jul 2024 – Jan 2025)
+  - Membangun pengujian UI otomatis menggunakan WebdriverIO, XPath, dan Mocha.
+  - Mengembangkan pengujian API menggunakan Supertest dan Jest dengan pendekatan data-driven.
+  - Mengintegrasikan Allure untuk pelaporan hasil tes yang mendetail.
 
-- **Project-Based Virtual Intern: Data Scientist di id/x partners x Rakamin Academy** (Mei 2024 - Jun 2024)
-  - Melakukan analisis data eksplorasi (EDA) untuk mengungkap pola dan tren utama dalam dataset.
-  - Menguasai teknik storytelling data dan membuat representasi visual dari data kompleks.
-  - Bekerja pada model machine learning menggunakan XGBoost, mencapai portofolio yang terdiri dari 46% pinjaman baik dan 0% pinjaman berisiko.
+- **Magang Virtual Berbasis Proyek – Data Scientist di id/x partners x Rakamin Academy** (Mei 2024 – Jun 2024)
+  - Melakukan analisis data eksploratif (EDA) untuk menemukan pola dan tren penting.
+  - Menyampaikan insight melalui storytelling data dan visualisasi yang efektif.
+  - Membangun model machine learning dengan XGBoost, menghasilkan 46% pinjaman baik dan 0% pinjaman berisiko.
 
-- **Project-Based Virtual Intern: Mobile Apps Developer di PT Bank Mandiri (Persero) Tbk** (Jan 2024 - Feb 2024)
-  - Mengembangkan aplikasi Android platform berita real-time menggunakan Kotlin, AndroidX, Jetpack Compose, dan Material Design.
-  - Menerapkan prinsip pemrograman berorientasi objek (OOP) dan menggunakan SQLite untuk penyimpanan lokal.
+- **Magang Virtual Berbasis Proyek – Mobile App Developer di PT Bank Mandiri (Persero) Tbk** (Jan 2024 – Feb 2024)
+  - Mengembangkan aplikasi berita real-time di Android menggunakan Kotlin dan Jetpack Compose.
+  - Mengaplikasikan prinsip OOP dan menggunakan SQLite untuk penyimpanan lokal.
   - Melakukan pengujian unit menggunakan JUnit.
 
 ### Sertifikasi:
-- **Ethical Hacking Essentials & Network Defense Certification** - Dikeluarkan oleh: EC-Council
-- **DevOps Certified** - Dikeluarkan oleh: PagerDuty
-- **Cybersecurity Awareness Certified** - Dikeluarkan oleh: Certiprof
-- **SQL (Advanced) & Rest API** – Dikeluarkan oleh: HackerRank
-- **Docker Foundation Professional Certificate** - Dikeluarkan oleh: Docker
-- **Advanced Website Conversion rate Optimization** - Dikeluarkan oleh: Simplilearn
-- **Large Language Models** Dikeluarkan oleh: Google Cloud Skills Boost 
-- **Career Essential in Generative AI** Dikeluarkan oleh: Microsoft dan Linkedin
-- **Career Essential Software Development** Dikeluarkan oleh Microsoft dan Linkedin 
+
+- **Ethical Hacking Essentials** – diterbitkan oleh EC-Council  
+   Mempelajari dasar-dasar peretasan etis, uji penetrasi, dan strategi pertahanan jaringan untuk mengidentifikasi dan mengurangi ancaman keamanan siber.
+
+- **Network Defense Essentials** – diterbitkan oleh EC-Council  
+   Menyediakan konsep-konsep utama dalam pertahanan jaringan, prinsip keamanan jaringan, dan implementasi langkah-langkah keamanan yang efektif terhadap serangan siber.
+
+- **Cybersecurity Awareness Certification** – diterbitkan oleh CertiProf  
+   Memberikan pengetahuan dasar tentang praktik keamanan siber untuk meningkatkan kesadaran terhadap risiko dan praktik terbaik untuk mengamankan aset digital.
+
+- **Docker Foundation Professional** – diterbitkan oleh Docker  
+   Memvalidasi kemampuan dalam kontainerisasi menggunakan Docker, termasuk mengamankan aplikasi yang dikontainerkan dalam konteks keamanan siber.
+
+- **DevOps Certification** – diterbitkan oleh PagerDuty  
+   Fokus pada integrasi proses pengembangan dan operasi dengan praktik keamanan untuk pengujian keamanan berkelanjutan dan manajemen kerentanannya.
+
+- **REST API (Advanced)** – diterbitkan oleh HackerRank  
+   Mencakup prinsip-prinsip lanjutan dalam mengamankan RESTful API dan membangun sistem yang aman dan skalabel.
+
+- **SQL (Advanced)** – diterbitkan oleh HackerRank  
+   Khusus dalam teknik SQL lanjutan, termasuk mengamankan basis data dan mencegah serangan SQL injection, yang merupakan keterampilan penting dalam keamanan siber.
+
+- **Career Essentials in Software Development** – diterbitkan oleh Microsoft & LinkedIn  
+   Memberikan dasar dalam praktik pengembangan perangkat lunak yang aman dan teknik pengkodean yang aman untuk meminimalkan kerentanannya.
+
+- **Career Essentials in Generative AI** – diterbitkan oleh Microsoft & LinkedIn  
+   Menyelidiki pertimbangan keamanan siber dalam teknologi generative AI, termasuk perlindungan data dan masalah etis dalam penggunaan AI.
+
+- **Large Language Models** – diterbitkan oleh Google Cloud Skills Boost  
+   Menjelaskan persimpangan antara AI dan keamanan siber, dengan fokus pada bagaimana model bahasa besar dapat meningkatkan strategi deteksi dan respons terhadap ancaman.
+
+- **Advanced Website Conversion Rate Optimization** – diterbitkan oleh Simplilearn  
+   Fokus pada optimasi situs web dengan praktik keamanan terbaik untuk memastikan pengalaman pengguna yang aman dan optimal.
+
 
 ### Pendidikan:
-- **Gelar Sarjana Teknologi Informasi**, Swiss German University (Agt 2022 - Agt 2026)
-  - Anggota aktif beberapa klub:
+- **Sarjana Teknologi Informasi**, Swiss German University (Agt 2022 – Agt 2026)
+  - Aktif dalam:
     - Klub Bulu Tangkis (Sekretaris)
-    - Asosiasi Mahasiswa IT (Anggota)
+    - Himpunan Mahasiswa IT (Anggota)
     - Klub Catur (Kepala Divisi Acara)
     - SGU Bible Fellowship (Kepala Divisi Kreatif)
 
 ### Proyek Utama:
-1. **Observer KPU: Solusi Pemilu All-in-One** (Feb 2024 - Jun 2024)
-   - Mengembangkan aplikasi web untuk data pemilu real-time di Indonesia menggunakan React.js dan Express.js.
-   - Mengintegrasikan API SIREKAP dan menggunakan teknik web scraping untuk menampilkan berita real-time.
-   - Membangun chatbot bertenaga GROQ AI untuk memberikan pengguna informasi faktual tentang kandidat dan dinamika politik.
+1. **Observer KPU – Platform Data Pemilu Real-time** (Feb 2024 – Jun 2024)
+   - Membangun aplikasi web menggunakan React.js dan Express.js untuk menampilkan data pemilu Indonesia secara real-time.
+   - Mengintegrasikan API SIREKAP dan web scraping untuk berita langsung.
+   - Mengembangkan chatbot AI berbasis GROQ untuk menyampaikan informasi politik yang valid.
 
-2. **STADPASS - Aplikasi Navigasi Stadion Memanfaatkan Bluetooth Low Energy** (Okt 2023 - Mar 2024)
-   - Mengembangkan aplikasi berbasis BLE untuk navigasi stadion, memandu pengguna ke fasilitas dan tempat duduk.
-   - Mengaktifkan pemesanan makanan mobile dan notifikasi tentang warung makanan terdekat.
-   - Fokus pada peningkatan pengalaman penggemar menggunakan teknologi BLE.
+2. **STADPASS – Aplikasi Navigasi Stadion Berbasis BLE** (Okt 2023 – Mar 2024)
+   - Menciptakan aplikasi navigasi stadion berbasis Bluetooth Low Energy.
+   - Menyediakan fitur pemesanan makanan dan notifikasi gerai terdekat secara real-time.
+   - Fokus pada peningkatan pengalaman pengunjung stadion.
 
-3. **Implementasi Wazuh untuk Memantau Keamanan IT (Workstation Windows dan Linux)** (Sep 2023 - Des 2023)
-   - Menganalisis log keamanan dari sistem Windows dan Linux menggunakan alat Wazuh dan SIEM.
-   - Memanfaatkan Elasticsearch dan Kibana untuk melakukan analisis log mendalam dan mengidentifikasi ancaman keamanan.
+3. **Pemantauan Keamanan IT dengan Wazuh** (Sep 2023 – Des 2023)
+   - Memonitor sistem Windows dan Linux menggunakan Wazuh dan SIEM tools.
+   - Melakukan analisis log dengan Elasticsearch dan Kibana untuk mendeteksi ancaman keamanan.
 
-### Informasi Perusahaan  
-Commsult Indonesia adalah mitra strategis dari **Commsult AG**, perusahaan berbasis Jerman yang mengkhususkan diri dalam solusi IT inovatif untuk mengoptimalkan proses bisnis. Di Indonesia, perusahaan ini fokus pada penyediaan **layanan pengembangan perangkat lunak yang disesuaikan** dan **konsultasi IT**, disesuaikan untuk memenuhi kebutuhan spesifik bisnis. Commsult Indonesia dikenal karena keahliannya dalam mengembangkan **aplikasi perangkat lunak mobile** dan merampingkan operasi untuk meningkatkan efisiensi. Dengan tim profesional berpengalaman, perusahaan bekerja sama dengan klien untuk memberikan solusi inovatif berkualitas tinggi.
+### Profil Perusahaan – Commsult Indonesia:
+Commsult Indonesia adalah mitra strategis dari **Commsult AG**, perusahaan IT dari Jerman yang fokus pada pengembangan perangkat lunak kustom dan konsultasi IT untuk kebutuhan bisnis. Perusahaan ini dikenal atas keahliannya dalam pengembangan aplikasi mobile dan optimasi proses bisnis.
 
-### Keterampilan:
-- **Bahasa Pemrograman**: JavaScript (React.js, Node.js), Python, Java
-- **Alat DevOps**: Ansible, Docker, Docker Swarm, pipeline CI/CD
-- **Pengujian**: WebdriverIO, Mocha, Jest, Supertest, JUnit, Pelaporan Allure
-- **Data Science & Machine Learning**: XGBoost, Data Storytelling, Analisis Data Eksplorasi (EDA)
-- **Pengembangan Web**: HTML, CSS, JavaScript, React.js, Express.js, pengembangan REST API, Next.js 
-- **Cloud & Infrastruktur**: Docker
-- **Kontrol Versi & Kolaborasi**: Git
+### Keahlian:
+- **Bahasa Pemrograman**: JavaScript (React.js, Node.js), Python, Java  
+- **DevOps**: Ansible, Docker, Docker Swarm, CI/CD  
+- **Pengujian Software / Testing**: WebdriverIO, Mocha, Jest, Supertest, JUnit, Allure  
+- **Data Science**: EDA, Data Storytelling, XGBoost  
+- **Web Development**: HTML, CSS, JavaScript, React.js, Express.js, REST API, Next.js  
+- **Cloud & Infrastruktur**: Docker  
+- **Version Control**: Git  
 
 ### Pengalaman Hackathon:
-- **AI Hackathon oleh Indonesia AI Society**: Berpartisipasi dalam hackathon yang berfokus pada AI, di mana saya mengembangkan dan menyempurnakan **model klasifikasi Random Forest** untuk meningkatkan akurasi prediktif. Melakukan **analisis komparatif** dari berbagai pendekatan machine learning, mengoptimalkan hyperparameter, dan memanfaatkan teknik preprocessing data untuk meningkatkan kinerja model.  
-- **PwC Capture The Flag (CTF)**: Terlibat dalam **kompetisi keamanan siber** intensitas tinggi, menyelesaikan tantangan keamanan dunia nyata, termasuk **eksploitasi biner, kriptografi, keamanan web, dan rekayasa balik**. Berkolaborasi dengan penggemar keamanan siber, menerapkan teknik hacking etis, dan meningkatkan keterampilan pemecahan masalah di bawah tekanan.
+- **AI Hackathon – Indonesia AI Society**
+  - Membangun model klasifikasi Random Forest, analisis perbandingan model, dan tuning hyperparameter.
 
-### Kontak  
-- **Matthews Wong**  
-  - **Email**: matthewswong2610@gmail.com  
-  - **LinkedIn**: Matthews Wong
-  - Terbuka untuk kolaborasi, diskusi, dan kesempatan berbagi pengetahuan.
+- **Capture the Flag (CTF) – PwC**
+  - Mengatasi tantangan keamanan siber nyata seperti kriptografi, eksploitasi biner, dan reverse engineering.
+
+### Kontak:
+- Nama: Matthews Wong  
+- Email: matthewswong2610@gmail.com  
+- LinkedIn: Matthews Wong  
+- Terbuka untuk kolaborasi dan peluang profesional.
 `
+
 
 const suggestedQuestionsEnglish = [
   "What is Matthews' current role?",
@@ -222,7 +281,7 @@ const suggestedQuestionsEnglish = [
 ]
 
 const suggestedQuestionsIndonesian = [
-  "Apa peran Matthews saat ini?",
+  "Apa pekerjaan Matthews saat ini?",
   "Apa keterampilan utama Matthews?",
   "Proyek apa yang telah dikerjakan Matthews?",
   "Sertifikasi apa yang dimiliki Matthews?",
@@ -244,55 +303,9 @@ export default function Chatbot() {
   const [nameInput, setNameInput] = useState("")
   const [selectedLanguage, setSelectedLanguage] = useState<"english" | "indonesian">("english")
   const [showWelcomeScreen, setShowWelcomeScreen] = useState(true)
-  const [detectedSections, setDetectedSections] = useState<string[]>([])
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const chatWindowRef = useRef<HTMLDivElement>(null)
 
-  // Define sections for navigation
-  const sections: Section[] = [
-    {
-      id: "about",
-      title: selectedLanguage === "indonesian" ? "Tentang" : "About",
-      icon: <BookOpen size={16} />,
-      keywords: ["about", "overview", "introduction", "tentang", "pengenalan"],
-    },
-    {
-      id: "education",
-      title: selectedLanguage === "indonesian" ? "Pendidikan" : "Education",
-      icon: <GraduationCap size={16} />,
-      keywords: ["education", "university", "degree", "school", "pendidikan", "universitas", "gelar", "sekolah"],
-    },
-    {
-      id: "experience",
-      title: selectedLanguage === "indonesian" ? "Pengalaman" : "Experience",
-      icon: <Briefcase size={16} />,
-      keywords: ["experience", "work", "job", "role", "intern", "pengalaman", "kerja", "pekerjaan", "peran", "magang"],
-    },
-    {
-      id: "certifications",
-      title: selectedLanguage === "indonesian" ? "Sertifikasi" : "Certifications",
-      icon: <Award size={16} />,
-      keywords: ["certification", "certificate", "sertifikasi", "sertifikat"],
-    },
-    {
-      id: "hackathon",
-      title: selectedLanguage === "indonesian" ? "Hackathon" : "Hackathon",
-      icon: <Trophy size={16} />,
-      keywords: ["hackathon", "competition", "contest", "kompetisi", "kontes"],
-    },
-    {
-      id: "projects",
-      title: selectedLanguage === "indonesian" ? "Proyek" : "Projects",
-      icon: <FolderGit2 size={16} />,
-      keywords: ["project", "app", "application", "solution", "proyek", "aplikasi", "solusi"],
-    },
-    {
-      id: "contact",
-      title: selectedLanguage === "indonesian" ? "Kontak" : "Contact",
-      icon: <Phone size={16} />,
-      keywords: ["contact", "email", "linkedin", "kontak", "surel"],
-    },
-  ]
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -370,19 +383,6 @@ export default function Chatbot() {
     }
   }, [isOpen])
 
-  // Function to detect sections in a message
-  const detectSectionsInMessage = (message: string) => {
-    const lowerMessage = message.toLowerCase()
-    const detected: string[] = []
-
-    sections.forEach((section) => {
-      if (section.keywords.some((keyword) => lowerMessage.includes(keyword.toLowerCase()))) {
-        detected.push(section.id)
-      }
-    })
-
-    return detected
-  }
 
   // Fix the formatResponse function to handle bold text spacing better
   const formatResponse = (response: string) => {
@@ -459,69 +459,37 @@ export default function Chatbot() {
     return response
   }
 
-  // Simplified section buttons rendering
-  const renderSectionButtons = () => {
-    if (detectedSections.length === 0) return null
-
-    return (
-      <div className="mt-2 mb-4">
-        <div className="flex flex-wrap gap-2">
-          {detectedSections.map((sectionId) => {
-            const section = sections.find((s) => s.id === sectionId)
-            if (!section) return null
-
-            return (
-              <Button
-                key={sectionId}
-                variant="outline"
-                size="sm"
-                className="bg-slate-800/60 text-violet-300 border-violet-500/30 hover:bg-slate-700/80 hover:text-violet-200 flex items-center gap-1.5 py-1 h-auto text-xs"
-                onClick={() => handleSend(`Tell me about Matthews' ${section.title}`)}
-              >
-                {section.icon}
-                <span>{section.title}</span>
-              </Button>
-            )
-          })}
-        </div>
-      </div>
-    )
-  }
-
   // Improve the system prompt for better responses
   const systemPrompt =
-    userPreferences?.language === "indonesian"
-      ? `Anda adalah asisten AI untuk Matthews Wong. Gunakan konteks berikut untuk menjawab pertanyaan tentang Matthews:
-    ${CONTEXT_INDONESIAN}
-    
-    Berikan respons yang ringkas, informatif, dan ramah. Format respons dengan **tebal** untuk penekanan penting, *miring* untuk sorotan halus, dan gunakan poin atau daftar bernomor untuk kejelasan. Untuk pengguna mobile, jaga agar respons Anda relatif singkat (maksimal 3-4 paragraf) dan terformat dengan baik.
-    
-    Penting: 
-    1. Selalu mulai respons Anda dengan menyapa pengguna dengan nama mereka (${userPreferences?.name}). Misalnya: "Halo ${userPreferences?.name}, senang bertemu dengan Anda!" atau "Terima kasih atas pertanyaan Anda, ${userPreferences?.name}."
-    2. Berikan informasi yang paling relevan terlebih dahulu, lalu detail tambahan.
-    3. Gunakan bahasa yang jelas dan mudah dipahami.
-    4. Jika Anda tidak yakin tentang sesuatu, akui keterbatasan Anda dan tawarkan informasi yang Anda ketahui.
-    
-    Ketika Anda menyebutkan bagian seperti "Pendidikan", "Pengalaman", "Sertifikasi", "Hackathon", "Proyek", atau "Kontak", SELALU gunakan format judul ### [Nama Bagian] untuk memudahkan navigasi. Pastikan judul bagian berada pada baris tersendiri dan diikuti oleh konten bagian.`
-      : `You are an AI assistant for Matthews Wong. Use the following context to answer questions about Matthews:
-    ${CONTEXT_ENGLISH}
-    
-    Provide concise, informative, and friendly responses. Format the response with **bold** for important emphasis, *italic* for subtle highlights, and use bullet points or numbered lists for clarity. For mobile users, keep your responses relatively brief (max 3-4 paragraphs) and well-formatted.
-    
-    Important:
-    1. Always begin your response by greeting the user by their name (${userPreferences?.name}). For example: "Hello ${userPreferences?.name}, nice to meet you!" or "Thanks for your question, ${userPreferences?.name}."
-    2. Provide the most relevant information first, then additional details.
-    3. Use clear and easy-to-understand language.
-    4. If you're unsure about something, acknowledge your limitations and offer what you do know.
-    
-    When you mention sections like "Education", "Experience", "Certifications", "Hackathon", "Projects", or "Contact", ALWAYS use the heading format ### [Section Name] to make navigation easier. Make sure the section heading is on its own line and followed by the section content.`
+  userPreferences?.language === "indonesian"
+    ? `Anda adalah asisten AI untuk Matthews Wong. Gunakan konteks berikut untuk menjawab pertanyaan tentang Matthews:
+${CONTEXT_INDONESIAN}
+
+Berikan respons yang *singkat*, *informatif*, dan *ramah*. Gunakan **teks tebal** untuk penekanan penting, *miring* untuk sorotan halus, dan poin atau daftar bernomor untuk memperjelas informasi. Untuk pengguna mobile, jaga agar jawaban tetap pendek (maks. 3–4 paragraf) dan terstruktur rapi.
+
+**Panduan penting:**
+1. Mulailah respons pertama dengan menyapa pengguna menggunakan nama mereka (${userPreferences?.name}). Contoh: "Halo ${userPreferences?.name}, senang bertemu dengan Anda!" atau "Terima kasih atas pertanyaannya, ${userPreferences?.name}."
+2. Sampaikan informasi paling relevan terlebih dahulu, kemudian baru detail pendukung.
+3. Gunakan bahasa yang jelas, santai, dan mudah dimengerti.
+4. Jika Anda tidak yakin tentang sesuatu, katakan dengan jujur dan berikan informasi yang Anda ketahui.
+5. Hindari respons yang terlalu panjang. Buat padat, menarik, dan akhiri dengan satu pertanyaan untuk menjaga alur percakapan.
+`
+    : `You are an AI assistant for Matthews Wong. Use the following context to respond to questions about Matthews:
+${CONTEXT_ENGLISH}
+
+Provide responses that are *concise*, *informative*, and *friendly*. Use **bold** for key emphasis, *italics* for subtle highlights, and organize information using bullet points or numbered lists for clarity. For mobile users, responses should remain brief (max 3–4 paragraphs) and well-structured.
+
+**Key Guidelines:**
+1. Greet the user by name the first time (${userPreferences?.name}). For example: "Hello ${userPreferences?.name}, nice to meet you!" or "Thanks for your question, ${userPreferences?.name}."
+2. Start with the most relevant information, followed by supporting details.
+3. Use simple, clear, and conversational language.
+4. If unsure about something, be transparent and share what you do know.
+5. Keep responses short and engaging, and always end with an open-ended question to encourage further conversation.
+`;
+
 
   const handleSend = async (message: string) => {
     if (!message.trim()) return
-
-    // Detect sections in the message
-    const detected = detectSectionsInMessage(message)
-    setDetectedSections(detected)
 
     setMessages((prev) => [...prev, { type: "user", content: message }])
     setInputValue("")
@@ -582,7 +550,6 @@ export default function Chatbot() {
 
   const handleNewChat = () => {
     setMessages([])
-    setDetectedSections([])
   }
 
   const handleSubmitPreferences = () => {
@@ -904,9 +871,6 @@ export default function Chatbot() {
                               </div>
                             </motion.div>
                           ))}
-
-                          {/* Section Navigation Buttons */}
-                          {detectedSections.length > 0 && renderSectionButtons()}
 
                           {isLoading && (
                             <div className="flex justify-start">

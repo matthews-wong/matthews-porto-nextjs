@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useRef, useMemo, useState, useEffect } from "react"
-import { motion, useInView, useScroll } from "framer-motion"
+import { motion, useInView} from "framer-motion"
 import {
   Code2,
   Server,
@@ -69,7 +69,6 @@ const ScrollReveal: React.FC<{
 
 const About: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: containerRef })
 
   const techStacks = useMemo(
     () => [
@@ -157,11 +156,7 @@ const About: React.FC = () => {
 
   return (
     <section id="about" className="py-20 sm:py-24 md:py-32 relative overflow-hidden" ref={containerRef}>
-      {/* Progress bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 z-50"
-        style={{ scaleX: scrollYProgress, transformOrigin: "0%" }}
-      />
+
 
       {/* Simplified background */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-purple-500/5" />
