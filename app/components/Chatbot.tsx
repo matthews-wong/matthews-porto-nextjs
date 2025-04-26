@@ -1,26 +1,8 @@
 "use client"
 
-import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import {
-  MessageCircle,
-  X,
-  Send,
-  Loader2,
-  Trash2,
-  Sparkles,
-  Globe,
-  User,
-  BookOpen,
-  GraduationCap,
-  Briefcase,
-  Award,
-  Trophy,
-  FolderGit2,
-  Phone,
-} from "lucide-react"
+import { MessageCircle, X, Send, Loader2, Trash2, Sparkles, Globe, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -37,13 +19,6 @@ interface Message {
 interface UserPreferences {
   name: string
   language: "english" | "indonesian"
-}
-
-interface Section {
-  id: string
-  title: string
-  icon: React.ReactNode
-  keywords: string[]
 }
 
 const CONTEXT_ENGLISH = `
@@ -159,7 +134,6 @@ Commsult Indonesia is a strategic partner of **Commsult AG**, a German IT compan
 - Open to collaborations and professional opportunities.
 `
 
-
 const CONTEXT_INDONESIAN = `
 Matthews Wong adalah mahasiswa Teknologi Informasi di Swiss German University, dengan spesialisasi di bidang Technopreneurship. Ia memiliki semangat belajar yang tinggi dan aktif dalam berbagai komunitas teknologi internasional untuk mengikuti perkembangan terkini.
 
@@ -271,7 +245,6 @@ Commsult Indonesia adalah mitra strategis dari **Commsult AG**, perusahaan IT da
 - Terbuka untuk kolaborasi dan peluang profesional.
 `
 
-
 const suggestedQuestionsEnglish = [
   "What is Matthews' current role?",
   "What are Matthews' main skills?",
@@ -305,7 +278,6 @@ export default function Chatbot() {
   const [showWelcomeScreen, setShowWelcomeScreen] = useState(true)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const chatWindowRef = useRef<HTMLDivElement>(null)
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -382,7 +354,6 @@ export default function Chatbot() {
       document.removeEventListener("wheel", handleWheel)
     }
   }, [isOpen])
-
 
   // Fix the formatResponse function to handle bold text spacing better
   const formatResponse = (response: string) => {
@@ -461,8 +432,8 @@ export default function Chatbot() {
 
   // Improve the system prompt for better responses
   const systemPrompt =
-  userPreferences?.language === "indonesian"
-    ? `Anda adalah asisten AI untuk Matthews Wong. Gunakan konteks berikut untuk menjawab pertanyaan tentang Matthews:
+    userPreferences?.language === "indonesian"
+      ? `Anda adalah asisten AI untuk Matthews Wong. Gunakan konteks berikut untuk menjawab pertanyaan tentang Matthews:
 ${CONTEXT_INDONESIAN}
 
 Berikan respons yang *singkat*, *informatif*, dan *ramah*. Gunakan **teks tebal** untuk penekanan penting, *miring* untuk sorotan halus, dan poin atau daftar bernomor untuk memperjelas informasi. Untuk pengguna mobile, jaga agar jawaban tetap pendek (maks. 3–4 paragraf) dan terstruktur rapi.
@@ -474,7 +445,7 @@ Berikan respons yang *singkat*, *informatif*, dan *ramah*. Gunakan **teks tebal*
 4. Jika Anda tidak yakin tentang sesuatu, katakan dengan jujur dan berikan informasi yang Anda ketahui.
 5. Hindari respons yang terlalu panjang. Buat padat, menarik, dan akhiri dengan satu pertanyaan untuk menjaga alur percakapan.
 `
-    : `You are an AI assistant for Matthews Wong. Use the following context to respond to questions about Matthews:
+      : `You are an AI assistant for Matthews Wong. Use the following context to respond to questions about Matthews:
 ${CONTEXT_ENGLISH}
 
 Provide responses that are *concise*, *informative*, and *friendly*. Use **bold** for key emphasis, *italics* for subtle highlights, and organize information using bullet points or numbered lists for clarity. For mobile users, responses should remain brief (max 3–4 paragraphs) and well-structured.
@@ -485,8 +456,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
 3. Use simple, clear, and conversational language.
 4. If unsure about something, be transparent and share what you do know.
 5. Keep responses short and engaging, and always end with an open-ended question to encourage further conversation.
-`;
-
+`
 
   const handleSend = async (message: string) => {
     if (!message.trim()) return
@@ -596,15 +566,15 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
       <AnimatePresence>
         {!isOpen && showBubble && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, type: "spring", stiffness: 300, damping: 25 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
             className="fixed bottom-20 right-4 z-50 max-w-[calc(100vw-32px)]"
           >
             <div className="relative">
               <div
-                className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-2xl shadow-lg p-3 sm:p-4 cursor-pointer hover:shadow-xl transition-all duration-300 border border-violet-400/30 backdrop-blur-sm hover:scale-105"
+                className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-2xl shadow-lg p-3 sm:p-4 cursor-pointer hover:shadow-xl transition-all duration-300 border border-violet-400/30"
                 onClick={() => setIsOpen(true)}
               >
                 <div className="flex items-center gap-2 mb-1">
@@ -640,7 +610,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
       <motion.button
         onClick={() => setIsOpen(true)}
         className="fixed bottom-4 right-4 p-3.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 border border-violet-400/30"
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.1, animationPlayState: "paused" }}
         whileTap={{ scale: 0.9 }}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -654,10 +624,10 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 25 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             className="fixed inset-0 sm:inset-auto sm:bottom-20 sm:right-4 z-50 w-full sm:w-auto max-h-[100vh] sm:max-h-[90vh] px-4 sm:px-0 flex items-end sm:items-start justify-center sm:justify-end"
             onClick={(e) => e.target === e.currentTarget && setIsOpen(false)}
           >
@@ -666,7 +636,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
               className="w-full sm:w-[350px] md:w-[400px] shadow-2xl bg-slate-900/95 backdrop-blur-lg border-slate-700/50 rounded-2xl overflow-hidden mx-auto sm:mx-0 mb-4 sm:mb-0 max-h-[90vh]"
               onClick={(e) => e.stopPropagation()}
             >
-              <CardHeader className="border-b border-slate-700/50 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 py-3 px-4">
+              <CardHeader className="border-b border-slate-700/50 bg-gradient-to-r from-slate-900 to-slate-800 py-3 px-4">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
                     <div className="relative flex items-center justify-center w-6 h-6 rounded-full bg-violet-600/20">
@@ -704,8 +674,8 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
               <CardContent className="p-0">
                 {showWelcomeScreen ? (
                   <div className="p-4 space-y-6">
-                    <div className="bg-gradient-to-br from-slate-800/80 to-slate-800/40 rounded-xl p-4 border border-slate-700/30 backdrop-blur-sm">
-                      <h3 className="text-lg font-medium text-white mb-4 text-center">
+                    <div className="bg-slate-800 rounded-xl p-5 border border-slate-700 shadow-md">
+                      <h3 className="text-lg font-medium text-white mb-5 text-center">
                         {selectedLanguage === "indonesian"
                           ? "Selamat Datang di Asisten AI Matthews"
                           : "Welcome to Matthews' AI Assistant"}
@@ -724,10 +694,16 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                             <Input
                               id="name"
                               value={nameInput}
-                              onChange={(e) => setNameInput(e.target.value)}
+                              onChange={(e) => setNameInput(e.target.value.slice(0, 15))}
                               placeholder={selectedLanguage === "indonesian" ? "Masukkan nama Anda" : "Enter your name"}
-                              className="pl-9 bg-slate-800/60 border-slate-700/50 text-white placeholder:text-slate-500 focus:ring-violet-500 focus:border-violet-500"
+                              className="pl-9 bg-slate-800 text-white placeholder:text-slate-500 focus:ring-violet-500 focus:border-violet-500 border border-slate-700"
                             />
+                          </div>
+                          <div className="mt-1 text-xs text-slate-400 flex justify-between">
+                            <span>
+                              {selectedLanguage === "indonesian" ? "Maks. 15 karakter" : "Max. 15 characters"}
+                            </span>
+                            <span>{nameInput.length}/15</span>
                           </div>
                         </div>
 
@@ -756,6 +732,11 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                               </div>
                             </RadioGroup>
                           </div>
+                          <div className="mt-1 text-xs text-slate-400">
+                            {selectedLanguage === "indonesian"
+                              ? "Pilih bahasa untuk berinteraksi dengan asisten"
+                              : "Choose your preferred language for interaction"}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -763,7 +744,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                     <Button
                       onClick={handleSubmitPreferences}
                       disabled={!nameInput.trim()}
-                      className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/20"
+                      className="w-full bg-violet-600 hover:bg-violet-500 transition-colors duration-200 text-white shadow-md"
                     >
                       {selectedLanguage === "indonesian" ? "Mulai Chat" : "Start Chatting"}
                     </Button>
@@ -777,7 +758,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                     >
                       {messages.length === 0 ? (
                         <div className="space-y-4">
-                          <div className="bg-gradient-to-br from-slate-800/80 to-slate-800/40 rounded-xl p-3 sm:p-4 border border-slate-700/30 backdrop-blur-sm">
+                          <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-slate-700">
                             <p className="text-sm text-slate-200 mb-2 font-medium">
                               {userPreferences?.language === "indonesian"
                                 ? `👋 Hai ${userPreferences.name}! Saya asisten AI Matthews. Saya dapat membantu Anda mempelajari lebih lanjut tentang:`
@@ -828,9 +809,9 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                             {getSuggestedQuestions().map((question, index) => (
                               <motion.div
                                 key={question}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1, duration: 0.3 }}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.2 }}
                               >
                                 <Button
                                   variant="secondary"
@@ -848,16 +829,16 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                           {messages.map((message, index) => (
                             <motion.div
                               key={index}
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.3 }}
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.2 }}
                               className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
                             >
                               <div
                                 className={`rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 max-w-[85%] ${
                                   message.type === "user"
-                                    ? "bg-gradient-to-r from-violet-600 to-indigo-500 text-white shadow-md"
-                                    : "bg-gradient-to-br from-slate-800/90 to-slate-800/60 text-slate-200 border border-slate-700/30 shadow-md backdrop-blur-sm"
+                                    ? "bg-violet-600 text-white shadow-md"
+                                    : "bg-slate-800 text-slate-200 border border-slate-700 shadow-md"
                                 }`}
                               >
                                 {message.type === "bot" ? (
@@ -902,7 +883,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                           placeholder={
                             userPreferences?.language === "indonesian" ? "Ketik pesan Anda..." : "Type your message..."
                           }
-                          className="flex-1 bg-slate-800/60 text-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 border border-slate-700/30 placeholder:text-slate-500 backdrop-blur-sm transition-all duration-200"
+                          className="flex-1 bg-slate-800 text-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 border border-slate-700 placeholder:text-slate-500 shadow-inner"
                           disabled={isLoading}
                           onKeyDown={(e) => {
                             if (e.key === "Enter" && !e.shiftKey && inputValue.trim()) {
@@ -914,7 +895,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                         <Button
                           type="submit"
                           size="icon"
-                          className="rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 flex-shrink-0 h-10 w-10 shadow-md hover:shadow-lg hover:shadow-violet-500/20"
+                          className="rounded-xl bg-violet-600 hover:bg-violet-500 transition-colors duration-200 flex-shrink-0 h-10 w-10 shadow-md"
                           disabled={isLoading || !inputValue.trim()}
                         >
                           {isLoading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}

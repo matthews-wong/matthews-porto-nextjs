@@ -32,11 +32,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Matthews Wong Portfolio - Software Engineer",
+    default: "Matthews Wong - Software Engineer",
     template: "%s | Matthews Wong Portfolio",
   },
   description:
-    "Matthews Wong - Innovative Software Engineer and IT student from Indonesia specializing in Automation, Web Development, CI/CD, and infrastructure automation. Part of Anak IT Indonesia community. Explore cutting-edge tech solutions and projects.",
+    "Matthews Wong - Innovative Software Engineer and IT student from Indonesia specializing in Automation, Web Development, CI/CD, and infrastructure automation. Explore cutting-edge tech solutions and projects.",
   applicationName: "Matthews Wong Portfolio",
   authors: [{ name: "Matthews Wong", url: BASE_URL }],
   generator: "Next.js",
@@ -86,10 +86,10 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "id_ID", // Changed to Indonesian locale
-    title: "Matthews Wong - Software Engineer & IT Student Indonesia",
+    locale: "id_ID", 
+    title: "Matthews Wong - Software Engineer",
     description:
-      "Innovative portfolio showcasing Web Applications, DevOps, and software engineering expertise from an Anak IT Indonesia professional.",
+      "Innovative portfolio showcasing Web Applications, DevOps, and software engineering expertise.",
     url: BASE_URL,
     siteName: "Matthews Wong Portfolio",
     images: [
@@ -97,15 +97,15 @@ export const metadata: Metadata = {
         url: `${BASE_URL}/og-image.svg`,
         width: 1200,
         height: 630,
-        alt: "Matthews Wong Portfolio - Anak IT Indonesia",
+        alt: "Matthews Wong - Software Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Matthews Wong - DevOps & Software Engineering Indonesia",
+    title: "Matthews Wong - DevOps & Software Engineering",
     description:
-      "Innovative Software engineer and IT student from Indonesia. Anak IT Indonesia professional specializing in modern web technologies.",
+      "Innovative Software engineer and IT student from Indonesia.",
     images: [`${BASE_URL}/og-image.svg`],
   },
   icons: {
@@ -140,7 +140,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <meta name="google-site-verification" content="your-verification-code" />
         <meta name="geo.region" content="ID" />
         <meta name="geo.placename" content="Indonesia" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
