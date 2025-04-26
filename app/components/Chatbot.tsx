@@ -355,6 +355,30 @@ export default function Chatbot() {
     }
   }, [isOpen])
 
+  // Load user preferences from localStorage on component mount
+  useEffect(() => {
+    const savedPreferences = localStorage.getItem("userPreferences")
+    if (savedPreferences) {
+      try {
+        const parsedPreferences = JSON.parse(savedPreferences)
+        setUserPreferences(parsedPreferences)
+        setShowWelcomeScreen(false)
+
+        // Add initial greeting message if there are no messages yet
+        if (messages.length === 0) {
+          const greeting =
+            parsedPreferences.language === "indonesian"
+              ? `Halo **${parsedPreferences.name}**! Saya asisten AI Matthews. Apa yang ingin Anda ketahui tentang Matthews hari ini?`
+              : `Hello **${parsedPreferences.name}**! I'm Matthews' AI assistant. What would you like to know about Matthews today?`
+
+          setMessages([{ type: "bot", content: formatResponse(greeting) }])
+        }
+      } catch (error) {
+        console.error("Error parsing saved preferences:", error)
+      }
+    }
+  }, [])
+
   // Fix the formatResponse function to handle bold text spacing better
   const formatResponse = (response: string) => {
     // Enhanced text formatting for better chat appearance with responsive fixes
@@ -524,26 +548,33 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
 
   const handleSubmitPreferences = () => {
     if (nameInput.trim()) {
-      setUserPreferences({
+      const newPreferences = {
         name: nameInput,
         language: selectedLanguage,
-      })
+      }
+
+      // Save to state
+      setUserPreferences(newPreferences)
+
+      // Save to localStorage
+      localStorage.setItem("userPreferences", JSON.stringify(newPreferences))
+
       setShowWelcomeScreen(false)
 
       // Add initial greeting message
       const greeting =
         selectedLanguage === "indonesian"
-          ? `Halo ${nameInput}! Saya asisten AI Matthews. Apa yang ingin Anda ketahui tentang Matthews hari ini?`
-          : `Hello ${nameInput}! I'm Matthews' AI assistant. What would you like to know about Matthews today?`
+          ? `Halo **${nameInput}**! Saya asisten AI Matthews. Apa yang ingin Anda ketahui tentang Matthews hari ini?`
+          : `Hello **${nameInput}**! I'm Matthews' AI assistant. What would you like to know about Matthews today?`
 
-      setMessages([{ type: "bot", content: greeting }])
+      setMessages([{ type: "bot", content: formatResponse(greeting) }])
     }
   }
 
   const getWelcomeText = () => {
     return userPreferences?.language === "indonesian"
-      ? `👋 Hai ${userPreferences.name}! Silakan tanyakan apa saja tentang Matthews.`
-      : `👋 Hi ${userPreferences.name}! Feel free to ask me anything about Matthews.`
+      ? `👋 Hai **${userPreferences.name}**! Silakan tanyakan apa saja tentang Matthews.`
+      : `👋 Hi **${userPreferences.name}**! Feel free to ask me anything about Matthews.`
   }
 
   const getBubbleTitle = () => {
@@ -586,9 +617,14 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                   </div>
                   <p className="text-sm font-medium text-violet-100 truncate">{getBubbleTitle()}</p>
                 </div>
-                <p className="text-xs text-violet-50 break-words">
-                  {userPreferences ? getWelcomeText() : "👋 Hi there! Click to get started."}
-                </p>
+                {userPreferences ? (
+                  <div
+                    className="text-xs text-violet-50 break-words"
+                    dangerouslySetInnerHTML={{ __html: formatResponse(getWelcomeText()) }}
+                  />
+                ) : (
+                  <p className="text-xs text-violet-50 break-words">👋 Hi there! Click to get started.</p>
+                )}
               </div>
               {/* Improved Close Button */}
               <button
@@ -760,9 +796,23 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                         <div className="space-y-4">
                           <div className="bg-slate-800 rounded-xl p-3 sm:p-4 border border-slate-700">
                             <p className="text-sm text-slate-200 mb-2 font-medium">
-                              {userPreferences?.language === "indonesian"
-                                ? `👋 Hai ${userPreferences.name}! Saya asisten AI Matthews. Saya dapat membantu Anda mempelajari lebih lanjut tentang:`
-                                : `👋 Hi ${userPreferences.name}! I'm Matthews' AI assistant. I can help you learn more about:`}
+                              {userPreferences?.language === "indonesian" ? (
+                                <span
+                                  dangerouslySetInnerHTML={{
+                                    __html: formatResponse(
+                                      `👋 Hai **${userPreferences.name}**! Saya asisten AI Matthews. Saya dapat membantu Anda mempelajari lebih lanjut tentang:`,
+                                    ),
+                                  }}
+                                />
+                              ) : (
+                                <span
+                                  dangerouslySetInnerHTML={{
+                                    __html: formatResponse(
+                                      `👋 Hi **${userPreferences.name}**! I'm Matthews' AI assistant. I can help you learn more about:`,
+                                    ),
+                                  }}
+                                />
+                              )}
                             </p>
                             <ul className="space-y-1.5 ml-4 text-xs text-slate-300">
                               <li className="flex items-start gap-1.5">
