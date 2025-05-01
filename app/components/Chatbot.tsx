@@ -268,12 +268,25 @@ Commsult Indonesia adalah mitra strategis dari **Commsult AG**, perusahaan IT da
 - Terbuka untuk kolaborasi dan peluang profesional.
 `
 
-const suggestedQuestionsEnglish = [
+// Initial suggested questions for the home screen
+const initialSuggestedQuestionsEnglish = [
   "What is Matthews' current role?",
   "What are Matthews' main skills?",
   "What projects has Matthews worked on?",
   "What certifications does Matthews have?",
   "How can I contact Matthews?",
+]
+
+const initialSuggestedQuestionsIndonesian = [
+  "Apa pekerjaan Matthews saat ini?",
+  "Apa keterampilan utama Matthews?",
+  "Proyek apa yang telah dikerjakan Matthews?",
+  "Sertifikasi apa yang dimiliki Matthews?",
+  "Bagaimana cara menghubungi Matthews?",
+]
+
+// Random follow-up questions for after responses
+const randomFollowUpQuestionsEnglish = [
   "Tell me about Matthews' education",
   "What experience does Matthews have in DevOps?",
   "What testing frameworks has Matthews used?",
@@ -289,14 +302,14 @@ const suggestedQuestionsEnglish = [
   "What mobile development experience does Matthews have?",
   "What AI certifications does Matthews have?",
   "What leadership roles has Matthews held?",
+  "How does Matthews stay updated with tech trends?",
+  "What are Matthews' career goals?",
+  "Has Matthews won any awards?",
+  "What is Matthews' approach to problem-solving?",
+  "What tools does Matthews use for DevOps?",
 ]
 
-const suggestedQuestionsIndonesian = [
-  "Apa pekerjaan Matthews saat ini?",
-  "Apa keterampilan utama Matthews?",
-  "Proyek apa yang telah dikerjakan Matthews?",
-  "Sertifikasi apa yang dimiliki Matthews?",
-  "Bagaimana cara menghubungi Matthews?",
+const randomFollowUpQuestionsIndonesian = [
   "Ceritakan tentang pendidikan Matthews",
   "Pengalaman apa yang dimiliki Matthews di DevOps?",
   "Framework testing apa yang pernah digunakan Matthews?",
@@ -312,13 +325,25 @@ const suggestedQuestionsIndonesian = [
   "Pengalaman pengembangan mobile apa yang dimiliki Matthews?",
   "Sertifikasi AI apa yang dimiliki Matthews?",
   "Peran kepemimpinan apa yang pernah dipegang Matthews?",
+  "Bagaimana Matthews mengikuti perkembangan teknologi terbaru?",
+  "Apa tujuan karir Matthews?",
+  "Apakah Matthews pernah memenangkan penghargaan?",
+  "Bagaimana pendekatan Matthews dalam memecahkan masalah?",
+  "Alat apa yang digunakan Matthews untuk DevOps?",
 ]
 
-// Add this function to get a random suggestion
+// Update the getRandomSuggestion function to use the follow-up questions
 const getRandomSuggestion = (language: "english" | "indonesian") => {
-  const questions = language === "english" ? suggestedQuestionsEnglish : suggestedQuestionsIndonesian
+  const questions = language === "english" ? randomFollowUpQuestionsEnglish : randomFollowUpQuestionsIndonesian
   const randomIndex = Math.floor(Math.random() * questions.length)
   return questions[randomIndex]
+}
+
+// Update the getSuggestedQuestions function to use the initial questions
+const getSuggestedQuestions = () => {
+  return userPreferences?.language === "indonesian"
+    ? initialSuggestedQuestionsIndonesian
+    : initialSuggestedQuestionsEnglish
 }
 
 const groq = new Groq({
@@ -660,10 +685,6 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
     return userPreferences?.language === "indonesian" ? "Asisten AI Matthews" : "Matthews' AI Assistant"
   }
 
-  const getSuggestedQuestions = () => {
-    return userPreferences?.language === "indonesian" ? suggestedQuestionsIndonesian : suggestedQuestionsEnglish
-  }
-
   const toggleLanguage = () => {
     const newLanguage = selectedLanguage === "english" ? "indonesian" : "english"
     setSelectedLanguage(newLanguage)
@@ -776,8 +797,8 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                     </div>
                     <span className="truncate">
                       {userPreferences?.language === "indonesian"
-                        ? "Matthews' AI"
-                        : "Matthews' AI"}
+                        ? "Matthews AI Chat"
+                        : "Matthews AI Chat"}
                     </span>
                   </CardTitle>
                   <div className="flex items-center gap-2">
