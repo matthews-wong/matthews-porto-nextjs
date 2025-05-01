@@ -339,11 +339,9 @@ const getRandomSuggestion = (language: "english" | "indonesian") => {
   return questions[randomIndex]
 }
 
-// Update the getSuggestedQuestions function to use the initial questions
-const getSuggestedQuestions = () => {
-  return userPreferences?.language === "indonesian"
-    ? initialSuggestedQuestionsIndonesian
-    : initialSuggestedQuestionsEnglish
+// Replace the getSuggestedQuestions function (around line 343-347) with this version that accepts a parameter:
+const getSuggestedQuestions = (language: "english" | "indonesian") => {
+  return language === "indonesian" ? initialSuggestedQuestionsIndonesian : initialSuggestedQuestionsEnglish
 }
 
 const groq = new Groq({
@@ -983,7 +981,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                               : "You can ask me anything, or choose from these questions:"}
                           </p>
                           <div className="space-y-2">
-                            {getSuggestedQuestions().map((question, index) => (
+                            {getSuggestedQuestions(userPreferences?.language || "english").map((question, index) => (
                               <motion.div
                                 key={question}
                                 initial={{ opacity: 0 }}
