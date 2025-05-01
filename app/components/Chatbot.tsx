@@ -2,7 +2,20 @@
 
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { MessageCircle, X, Send, Loader2, Trash2, Sparkles, Globe, User } from "lucide-react"
+import {
+  MessageCircle,
+  X,
+  Send,
+  Loader2,
+  Trash2,
+  Sparkles,
+  Globe,
+  User,
+  RefreshCw,
+  HelpCircle,
+  Languages,
+  Volume2,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -10,6 +23,17 @@ import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import Groq from "groq-sdk"
+
+// Add this to your global CSS or as a style tag
+const noScrollbarStyles = `
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+`
 
 interface Message {
   type: "user" | "bot"
@@ -261,6 +285,21 @@ const suggestedQuestionsIndonesian = [
   "Bagaimana cara menghubungi Matthews?",
 ]
 
+// Quick responses for interactive buttons
+const quickResponsesEnglish = [
+  { text: "Tell me about your skills", icon: <Sparkles size={14} /> },
+  { text: "How can I contact you?", icon: <MessageCircle size={14} /> },
+  { text: "What's your education?", icon: <HelpCircle size={14} /> },
+  { text: "Recent projects?", icon: <RefreshCw size={14} /> },
+]
+
+const quickResponsesIndonesian = [
+  { text: "Ceritakan tentang keahlianmu", icon: <Sparkles size={14} /> },
+  { text: "Bagaimana cara menghubungimu?", icon: <MessageCircle size={14} /> },
+  { text: "Apa pendidikanmu?", icon: <HelpCircle size={14} /> },
+  { text: "Proyek terbaru?", icon: <RefreshCw size={14} /> },
+]
+
 const groq = new Groq({
   apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,
   dangerouslyAllowBrowser: true,
@@ -278,6 +317,8 @@ export default function Chatbot() {
   const [showWelcomeScreen, setShowWelcomeScreen] = useState(true)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const chatWindowRef = useRef<HTMLDivElement>(null)
+  const [showQuickResponses, setShowQuickResponses] = useState(false)
+  const [isSpeaking, setIsSpeaking] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -379,7 +420,6 @@ export default function Chatbot() {
     }
   }, [])
 
-  // Fix the formatResponse function to handle bold text spacing better
   const formatResponse = (response: string) => {
     // Enhanced text formatting for better chat appearance with responsive fixes
 
@@ -389,7 +429,7 @@ export default function Chatbot() {
         .toLowerCase()
         .trim()
         .replace(/[^\w]+/g, "-")
-      return `<h3 id="${id}" class="text-lg font-bold text-violet-300 mt-4 mb-1 scroll-mt-4">${title}</h3>`
+      return `<h3 id="${id}" class="text-lg font-bold text-violet-300 mt-4 mb-1 scroll-mt-4 break-words">${title}</h3>`
     })
 
     // Handle code blocks \`\`\`code\`\`\` with responsive overflow
@@ -407,19 +447,19 @@ export default function Chatbot() {
     // Handle Bullet points with responsive design
     response = response.replace(
       /(?:^|\n)[-+]\s+(.*?)(?=\n|$)/g,
-      '<div class="flex items-start my-1 gap-1.5"><span class="text-violet-400 flex-shrink-0">•</span><span class="flex-1 break-words">$1</span></div>',
+      '<div class="flex items-start my-1 gap-1.5 max-w-full"><span class="text-violet-400 flex-shrink-0">•</span><span class="flex-1 break-words">$1</span></div>',
     )
 
     // Handle Numbered lists with responsive design
     response = response.replace(
       /(?:^|\n)(\d+)\.\s+(.*?)(?=\n|$)/g,
-      '<div class="flex items-start my-1 gap-1.5"><span class="text-violet-400 font-medium flex-shrink-0">$1.</span><span class="flex-1 break-words">$2</span></div>',
+      '<div class="flex items-start my-1 gap-1.5 max-w-full"><span class="text-violet-400 font-medium flex-shrink-0">$1.</span><span class="flex-1 break-words">$2</span></div>',
     )
 
-    // Handle Bold (**text**) with responsive text - IMPROVED SPACING
+    // Handle Bold (**text**) with improved typography
     response = response.replace(
       /\*\*(.*?)\*\*/g,
-      '<span class="font-bold text-violet-300 break-words inline-block">$1</span>',
+      '<span class="font-bold text-violet-300 break-words inline-block tracking-wide text-sm">$1</span>',
     )
 
     // Handle Italic (*text* or _text_) with responsive text
@@ -488,6 +528,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
     setMessages((prev) => [...prev, { type: "user", content: message }])
     setInputValue("")
     setIsLoading(true)
+    setShowQuickResponses(false)
 
     try {
       const chatCompletion = await groq.chat.completions.create({
@@ -540,10 +581,16 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
     }
 
     setIsLoading(false)
+
+    // Show quick responses after bot responds
+    setTimeout(() => {
+      setShowQuickResponses(true)
+    }, 500)
   }
 
   const handleNewChat = () => {
     setMessages([])
+    setShowQuickResponses(true)
   }
 
   const handleSubmitPreferences = () => {
@@ -568,13 +615,18 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
           : `Hello **${nameInput}**! I'm Matthews' AI assistant. What would you like to know about Matthews today?`
 
       setMessages([{ type: "bot", content: formatResponse(greeting) }])
+
+      // Show quick responses after greeting
+      setTimeout(() => {
+        setShowQuickResponses(true)
+      }, 500)
     }
   }
 
   const getWelcomeText = () => {
     return userPreferences?.language === "indonesian"
-      ? `👋 Hai **${userPreferences.name}**! Silakan tanyakan apa saja tentang Matthews.`
-      : `👋 Hi **${userPreferences.name}**! Feel free to ask me anything about Matthews.`
+      ? `👋 Hai <span class="font-bold text-white text-sm bg-violet-500/30 px-1.5 py-0.5 rounded-md">${userPreferences.name}</span>! Silakan tanyakan apa saja tentang Matthews.`
+      : `👋 Hi <span class="font-bold text-white text-sm bg-violet-500/30 px-1.5 py-0.5 rounded-md">${userPreferences.name}</span>! Feel free to ask me anything about Matthews.`
   }
 
   const getBubbleTitle = () => {
@@ -585,10 +637,30 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
     return userPreferences?.language === "indonesian" ? suggestedQuestionsIndonesian : suggestedQuestionsEnglish
   }
 
-  const getWelcomeScreenTitle = () => {
-    return userPreferences?.language === "indonesian"
-      ? "Selamat datang di Asisten AI Matthews"
-      : "Welcome to Matthews' AI Assistant"
+  const getQuickResponses = () => {
+    return userPreferences?.language === "indonesian" ? quickResponsesIndonesian : quickResponsesEnglish
+  }
+
+  const toggleLanguage = () => {
+    const newLanguage = selectedLanguage === "english" ? "indonesian" : "english"
+    setSelectedLanguage(newLanguage)
+
+    if (userPreferences) {
+      const updatedPreferences = {
+        ...userPreferences,
+        language: newLanguage,
+      }
+      setUserPreferences(updatedPreferences)
+      localStorage.setItem("userPreferences", JSON.stringify(updatedPreferences))
+
+      // Add language change notification
+      const notification =
+        newLanguage === "indonesian"
+          ? `<span class="break-words">Bahasa diubah ke Bahasa Indonesia.</span>`
+          : `<span class="break-words">Language changed to English.</span>`
+
+      setMessages((prev) => [...prev, { type: "bot", content: notification }])
+    }
   }
 
   return (
@@ -620,7 +692,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                 {userPreferences ? (
                   <div
                     className="text-xs text-violet-50 break-words"
-                    dangerouslySetInnerHTML={{ __html: formatResponse(getWelcomeText()) }}
+                    dangerouslySetInnerHTML={{ __html: getWelcomeText() }}
                   />
                 ) : (
                   <p className="text-xs text-violet-50 break-words">👋 Hi there! Click to get started.</p>
@@ -669,7 +741,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
           >
             <Card
               ref={chatWindowRef}
-              className="w-full sm:w-[350px] md:w-[400px] shadow-2xl bg-slate-900/95 backdrop-blur-lg border-slate-700/50 rounded-2xl overflow-hidden mx-auto sm:mx-0 mb-4 sm:mb-0 max-h-[90vh]"
+              className="w-full sm:w-[350px] md:w-[400px] shadow-2xl bg-slate-900/95 backdrop-blur-lg border-slate-700/50 rounded-2xl overflow-hidden mx-auto sm:mx-0 mb-4 sm:mb-0 max-h-[90vh] transition-all duration-300"
               onClick={(e) => e.stopPropagation()}
             >
               <CardHeader className="border-b border-slate-700/50 bg-gradient-to-r from-slate-900 to-slate-800 py-3 px-4">
@@ -681,26 +753,43 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                     </div>
                     <span className="truncate">
                       {userPreferences?.language === "indonesian"
-                        ? "Chat dengan AI Matthews"
-                        : "Chat with Matthews' AI"}
+                        ? "Matthews AI Chat"
+                        : "Matthews AI Chat"}
                     </span>
                   </CardTitle>
                   <div className="flex items-center gap-2">
+                    {/* Language toggle button */}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={toggleLanguage}
+                      className="h-8 w-8 rounded-full hover:bg-slate-700/70 text-slate-300 hover:text-white transition-colors flex-shrink-0"
+                      aria-label={selectedLanguage === "english" ? "Switch to Indonesian" : "Switch to English"}
+                      title={selectedLanguage === "english" ? "Switch to Indonesian" : "Switch to English"}
+                    >
+                      <Languages size={16} />
+                    </Button>
+
+                    {/* New chat button */}
                     <Button
                       variant="ghost"
                       size="icon"
                       onClick={handleNewChat}
                       className="h-8 w-8 rounded-full hover:bg-slate-700/70 text-slate-300 hover:text-white transition-colors flex-shrink-0"
                       aria-label="New Chat"
+                      title="New Chat"
                     >
                       <Trash2 size={16} />
                     </Button>
+
+                    {/* Close button */}
                     <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => setIsOpen(false)}
                       className="h-8 w-8 rounded-full hover:bg-slate-700/70 text-slate-300 hover:text-white transition-colors flex-shrink-0"
                       aria-label="Close Chat"
+                      title="Close Chat"
                     >
                       <X size={16} />
                     </Button>
@@ -730,16 +819,14 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                             <Input
                               id="name"
                               value={nameInput}
-                              onChange={(e) => setNameInput(e.target.value.slice(0, 15))}
+                              onChange={(e) => setNameInput(e.target.value.slice(0, 8))}
                               placeholder={selectedLanguage === "indonesian" ? "Masukkan nama Anda" : "Enter your name"}
                               className="pl-9 bg-slate-800 text-white placeholder:text-slate-500 focus:ring-violet-500 focus:border-violet-500 border border-slate-700"
                             />
                           </div>
                           <div className="mt-1 text-xs text-slate-400 flex justify-between">
-                            <span>
-                              {selectedLanguage === "indonesian" ? "Maks. 15 karakter" : "Max. 15 characters"}
-                            </span>
-                            <span>{nameInput.length}/15</span>
+                            <span>{selectedLanguage === "indonesian" ? "Maks. 8 karakter" : "Max. 8 characters"}</span>
+                            <span>{nameInput.length}/8</span>
                           </div>
                         </div>
 
@@ -799,17 +886,13 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                               {userPreferences?.language === "indonesian" ? (
                                 <span
                                   dangerouslySetInnerHTML={{
-                                    __html: formatResponse(
-                                      `👋 Hai **${userPreferences.name}**! Saya asisten AI Matthews. Saya dapat membantu Anda mempelajari lebih lanjut tentang:`,
-                                    ),
+                                    __html: `👋 Hai <span class="font-bold text-white text-sm bg-violet-500/30 px-1.5 py-0.5 rounded-md">${userPreferences.name}</span>! Saya asisten AI Matthews. Saya dapat membantu Anda mempelajari lebih lanjut tentang:`,
                                   }}
                                 />
                               ) : (
                                 <span
                                   dangerouslySetInnerHTML={{
-                                    __html: formatResponse(
-                                      `👋 Hi **${userPreferences.name}**! I'm Matthews' AI assistant. I can help you learn more about:`,
-                                    ),
+                                    __html: `👋 Hi <span class="font-bold text-white text-sm bg-violet-500/30 px-1.5 py-0.5 rounded-md">${userPreferences.name}</span>! I'm Matthews' AI assistant. I can help you learn more about:`,
                                   }}
                                 />
                               )}
@@ -861,7 +944,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                                 key={question}
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                transition={{ duration: 0.2 }}
+                                transition={{ duration: 0.2, delay: index * 0.1 }}
                               >
                                 <Button
                                   variant="secondary"
@@ -885,7 +968,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                               className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
                             >
                               <div
-                                className={`rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 max-w-[85%] ${
+                                className={`rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 max-w-[85%] overflow-hidden ${
                                   message.type === "user"
                                     ? "bg-violet-600 text-white shadow-md"
                                     : "bg-slate-800 text-slate-200 border border-slate-700 shadow-md"
@@ -893,7 +976,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                               >
                                 {message.type === "bot" ? (
                                   <div
-                                    className="text-xs sm:text-sm leading-relaxed prose prose-invert prose-sm max-w-none break-words space-y-1"
+                                    className="text-xs sm:text-sm leading-relaxed prose prose-invert prose-sm max-w-none break-words space-y-1 overflow-hidden"
                                     dangerouslySetInnerHTML={{ __html: message.content }}
                                   />
                                 ) : (
@@ -918,6 +1001,82 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                         </div>
                       )}
                     </ScrollArea>
+
+                    {/* Quick response buttons */}
+                    {showQuickResponses && messages.length > 0 && (
+                      <div className="px-3 py-2 border-t border-slate-700/50 bg-slate-800/50">
+                        <div className="flex gap-2 pb-1 overflow-x-auto scrollbar-hide no-scrollbar">
+                          {getQuickResponses().map((item, index) => (
+                            <motion.div
+                              key={index}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.2, delay: index * 0.1 }}
+                            >
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleSend(item.text)}
+                                className="whitespace-nowrap flex items-center gap-1.5 bg-slate-800 border-slate-700 hover:bg-slate-700 text-xs flex-shrink-0"
+                              >
+                                {item.icon}
+                                {item.text}
+                              </Button>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="border-t border-slate-700/50 bg-slate-800/30 px-3 py-2 flex justify-between">
+                      <div className="flex gap-1.5">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8 rounded-full bg-slate-800 border-slate-700 hover:bg-slate-700"
+                          onClick={handleNewChat}
+                          title={userPreferences?.language === "indonesian" ? "Chat Baru" : "New Chat"}
+                        >
+                          <RefreshCw size={14} />
+                        </Button>
+
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className={`h-8 w-8 rounded-full bg-slate-800 border-slate-700 hover:bg-slate-700 ${isSpeaking ? "text-violet-400" : ""}`}
+                          onClick={() => {
+                            if (isSpeaking) {
+                              window.speechSynthesis.cancel()
+                              setIsSpeaking(false)
+                            } else {
+                              // Text-to-speech functionality
+                              const lastBotMessage = [...messages].reverse().find((m) => m.type === "bot")?.content
+                              if (lastBotMessage) {
+                                // Strip HTML tags for speech
+                                const textOnly = lastBotMessage.replace(/<[^>]*>/g, "")
+                                const speech = new SpeechSynthesisUtterance(textOnly)
+                                speech.lang = userPreferences?.language === "indonesian" ? "id-ID" : "en-US"
+                                speech.onend = () => setIsSpeaking(false)
+                                window.speechSynthesis.speak(speech)
+                                setIsSpeaking(true)
+                              }
+                            }
+                          }}
+                          title={
+                            userPreferences?.language === "indonesian"
+                              ? isSpeaking
+                                ? "Hentikan Suara"
+                                : "Baca Pesan"
+                              : isSpeaking
+                                ? "Stop Reading"
+                                : "Read Message"
+                          }
+                        >
+                          {isSpeaking ? <X size={14} /> : <Volume2 size={14} />}
+                        </Button>
+                      </div>
+                    </div>
+
                     <div className="border-t border-slate-700/50 p-3 sm:p-4 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900">
                       <form
                         onSubmit={(e) => {
@@ -933,7 +1092,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                           placeholder={
                             userPreferences?.language === "indonesian" ? "Ketik pesan Anda..." : "Type your message..."
                           }
-                          className="flex-1 bg-slate-800 text-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 border border-slate-700 placeholder:text-slate-500 shadow-inner"
+                          className="flex-1 bg-slate-800 text-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 border border-slate-700 placeholder:text-slate-500 shadow-inner transition-all duration-200"
                           disabled={isLoading}
                           onKeyDown={(e) => {
                             if (e.key === "Enter" && !e.shiftKey && inputValue.trim()) {
