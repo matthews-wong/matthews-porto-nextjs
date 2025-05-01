@@ -776,8 +776,8 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                     </div>
                     <span className="truncate">
                       {userPreferences?.language === "indonesian"
-                        ? "Chat dengan AI Matthews"
-                        : "Chat with Matthews' AI"}
+                        ? "Matthews' AI"
+                        : "Matthews' AI"}
                     </span>
                   </CardTitle>
                   <div className="flex items-center gap-2">
