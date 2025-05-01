@@ -12,7 +12,6 @@ import {
   Globe,
   User,
   RefreshCw,
-  HelpCircle,
   Languages,
   Volume2,
 } from "lucide-react"
@@ -275,6 +274,21 @@ const suggestedQuestionsEnglish = [
   "What projects has Matthews worked on?",
   "What certifications does Matthews have?",
   "How can I contact Matthews?",
+  "Tell me about Matthews' education",
+  "What experience does Matthews have in DevOps?",
+  "What testing frameworks has Matthews used?",
+  "What is Matthews' background in data science?",
+  "What hackathons has Matthews participated in?",
+  "What clubs is Matthews involved with?",
+  "What is the Observer KPU project?",
+  "Tell me about the STADPASS project",
+  "What security monitoring experience does Matthews have?",
+  "What is Commsult Indonesia?",
+  "What languages does Matthews program in?",
+  "What is Matthews studying at university?",
+  "What mobile development experience does Matthews have?",
+  "What AI certifications does Matthews have?",
+  "What leadership roles has Matthews held?",
 ]
 
 const suggestedQuestionsIndonesian = [
@@ -283,22 +297,29 @@ const suggestedQuestionsIndonesian = [
   "Proyek apa yang telah dikerjakan Matthews?",
   "Sertifikasi apa yang dimiliki Matthews?",
   "Bagaimana cara menghubungi Matthews?",
+  "Ceritakan tentang pendidikan Matthews",
+  "Pengalaman apa yang dimiliki Matthews di DevOps?",
+  "Framework testing apa yang pernah digunakan Matthews?",
+  "Apa latar belakang Matthews dalam data science?",
+  "Hackathon apa yang pernah diikuti Matthews?",
+  "Klub apa yang diikuti Matthews?",
+  "Apa itu proyek Observer KPU?",
+  "Ceritakan tentang proyek STADPASS",
+  "Pengalaman monitoring keamanan apa yang dimiliki Matthews?",
+  "Apa itu Commsult Indonesia?",
+  "Bahasa pemrograman apa yang dikuasai Matthews?",
+  "Apa yang dipelajari Matthews di universitas?",
+  "Pengalaman pengembangan mobile apa yang dimiliki Matthews?",
+  "Sertifikasi AI apa yang dimiliki Matthews?",
+  "Peran kepemimpinan apa yang pernah dipegang Matthews?",
 ]
 
-// Quick responses for interactive buttons
-const quickResponsesEnglish = [
-  { text: "Tell me about your skills", icon: <Sparkles size={14} /> },
-  { text: "How can I contact you?", icon: <MessageCircle size={14} /> },
-  { text: "What's your education?", icon: <HelpCircle size={14} /> },
-  { text: "Recent projects?", icon: <RefreshCw size={14} /> },
-]
-
-const quickResponsesIndonesian = [
-  { text: "Ceritakan tentang keahlianmu", icon: <Sparkles size={14} /> },
-  { text: "Bagaimana cara menghubungimu?", icon: <MessageCircle size={14} /> },
-  { text: "Apa pendidikanmu?", icon: <HelpCircle size={14} /> },
-  { text: "Proyek terbaru?", icon: <RefreshCw size={14} /> },
-]
+// Add this function to get a random suggestion
+const getRandomSuggestion = (language: "english" | "indonesian") => {
+  const questions = language === "english" ? suggestedQuestionsEnglish : suggestedQuestionsIndonesian
+  const randomIndex = Math.floor(Math.random() * questions.length)
+  return questions[randomIndex]
+}
 
 const groq = new Groq({
   apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,
@@ -641,10 +662,6 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
 
   const getSuggestedQuestions = () => {
     return userPreferences?.language === "indonesian" ? suggestedQuestionsIndonesian : suggestedQuestionsEnglish
-  }
-
-  const getQuickResponses = () => {
-    return userPreferences?.language === "indonesian" ? quickResponsesIndonesian : quickResponsesEnglish
   }
 
   const toggleLanguage = () => {
@@ -1008,37 +1025,28 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                       )}
                     </ScrollArea>
 
-                    {/* Quick response buttons */}
+                    {/* Single random suggestion */}
                     {showQuickResponses && messages.length > 0 && (
                       <div className="px-3 py-2 border-t border-slate-700/50 bg-slate-800/50">
-                        <div
-                          className="flex gap-2 pb-1 overflow-x-auto touch-pan-x"
-                          style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.2 }}
                         >
-                          <style jsx global>{`
-                            .scroll-container::-webkit-scrollbar {
-                              display: none;
-                            }
-                          `}</style>
-                          {getQuickResponses().map((item, index) => (
-                            <motion.div
-                              key={index}
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.2, delay: index * 0.1 }}
-                            >
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => handleSend(item.text)}
-                                className="whitespace-nowrap flex items-center gap-1.5 bg-slate-800 border-slate-700 hover:bg-slate-700 text-xs flex-shrink-0"
-                              >
-                                {item.icon}
-                                {item.text}
-                              </Button>
-                            </motion.div>
-                          ))}
-                        </div>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleSend(getRandomSuggestion(userPreferences?.language || "english"))}
+                            className="w-full justify-start text-left h-auto py-2.5 px-3.5 whitespace-normal rounded-lg bg-slate-800/60 hover:bg-slate-700/80 text-slate-200 border border-slate-700/30 shadow-sm transition-all duration-200 hover:translate-x-1 text-xs sm:text-sm backdrop-blur-sm"
+                          >
+                            <Sparkles size={14} className="mr-2 flex-shrink-0" />
+                            <span className="break-words">
+                              {userPreferences?.language === "indonesian"
+                                ? "Tanyakan pertanyaan acak"
+                                : "Ask a random question"}
+                            </span>
+                          </Button>
+                        </motion.div>
                       </div>
                     )}
 
