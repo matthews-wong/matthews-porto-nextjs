@@ -447,29 +447,29 @@ export default function Chatbot() {
     // Handle Bullet points with responsive design
     response = response.replace(
       /(?:^|\n)[-+]\s+(.*?)(?=\n|$)/g,
-      '<div class="flex items-start my-1 gap-1.5 max-w-full"><span class="text-violet-400 flex-shrink-0">•</span><span class="flex-1 break-words">$1</span></div>',
+      '<div class="flex items-start my-1 gap-1.5 max-w-full"><span class="text-violet-400 flex-shrink-0">•</span><span class="flex-1 break-all">$1</span></div>',
     )
 
     // Handle Numbered lists with responsive design
     response = response.replace(
       /(?:^|\n)(\d+)\.\s+(.*?)(?=\n|$)/g,
-      '<div class="flex items-start my-1 gap-1.5 max-w-full"><span class="text-violet-400 font-medium flex-shrink-0">$1.</span><span class="flex-1 break-words">$2</span></div>',
+      '<div class="flex items-start my-1 gap-1.5 max-w-full"><span class="text-violet-400 font-medium flex-shrink-0">$1.</span><span class="flex-1 break-all">$2</span></div>',
     )
 
     // Handle Bold (**text**) with improved typography
     response = response.replace(
       /\*\*(.*?)\*\*/g,
-      '<span class="font-bold text-violet-300 break-words inline-block tracking-wide text-sm">$1</span>',
+      '<span class="font-bold text-violet-300 break-all inline-block tracking-wide text-sm">$1</span>',
     )
 
     // Handle Italic (*text* or _text_) with responsive text
-    response = response.replace(/\*(.*?)\*/g, '<span class="italic text-slate-300 break-words inline-block">$1</span>')
-    response = response.replace(/_(.*?)_/g, '<span class="italic text-slate-300 break-words inline-block">$1</span>')
+    response = response.replace(/\*(.*?)\*/g, '<span class="italic text-slate-300 break-all inline-block">$1</span>')
+    response = response.replace(/_(.*?)_/g, '<span class="italic text-slate-300 break-all inline-block">$1</span>')
 
     // Fix cases where both Bold and Italic are mixed
     response = response.replace(
       /<span[^>]*font-bold[^>]*>\s*<span[^>]*italic[^>]*>(.*?)<\/span>\s*<\/span>/g,
-      '<span class="font-bold italic text-violet-300 break-words inline-block">$1</span>',
+      '<span class="font-bold italic text-violet-300 break-all inline-block">$1</span>',
     )
 
     // Convert newline characters to <br /> with better spacing
@@ -482,13 +482,19 @@ export default function Chatbot() {
     // Handle blockquotes with word-break
     response = response.replace(
       /(?:^|\n)>\s+(.*?)(?=\n|$)/g,
-      '<blockquote class="border-l-4 border-violet-500 pl-3 italic text-slate-400 my-2 break-words">$1</blockquote>',
+      '<blockquote class="border-l-4 border-violet-500 pl-3 italic text-slate-400 my-2 break-all">$1</blockquote>',
+    )
+
+    // Special handling for email addresses and URLs
+    response = response.replace(
+      /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
+      '<span class="text-violet-400 break-all inline-block">$1</span>',
     )
 
     // Ensure URLs are properly handled and don't overflow
     response = response.replace(
       /(https?:\/\/[^\s]+)/g,
-      '<a href="$1" class="text-violet-400 hover:underline break-all" target="_blank" rel="noopener noreferrer">$1</a>',
+      '<a href="$1" class="text-violet-400 hover:underline break-all inline-block" target="_blank" rel="noopener noreferrer">$1</a>',
     )
 
     return response
@@ -753,8 +759,8 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                     </div>
                     <span className="truncate">
                       {userPreferences?.language === "indonesian"
-                        ? "Matthews AI Chat"
-                        : "Matthews AI Chat"}
+                        ? "Chat dengan AI Matthews"
+                        : "Chat with Matthews' AI"}
                     </span>
                   </CardTitle>
                   <div className="flex items-center gap-2">
@@ -968,7 +974,7 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                               className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
                             >
                               <div
-                                className={`rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 max-w-[85%] overflow-hidden ${
+                                className={`rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 max-w-[85%] ${
                                   message.type === "user"
                                     ? "bg-violet-600 text-white shadow-md"
                                     : "bg-slate-800 text-slate-200 border border-slate-700 shadow-md"
@@ -976,11 +982,11 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                               >
                                 {message.type === "bot" ? (
                                   <div
-                                    className="text-xs sm:text-sm leading-relaxed prose prose-invert prose-sm max-w-none break-words space-y-1 overflow-hidden"
+                                    className="text-xs sm:text-sm leading-relaxed prose prose-invert prose-sm max-w-none space-y-1 overflow-hidden"
                                     dangerouslySetInnerHTML={{ __html: message.content }}
                                   />
                                 ) : (
-                                  <p className="text-xs sm:text-sm break-words">{message.content}</p>
+                                  <p className="text-xs sm:text-sm break-all">{message.content}</p>
                                 )}
                               </div>
                             </motion.div>
@@ -1005,7 +1011,15 @@ Provide responses that are *concise*, *informative*, and *friendly*. Use **bold*
                     {/* Quick response buttons */}
                     {showQuickResponses && messages.length > 0 && (
                       <div className="px-3 py-2 border-t border-slate-700/50 bg-slate-800/50">
-                        <div className="flex gap-2 pb-1 overflow-x-auto scrollbar-hide no-scrollbar">
+                        <div
+                          className="flex gap-2 pb-1 overflow-x-auto touch-pan-x"
+                          style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}
+                        >
+                          <style jsx global>{`
+                            .scroll-container::-webkit-scrollbar {
+                              display: none;
+                            }
+                          `}</style>
                           {getQuickResponses().map((item, index) => (
                             <motion.div
                               key={index}
