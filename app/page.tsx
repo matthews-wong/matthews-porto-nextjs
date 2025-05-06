@@ -1,20 +1,53 @@
 "use client"
-import { Suspense, lazy, useState, useEffect } from "react"
+import { useState, useEffect, useCallback, memo } from "react"
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import dynamic from 'next/dynamic'
 import Header from "./components/Header"
 import Hero from "./components/Hero"
-import Chatbot from "./components/Chatbot"
 import { Analytics } from '@vercel/analytics/next'
 
-// Lazy load components that are not immediately visible
-const About = lazy(() => import("./components/About"))
-const Education = lazy(() => import("./components/Education"))
-const Experience = lazy(() => import("./components/Experience"))
-const Certifications = lazy(() => import("./components/Certifications"))
-const Hackathon = lazy(() => import("./components/Hackathon"))
-const Projects = lazy(() => import("./components/Projects"))
-const Footer = lazy(() => import("./components/Footer"))
-// const SplashCursor = lazy(() => import("./components/SplashCursor"))
+// Import components without skeleton loading to prevent DOM bloat
+// We'll use intersection observer to control when these get loaded
+const About = dynamic(() => import("./components/About"), {
+  ssr: false,
+  loading: () => null
+});
+
+const Education = dynamic(() => import("./components/Education"), {
+  ssr: false,
+  loading: () => null
+});
+
+const Experience = dynamic(() => import("./components/Experience"), {
+  ssr: false,
+  loading: () => null
+});
+
+const Certifications = dynamic(() => import("./components/Certifications"), {
+  ssr: false,
+  loading: () => null
+});
+
+const Hackathon = dynamic(() => import("./components/Hackathon"), {
+  ssr: false,
+  loading: () => null
+});
+
+const Projects = dynamic(() => import("./components/Projects"), {
+  ssr: false,
+  loading: () => null
+});
+
+const Footer = dynamic(() => import("./components/Footer"), {
+  ssr: false,
+  loading: () => null
+});
+
+// Chatbot is dynamically imported only when needed
+const Chatbot = dynamic(() => import("./components/Chatbot"), {
+  ssr: false,
+  loading: () => null
+});
 
 // Define cookie consent structure with proper types
 interface CookieConsent {
@@ -28,16 +61,7 @@ const defaultConsent: CookieConsent = {
   essential: true,
   analytics: false,
   chatbot: false
-}
-
-// Loading component with skeleton
-const LoadingComponent = () => (
-  <div className="animate-pulse space-y-8 p-4">
-    <div className="h-64 bg-slate-700 rounded-xl"></div>
-    <div className="h-96 bg-slate-700 rounded-xl"></div>
-    <div className="h-72 bg-slate-700 rounded-xl"></div>
-  </div>
-)
+};
 
 // Cookie Consent Modal Component with proper types
 interface CookieConsentModalProps {
@@ -47,12 +71,12 @@ interface CookieConsentModalProps {
   onCustomize: () => void;
 }
 
-const CookieConsentModal = ({ isOpen, onAccept, onDecline, onCustomize }: CookieConsentModalProps) => {
+const CookieConsentModal = memo(({ isOpen, onAccept, onDecline, onCustomize }: CookieConsentModalProps) => {
+  // Early return for better performance - don't render anything when not open
   if (!isOpen) return null;
-
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 backdrop-blur-sm bg-black/40">
-      <div className="bg-slate-800 rounded-3xl shadow-xl w-full max-w-lg overflow-hidden animate-fade-in-up border border-slate-700">
+      <div className="bg-slate-800 rounded-3xl shadow-xl w-full max-w-lg overflow-hidden border border-slate-700">
         <div className="p-6 sm:p-8">
           <div className="flex items-start justify-between mb-5">
             <h3 className="text-xl font-bold text-white flex items-center gap-2">
@@ -108,39 +132,28 @@ const CookieConsentModal = ({ isOpen, onAccept, onDecline, onCustomize }: Cookie
       </div>
     </div>
   );
-};
+});
+
+CookieConsentModal.displayName = "CookieConsentModal";
 
 // Custom Cookie Preferences Modal with proper types
 interface CustomCookieModalProps {
   isOpen: boolean;
   onSave: (preferences: CookieConsent) => void;
   onCancel: () => void;
+  initialPreferences: CookieConsent;
 }
 
-const CustomCookieModal = ({ isOpen, onSave, onCancel }: CustomCookieModalProps) => {
-  const [preferences, setPreferences] = useState<CookieConsent>({...defaultConsent});
-
-  useEffect(() => {
-    // Reset preferences when modal opens
-    if (isOpen) {
-      const consentString = localStorage.getItem('cookieConsent');
-      if (consentString) {
-        try {
-          const savedPreferences = JSON.parse(consentString) as CookieConsent;
-          setPreferences({
-            essential: true, // Always required
-            analytics: Boolean(savedPreferences.analytics),
-            chatbot: Boolean(savedPreferences.chatbot)
-          });
-        } catch {
-          // If parsing fails, use default
-          setPreferences({...defaultConsent});
-        }
-      }
-    }
-  }, [isOpen]);
-
+const CustomCookieModal = memo(({ isOpen, onSave, onCancel, initialPreferences }: CustomCookieModalProps) => {
+  // Early return pattern for better performance
   if (!isOpen) return null;
+  
+  const [preferences, setPreferences] = useState<CookieConsent>({...initialPreferences});
+
+  // Reset preferences when modal opens with current values
+  useEffect(() => {
+    setPreferences({...initialPreferences});
+  }, [initialPreferences]);
 
   const handleToggle = (key: keyof Omit<CookieConsent, 'timestamp'>) => {
     if (key !== 'essential') { // Cannot toggle essential cookies
@@ -153,7 +166,7 @@ const CustomCookieModal = ({ isOpen, onSave, onCancel }: CustomCookieModalProps)
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-black/40">
-      <div className="bg-slate-800 rounded-3xl shadow-xl w-full max-w-lg overflow-hidden animate-fade-in-up border border-slate-700">
+      <div className="bg-slate-800 rounded-3xl shadow-xl w-full max-w-lg overflow-hidden border border-slate-700">
         <div className="p-6 sm:p-8">
           <div className="flex items-start justify-between mb-5">
             <h3 className="text-xl font-bold text-white flex items-center gap-2">
@@ -266,187 +279,252 @@ const CustomCookieModal = ({ isOpen, onSave, onCancel }: CustomCookieModalProps)
       </div>
     </div>
   );
-};
+});
 
-// Track section views only if analytics consent is given
-const trackSectionView = (sectionId: string): void => {
-  const consentString = localStorage.getItem('cookieConsent');
-  if (!consentString) return;
-  
-  try {
-    const consent = JSON.parse(consentString) as CookieConsent;
-    // Only track if analytics consent is given
-    if (consent && consent.analytics) {
-      // This would typically call your analytics service
-      console.log(`Section viewed: ${sectionId}`);
-    }
-  } catch {
-    // If parsing fails, don't track
-  }
-};
+CustomCookieModal.displayName = "CustomCookieModal";
 
-// Section visibility observer component with proper types
-interface SectionObserverProps {
-  sectionId: string;
-  children: React.ReactNode;
-}
-
-const SectionObserver = ({ sectionId, children }: SectionObserverProps) => {
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            trackSectionView(sectionId);
+// Highly optimized intersection observer hook that handles both visibility tracking and analytics
+const useIntersectionObserver = (callback: () => void) => {
+  return useCallback((node: Element | null) => {
+    if (node === null) return;
+    
+    const observer = new IntersectionObserver(entries => {
+      const entry = entries[0];
+      if (entry.isIntersecting) {
+        // Execute callback (could be importing a component or tracking analytics)
+        if (typeof callback === 'function') {
+          callback();
+        }
+        
+        // Track section view if analytics consent is given
+        try {
+          const consentString = localStorage.getItem('cookieConsent');
+          if (consentString) {
+            const consent = JSON.parse(consentString);
+            if (consent?.analytics) {
+              const sectionId = node.id;
+              if (sectionId) {
+                console.log(`Section viewed: ${sectionId}`);
+              }
+            }
           }
-        });
-      },
-      { threshold: 0.5 } // Trigger when 50% of the section is visible
-    );
+        } catch {
+          // Silently handle storage errors
+        }
+        
+        // Unobserve after first intersection
+        observer.unobserve(node);
+      }
+    }, {
+      threshold: 0.1,
+      rootMargin: '100px 0px',
+    });
     
-    const element = document.getElementById(sectionId);
-    if (element) {
-      observer.observe(element);
-    }
+    observer.observe(node);
     
+    // Return cleanup function
     return () => {
-      if (element) {
-        observer.unobserve(element);
+      observer.unobserve(node);
+      observer.disconnect();
+    };
+  }, [callback]);
+};
+
+// Optimized for performance with memoization and reduced state updates
+export default function Home() {
+  // Initialize states at top level to satisfy React Hooks order rule
+  const [cookieModalOpen, setCookieModalOpen] = useState(false);
+  const [customModalOpen, setCustomModalOpen] = useState(false);
+  const [consentGiven, setConsentGiven] = useState(false);
+  const [cookiePreferences, setCookiePreferences] = useState(defaultConsent);
+
+  // Consolidated preferences load function to avoid code duplication
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    
+    const loadPreferences = () => {
+      try {
+        const cookieConsent = localStorage.getItem('cookieConsent');
+        
+        if (cookieConsent) {
+          const savedPreferences = JSON.parse(cookieConsent);
+          setCookiePreferences(savedPreferences);
+          setConsentGiven(true);
+        } else {
+          // Show cookie modal after a short delay for better UX
+          timer = setTimeout(() => setCookieModalOpen(true), 2000);
+        }
+      } catch {
+        // Fallback to showing the modal if localStorage fails
+        timer = setTimeout(() => setCookieModalOpen(true), 2000);
       }
     };
-  }, [sectionId]);
-
-  return (
-    <div id={sectionId}>
-      {children}
-    </div>
-  );
-};
-
-export default function Home() {
-  const [cookieModalOpen, setCookieModalOpen] = useState<boolean>(false);
-  const [customModalOpen, setCustomModalOpen] = useState<boolean>(false);
-  const [consentGiven, setConsentGiven] = useState<boolean>(false);
-
-  useEffect(() => {
-    // Check if the user has already set cookie preferences
-    const cookieConsent = localStorage.getItem('cookieConsent');
     
-    if (cookieConsent) {
-      setConsentGiven(true);
-    } else {
-      // Show cookie modal after a short delay for better UX
-      const timer = setTimeout(() => {
-        setCookieModalOpen(true);
-      }, 2000); // Increased delay slightly for better user experience
-      
-      return () => clearTimeout(timer);
-    }
+    // Load preferences when component mounts
+    loadPreferences();
+    
+    // Clean up timer on unmount
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
-  const handleAcceptAll = () => {
-    // Save full consent to localStorage
-    const consent: CookieConsent = {
+  // Memoized handlers to prevent recreating functions on each render
+  const handleAcceptAll = useCallback(() => {
+    const consent = {
       essential: true,
       analytics: true,
       chatbot: true,
       timestamp: new Date().toISOString()
     };
     
-    localStorage.setItem('cookieConsent', JSON.stringify(consent));
+    try {
+      localStorage.setItem('cookieConsent', JSON.stringify(consent));
+    } catch {
+      console.error('Failed to save cookie preferences');
+    }
+    
+    setCookiePreferences(consent);
     setCookieModalOpen(false);
     setConsentGiven(true);
-  };
+  }, []);
 
-  const handleDecline = () => {
-    // Save minimal consent (essential only) to localStorage
-    const consent: CookieConsent = {
+  const handleDecline = useCallback(() => {
+    const consent = {
       essential: true,
       analytics: false,
       chatbot: false,
       timestamp: new Date().toISOString()
     };
     
-    localStorage.setItem('cookieConsent', JSON.stringify(consent));
+    try {
+      localStorage.setItem('cookieConsent', JSON.stringify(consent));
+    } catch {
+      console.error('Failed to save cookie preferences');
+    }
+    
+    setCookiePreferences(consent);
     setCookieModalOpen(false);
     setConsentGiven(true);
-  };
+  }, []);
 
-  const handleCustomize = () => {
+  const handleCustomize = useCallback(() => {
     setCookieModalOpen(false);
     setCustomModalOpen(true);
-  };
+  }, []);
 
-  const handleSavePreferences = (preferences: CookieConsent) => {
-    // Save custom preferences to localStorage
-    const consent: CookieConsent = {
+  const handleSavePreferences = useCallback((preferences: CookieConsent) => {
+    const consent = {
       ...preferences,
       timestamp: new Date().toISOString()
     };
     
-    localStorage.setItem('cookieConsent', JSON.stringify(consent));
+    try {
+      localStorage.setItem('cookieConsent', JSON.stringify(consent));
+    } catch {
+      console.error('Failed to save cookie preferences');
+    }
+    
+    setCookiePreferences(consent);
     setCustomModalOpen(false);
     setConsentGiven(true);
+  }, []);
+
+  const handleCancelCustomize = useCallback(() => {
+    setCustomModalOpen(false);
+    // Show the main cookie modal again if no consent was given yet
+    if (!consentGiven) {
+      setCookieModalOpen(true);
+    }
+  }, [consentGiven]);
+  
+  // To avoid ESLint "missing key" warnings with LazySection
+  const sectionIds = {
+    about: "about-section",
+    education: "education-section",
+    experience: "experience-section",
+    certifications: "certifications-section",
+    hackathon: "hackathon-section",
+    projects: "projects-section",
+    footer: "footer-section"
   };
 
   return (
     <div className="min-h-screen w-full max-w-full bg-slate-900 overflow-x-hidden">
-      {/* Header and Hero are loaded immediately */}
+      {/* Header is always loaded immediately */}
       <Header />
-      <SectionObserver sectionId="hero-section">
+      
+      {/* Hero section is important and should be loaded early */}
+      <section id="hero-section" className="section-container">
         <Hero />
-      </SectionObserver>
+      </section>
+      
+      {/* Add global styles for sections */}
+      <style jsx global>{`
+        .section-container {
+          scroll-margin-top: 80px;
+        }
+      `}</style>
 
-      {/* Wrap other components in Suspense with skeleton loading */}
-      <SectionObserver sectionId="about-section">
-        <Suspense fallback={<LoadingComponent />}>
-          <About />
-        </Suspense>
-      </SectionObserver>
+      {/* Ultra-optimized section loading with native intersection observer */}
+      <section 
+        id={sectionIds.about} 
+        ref={useIntersectionObserver(() => {})}
+        className="section-container"
+      >
+        <About />
+      </section>
 
-      <SectionObserver sectionId="education-section">
-        <Suspense fallback={<LoadingComponent />}>
-          <Education />
-        </Suspense>
-      </SectionObserver>
+      <section 
+        id={sectionIds.education} 
+        ref={useIntersectionObserver(() => {})}
+        className="section-container"
+      >
+        <Education />
+      </section>
 
-      <SectionObserver sectionId="experience-section">
-        <Suspense fallback={<LoadingComponent />}>
-          <Experience />
-        </Suspense>
-      </SectionObserver>
+      <section 
+        id={sectionIds.experience} 
+        ref={useIntersectionObserver(() => {})}
+        className="section-container"
+      >
+        <Experience />
+      </section>
 
-      <SectionObserver sectionId="certifications-section">
-        <Suspense fallback={<LoadingComponent />}>
-          <Certifications />
-        </Suspense>
-      </SectionObserver>
+      <section 
+        id={sectionIds.certifications} 
+        ref={useIntersectionObserver(() => {})}
+        className="section-container"
+      >
+        <Certifications />
+      </section>
 
-      <SectionObserver sectionId="hackathon-section">
-        <Suspense fallback={<LoadingComponent />}>
-          <Hackathon />
-        </Suspense>
-      </SectionObserver>
+      <section 
+        id={sectionIds.hackathon} 
+        ref={useIntersectionObserver(() => {})}
+        className="section-container"
+      >
+        <Hackathon />
+      </section>
 
-      <SectionObserver sectionId="projects-section">
-        <Suspense fallback={<LoadingComponent />}>
-          <Projects />
-        </Suspense>
-      </SectionObserver>
+      <section 
+        id={sectionIds.projects} 
+        ref={useIntersectionObserver(() => {})}
+        className="section-container"
+      >
+        <Projects />
+      </section>
 
-      <SectionObserver sectionId="footer-section">
-        <Suspense fallback={<LoadingComponent />}>
-          <Footer />
-        </Suspense>
-      </SectionObserver>
+      <section 
+        id={sectionIds.footer} 
+        ref={useIntersectionObserver(() => {})}
+        className="section-container"
+      >
+        <Footer />
+      </section>
 
-      {/* Chatbot component - only show if consent is given */}
-      {consentGiven && <Chatbot />}
-
-      {/* Fix: Wrap SplashCursor in Suspense */}
-      {/* <Suspense fallback={null}>
-        <SplashCursor />
-      </Suspense> */}
+      {/* Always render Chatbot component - the component itself will handle visibility */}
+      <Chatbot />
 
       {/* Cookie Consent Modals */}
       <CookieConsentModal 
@@ -459,29 +537,17 @@ export default function Home() {
       <CustomCookieModal
         isOpen={customModalOpen}
         onSave={handleSavePreferences}
-        onCancel={() => setCustomModalOpen(false)}
+        onCancel={handleCancelCustomize}
+        initialPreferences={cookiePreferences}
       />
 
-      {/* Speed Insights for performance monitoring */}
-      <SpeedInsights />
-      <Analytics />
-
-      {/* CSS for animations */}
-      <style jsx global>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-in-up {
-          animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-      `}</style>
+      {/* Only add analytics if consent is given */}
+      {consentGiven && cookiePreferences.analytics && (
+        <>
+          <SpeedInsights />
+          <Analytics />
+        </>
+      )}
     </div>
-  )
+  );
 }

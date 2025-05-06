@@ -388,7 +388,7 @@ const projects: Project[] = [
   {
     id: 1,
     title: "STADPASS - Stadium Navigation App",
-    image: "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/STADPASS.jpeg?raw=true",
+    image: "/images/STADPASS Project.jpeg",
     description: "A mobile app designed to help users navigate stadiums using Bluetooth Low Energy (BLE) technology.",
     features: [
       "Real-time indoor navigation using BLE beacons.",
@@ -400,8 +400,8 @@ const projects: Project[] = [
   },
   {
     id: 2,
-    title: "Observer KPU - Election Web App with LLM",
-    image: "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/Observer%20KPU.jpeg?raw=true",
+    title: "Observer KPU - Election Web App with LLM", 
+    image: "/images/Observer KPU Project.jpeg",
     description:
       "An all-in-one election news resource with automated web scraping and an AI chatbot tuned with election and candidate data.",
     features: [

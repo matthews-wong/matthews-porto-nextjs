@@ -20,7 +20,7 @@ interface Experience {
 const experiences: Experience[] = [
   {
     company: "Commsult Indonesia",
-    logo: "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/commsult-logo.png?raw=true",
+    logo: "/images/commsult-logo.png",
     roles: [
       {
         title: "DevOps Engineer",
@@ -47,7 +47,7 @@ const experiences: Experience[] = [
   },
   {
     company: "id/x partners",
-    logo: "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/RQ8J4BVWEN684XEJ32PPLTHR34CSDCQY2WFWBQ7C-6184f0df.png?raw=true",
+    logo: "/images/id:x partners logo.png",
     roles: [
       {
         title: "Project-Based Virtual Intern : Data Scientist id/x partners x Rakamin Academy",
@@ -62,7 +62,7 @@ const experiences: Experience[] = [
   },
   {
     company: "PT Bank Mandiri (Persero) Tbk",
-    logo: "https://github.com/MatthewsWongOfficial/portofolio-images-bucket/blob/main/Bank_Mandiri_logo_2016.svg.png?raw=true",
+    logo: "/images/logo-bank-mandiri.png",
     roles: [
       {
         title: "Project-Based Virtual Intern : Mobile Apps Developer x Rakamin Academy",
