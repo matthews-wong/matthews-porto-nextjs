@@ -47,7 +47,7 @@ const experiences: Experience[] = [
   },
   {
     company: "id/x partners",
-    logo: "/images/id:x partners logo.png",
+    logo: "/images/idx.png",
     roles: [
       {
         title: "Project-Based Virtual Intern : Data Scientist id/x partners x Rakamin Academy",
