@@ -83,6 +83,10 @@ export default function Home() {
         if (sectionName && !visibleSections[sectionName]) {
           newVisible[sectionName] = true
           hasChanges = true
+          // Unobserve immediately after loading to prevent glitches
+          if (observerRef.current) {
+            observerRef.current.unobserve(entry.target)
+          }
         }
       }
     })
@@ -96,14 +100,16 @@ export default function Home() {
   useEffect(() => {
     // Create observer only once
     observerRef.current = new IntersectionObserver(handleIntersection, {
-      rootMargin: '50px',
-      threshold: 0.1
+      rootMargin: '100px', // Increased for better preloading
+      threshold: 0.05 // Lower threshold for earlier detection
     })
 
-    // Observe all sections
+    // Observe only sections that aren't loaded yet
     const sections = document.querySelectorAll('[data-section]')
     sections.forEach(section => {
-      if (observerRef.current) {
+      const sectionId = section.id as SectionName
+      // Only observe sections that aren't already visible
+      if (observerRef.current && !visibleSections[sectionId]) {
         observerRef.current.observe(section)
       }
     })
@@ -117,7 +123,7 @@ export default function Home() {
       }
       document.documentElement.style.scrollBehavior = 'auto'
     }
-  }, [handleIntersection])
+  }, [handleIntersection, visibleSections])
 
   return (
     <div className="min-h-screen bg-slate-900">
