@@ -18,7 +18,7 @@ const Footer = dynamic(() => import("./components/Footer"), { ssr: true })
 const Chatbot = dynamic(() => import("./components/Chatbot"), { ssr: false })
 
 // Define section types for TypeScript
-type SectionName = 'about' | 'education' | 'experience' | 'certifications' | 'hackathon' | 'projects' | 'footer' | 'chatbot'
+type SectionName = 'about' | 'education' | 'experience' | 'certifications' | 'hackathon' | 'projects' | 'contact' | 'chatbot'
 
 type VisibleSections = {
   [K in SectionName]?: boolean
@@ -60,8 +60,12 @@ export default function Home() {
       observerRef.current?.observe(section)
     })
 
+    // Add smooth scroll behavior globally
+    document.documentElement.style.scrollBehavior = 'smooth'
+
     return () => {
       observerRef.current?.disconnect()
+      document.documentElement.style.scrollBehavior = 'auto'
     }
   }, [handleIntersection])
 
@@ -94,12 +98,12 @@ export default function Home() {
         {visibleSections.projects && <Projects />}
       </div>
       
-      <div id="footer" data-section className="min-h-[100px]">
-        {visibleSections.footer && <Footer />}
+      <div id="contact" data-section className="min-h-[100px]">
+        {visibleSections.contact && <Footer />}
       </div>
 
-      {/* Load chatbot when footer is visible */}
-      {visibleSections.footer && <Chatbot />}
+      {/* Load chatbot when contact section is visible */}
+      {visibleSections.contact && <Chatbot />}
       
       <SpeedInsights />
       <Analytics />
