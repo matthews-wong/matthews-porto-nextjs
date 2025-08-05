@@ -477,13 +477,8 @@ const About: React.FC = () => {
                   <div className="flex w-full md:w-auto mt-4 md:mt-0">
                     <a href="#contact" className="relative inline-flex w-full md:w-auto">
                       <div className="absolute opacity-70 -inset-px bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-xl blur-md hover:opacity-100 hover:-inset-1 transition-all"></div>
-                      <button 
-                        onClick={() => {
-                          document.getElementById('contact')?.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                          })
-                        }}
+                    <button 
+                        onClick={() => window.scrollToSection?.('contact')}
                         className="relative inline-flex items-center justify-center w-full px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold text-white bg-slate-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                       >
                         <span className="mr-3">Get in Touch</span>

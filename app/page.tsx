@@ -24,9 +24,53 @@ type VisibleSections = {
   [K in SectionName]?: boolean
 }
 
+// Extend window type for global scroll function
+declare global {
+  interface Window {
+    scrollToSection?: (sectionId: SectionName) => void
+  }
+}
+
 export default function Home() {
-  const [visibleSections, setVisibleSections] = useState<VisibleSections>({})
+  const [visibleSections, setVisibleSections] = useState<VisibleSections>({
+    contact: true // Preload contact section since it's important
+  })
   const observerRef = useRef<IntersectionObserver | null>(null)
+
+  // Optimized scroll to section with preloading
+  const scrollToSection = useCallback((sectionId: SectionName) => {
+    const element = document.getElementById(sectionId)
+    if (!element) return
+
+    // Force load the section immediately if not visible
+    if (!visibleSections[sectionId]) {
+      setVisibleSections(prev => ({ ...prev, [sectionId]: true }))
+      
+      // Wait a frame for React to render, then scroll
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          element.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          })
+        })
+      })
+    } else {
+      // Section already loaded, scroll immediately
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }, [visibleSections])
+
+  // Make scrollToSection available globally for buttons
+  useEffect(() => {
+    window.scrollToSection = scrollToSection
+    return () => {
+      delete window.scrollToSection
+    }
+  }, [scrollToSection])
 
   // Memoized callback to prevent re-creating observer on every render
   const handleIntersection = useCallback((entries: IntersectionObserverEntry[]) => {
@@ -36,8 +80,10 @@ export default function Home() {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const sectionName = entry.target.id as SectionName
-        newVisible[sectionName] = true
-        hasChanges = true
+        if (sectionName && !visibleSections[sectionName]) {
+          newVisible[sectionName] = true
+          hasChanges = true
+        }
       }
     })
 
@@ -45,26 +91,30 @@ export default function Home() {
     if (hasChanges) {
       setVisibleSections(prev => ({ ...prev, ...newVisible }))
     }
-  }, [])
+  }, [visibleSections])
 
   useEffect(() => {
     // Create observer only once
     observerRef.current = new IntersectionObserver(handleIntersection, {
-      rootMargin: '50px', // Reduced from 100px for better performance
+      rootMargin: '50px',
       threshold: 0.1
     })
 
     // Observe all sections
     const sections = document.querySelectorAll('[data-section]')
     sections.forEach(section => {
-      observerRef.current?.observe(section)
+      if (observerRef.current) {
+        observerRef.current.observe(section)
+      }
     })
 
     // Add smooth scroll behavior globally
     document.documentElement.style.scrollBehavior = 'smooth'
 
     return () => {
-      observerRef.current?.disconnect()
+      if (observerRef.current) {
+        observerRef.current.disconnect()
+      }
       document.documentElement.style.scrollBehavior = 'auto'
     }
   }, [handleIntersection])
