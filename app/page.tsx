@@ -1,44 +1,69 @@
 "use client"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/next'
 import dynamic from 'next/dynamic'
 import Header from "./components/Header"
 import Hero from "./components/Hero"
 
-// Simple dynamic imports - load only when visible
-const About = dynamic(() => import("./components/About"), { ssr: false })
-const Education = dynamic(() => import("./components/Education"), { ssr: false })
-const Experience = dynamic(() => import("./components/Experience"), { ssr: false })
-const Certifications = dynamic(() => import("./components/Certifications"), { ssr: false })
-const Hackathon = dynamic(() => import("./components/Hackathon"), { ssr: false })
-const Projects = dynamic(() => import("./components/Projects"), { ssr: false })
-const Footer = dynamic(() => import("./components/Footer"), { ssr: false })
+// Simple dynamic imports with SSR for better SEO and performance
+const About = dynamic(() => import("./components/About"), { ssr: true })
+const Education = dynamic(() => import("./components/Education"), { ssr: true })
+const Experience = dynamic(() => import("./components/Experience"), { ssr: true })
+const Certifications = dynamic(() => import("./components/Certifications"), { ssr: true })
+const Hackathon = dynamic(() => import("./components/Hackathon"), { ssr: true })
+const Projects = dynamic(() => import("./components/Projects"), { ssr: true })
+const Footer = dynamic(() => import("./components/Footer"), { ssr: true })
+// Only chatbot stays client-side (interactive component)
 const Chatbot = dynamic(() => import("./components/Chatbot"), { ssr: false })
 
+// Define section types for TypeScript
+type SectionName = 'about' | 'education' | 'experience' | 'certifications' | 'hackathon' | 'projects' | 'footer' | 'chatbot'
+
+type VisibleSections = {
+  [K in SectionName]?: boolean
+}
+
 export default function Home() {
-  const [visibleSections, setVisibleSections] = useState({ hero: true })
-  const observerRef = useRef()
+  const [visibleSections, setVisibleSections] = useState<VisibleSections>({})
+  const observerRef = useRef<IntersectionObserver | null>(null)
 
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const sectionName = entry.target.id
-            setVisibleSections(prev => ({ ...prev, [sectionName]: true }))
-          }
-        })
-      },
-      { rootMargin: '100px' }
-    )
+  // Memoized callback to prevent re-creating observer on every render
+  const handleIntersection = useCallback((entries: IntersectionObserverEntry[]) => {
+    const newVisible: VisibleSections = {}
+    let hasChanges = false
 
-    document.querySelectorAll('[data-section]').forEach(el => {
-      observerRef.current?.observe(el)
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const sectionName = entry.target.id as SectionName
+        newVisible[sectionName] = true
+        hasChanges = true
+      }
     })
 
-    return () => observerRef.current?.disconnect()
+    // Only update state if there are actual changes
+    if (hasChanges) {
+      setVisibleSections(prev => ({ ...prev, ...newVisible }))
+    }
   }, [])
+
+  useEffect(() => {
+    // Create observer only once
+    observerRef.current = new IntersectionObserver(handleIntersection, {
+      rootMargin: '50px', // Reduced from 100px for better performance
+      threshold: 0.1
+    })
+
+    // Observe all sections
+    const sections = document.querySelectorAll('[data-section]')
+    sections.forEach(section => {
+      observerRef.current?.observe(section)
+    })
+
+    return () => {
+      observerRef.current?.disconnect()
+    }
+  }, [handleIntersection])
 
   return (
     <div className="min-h-screen bg-slate-900">
@@ -73,6 +98,7 @@ export default function Home() {
         {visibleSections.footer && <Footer />}
       </div>
 
+      {/* Load chatbot when footer is visible */}
       {visibleSections.footer && <Chatbot />}
       
       <SpeedInsights />
