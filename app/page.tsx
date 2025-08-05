@@ -91,6 +91,13 @@ export default function Home() {
                 const { createRoot } = await import('react-dom/client')
                 const root = createRoot(target)
                 root.render(<ComponentModule.default />)
+                
+                // Special handling for chatbot visibility
+                if (componentName === 'Chatbot') {
+                  target.style.visibility = 'visible'
+                  target.style.opacity = '1'
+                  target.style.pointerEvents = 'auto'
+                }
               }
             } catch (error) {
               console.error(`Failed to load ${componentName}:`, error)
@@ -149,11 +156,16 @@ export default function Home() {
       <div id="projects" data-component="Projects" className="min-h-[200px]" />
       <div id="footer" data-component="Footer" className="min-h-[100px]" />
       
-      {/* Chatbot - load when user reaches 80% of page */}
+      {/* Chatbot - load when user scrolls to bottom sections */}
       <div 
         data-component="Chatbot" 
-        className="fixed bottom-4 right-4 z-50"
-        style={{ transform: 'translateY(200%)', transition: 'transform 0.3s ease' }}
+        className="fixed bottom-4 right-4 z-50 w-auto h-auto"
+        style={{ 
+          visibility: 'hidden',
+          opacity: '0',
+          transition: 'opacity 0.3s ease, visibility 0.3s ease',
+          pointerEvents: 'none'
+        }}
       />
     </div>
   )
