@@ -236,22 +236,6 @@ export default function Education() {
                       </div>
                     </div>
                   </div>
-
-                  {/* Improved skill tags */}
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-blue-500/10 border border-blue-400/20 rounded-full text-xs font-medium text-blue-300">
-                      Software Development
-                    </span>
-                    <span className="px-3 py-1 bg-purple-500/10 border border-purple-400/20 rounded-full text-xs font-medium text-purple-300">
-                      Startup Innovation
-                    </span>
-                    <span className="px-3 py-1 bg-indigo-500/10 border border-indigo-400/20 rounded-full text-xs font-medium text-indigo-300">
-                      Business Development
-                    </span>
-                    <span className="px-3 py-1 bg-pink-500/10 border border-pink-400/20 rounded-full text-xs font-medium text-pink-300">
-                      Market Analysis
-                    </span>
-                  </div>
                 </div>
               </div>
 
