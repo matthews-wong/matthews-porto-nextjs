@@ -3,6 +3,7 @@ import { Inter } from "next/font/google"
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 
+
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -18,7 +19,6 @@ const socialLinks = [
   { href: "https://codepen.io/Matthews-Wong", label: "Codepen" },
 ]
 
-// Move themeColor to viewport export
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
@@ -138,7 +138,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <head>
         <meta name="geo.region" content="ID" />
         <meta name="geo.placename" content="Indonesia" />
@@ -196,10 +196,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} antialiased min-h-screen`} suppressHydrationWarning={true}>
+      <body className={`${inter.className} antialiased min-h-screen`}>
         {children}
       </body>
     </html>
   )
 }
-

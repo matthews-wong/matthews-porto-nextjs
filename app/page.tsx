@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/next'
 import dynamic from 'next/dynamic'
 import Header from "./components/Header"
 import Hero from "./components/Hero"
+import SplashCursor from './components/SplashCursor'
 
 // Simple dynamic imports with SSR for better SEO and performance
 const About = dynamic(() => import("./components/About"), { ssr: true })
@@ -160,7 +161,7 @@ export default function Home() {
 
       {/* Load chatbot when contact section is visible */}
       {visibleSections.contact && <Chatbot />}
-      
+      <SplashCursor />
       <SpeedInsights />
       <Analytics />
     </div>
