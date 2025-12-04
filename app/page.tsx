@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { SpeedInsights } from '@vercel/speed-insights/next'
@@ -99,17 +99,31 @@ const sections = [
 
 export default function Home() {
   const t = useTranslations()
+  
+  // Lightweight parallax effect using CSS transforms (GPU accelerated)
+  const { scrollY } = useScroll()
+  const heroY = useTransform(scrollY, [0, 500], [0, 150])
+  const heroOpacity = useTransform(scrollY, [0, 300], [1, 0])
+  const decorY = useTransform(scrollY, [0, 500], [0, 80])
 
   return (
     <div className="min-h-screen pattern-grid" style={{ backgroundColor: 'var(--bg-primary)' }}>
       {/* Hero Section */}
       <section className="pt-32 pb-20 md:pt-40 md:pb-28 px-4 sm:px-6 relative overflow-hidden">
-        {/* Decorative shapes */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-brutal-yellow border-brutal shadow-brutal rotate-12 hidden lg:block" />
-        <div className="absolute top-40 right-20 w-16 h-16 bg-brutal-pink border-brutal shadow-brutal -rotate-6 hidden lg:block" />
-        <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-brutal-cyan border-brutal shadow-brutal rotate-45 hidden lg:block" />
+        {/* Decorative shapes with parallax */}
+        <motion.div 
+          style={{ y: decorY, opacity: heroOpacity }}
+          className="absolute top-20 left-10 w-20 h-20 bg-brutal-yellow border-brutal shadow-brutal rotate-12 hidden lg:block" 
+        />
+        <motion.div 
+          style={{ y: decorY, opacity: heroOpacity }}
+          className="absolute top-40 right-20 w-16 h-16 bg-brutal-pink border-brutal shadow-brutal -rotate-6 hidden lg:block" 
+        />
 
-        <div className="container mx-auto max-w-6xl relative z-10">
+        <motion.div 
+          style={{ y: heroY, opacity: heroOpacity }}
+          className="container mx-auto max-w-6xl relative z-10"
+        >
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             {/* Text Content */}
             <motion.div 
@@ -239,11 +253,14 @@ export default function Home() {
               </div>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* About Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+      <section 
+        className="py-16 md:py-24 px-4 sm:px-6 rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-6" 
+        style={{ backgroundColor: 'var(--bg-secondary)' }}
+      >
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -291,8 +308,109 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Tech Expertise Section */}
+      {/* My Product Banner */}
       <section className="py-16 md:py-24 px-4 sm:px-6" style={{ backgroundColor: 'var(--bg-primary)' }}>
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <a 
+              href="https://www.aigymbro.web.id" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <div 
+                className="relative overflow-hidden border-brutal shadow-brutal-lg transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-xl cursor-pointer rounded-2xl"
+                style={{ backgroundColor: 'var(--bg-card)' }}
+              >
+                {/* Content wrapper - reversed order on mobile (image first) */}
+                <div className="flex flex-col-reverse lg:flex-row items-stretch">
+                  {/* Text Content */}
+                  <div className="flex-1 p-6 md:p-8 lg:p-10 z-10 flex flex-col justify-center">
+                    <div className="flex flex-wrap items-center gap-2 mb-4">
+                      <span 
+                        className="px-3 py-1 text-xs font-black uppercase border-2 rounded-full"
+                        style={{ 
+                          backgroundColor: 'var(--accent-lime)', 
+                          color: 'var(--text-dark)',
+                          borderColor: 'var(--border-color)'
+                        }}
+                      >
+                        🚀 My Product
+                      </span>
+                      <span 
+                        className="px-3 py-1 text-xs font-black uppercase border-2 rounded-full"
+                        style={{ 
+                          backgroundColor: 'var(--accent-primary)', 
+                          color: 'var(--text-dark)',
+                          borderColor: 'var(--border-color)'
+                        }}
+                      >
+                        Live Now
+                      </span>
+                    </div>
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-white mb-3 uppercase">
+                      AI Gym Bro
+                    </h3>
+                    <p className="text-neutral-300 mb-6 max-w-md text-sm md:text-base">
+                      Your AI-powered fitness companion. Get personalized workout plans and nutrition advice.
+                    </p>
+                    <div 
+                      className="inline-flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 font-black uppercase text-sm md:text-base border-brutal shadow-brutal transition-all hover:shadow-brutal-lg rounded-full self-start"
+                      style={{ 
+                        backgroundColor: 'var(--accent-primary)', 
+                        color: 'var(--text-dark)'
+                      }}
+                    >
+                      <span>Visit Site</span>
+                      <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
+                    </div>
+                  </div>
+
+                  {/* Image with orange overlay */}
+                  <div className="relative w-full lg:w-1/2 h-40 sm:h-48 md:h-56 lg:h-72 rounded-t-xl lg:rounded-t-none lg:rounded-r-xl overflow-hidden">
+                    <Image
+                      src="/my-product.png"
+                      alt="AI Gym Bro - My SaaS Product"
+                      fill
+                      className="object-cover object-center"
+                    />
+                    {/* Orange overlay */}
+                    <div 
+                      className="absolute inset-0"
+                      style={{ 
+                        background: 'linear-gradient(135deg, rgba(255, 111, 32, 0.3) 0%, rgba(255, 111, 32, 0.15) 50%, rgba(255, 111, 32, 0.35) 100%)'
+                      }}
+                    />
+                    {/* Gradient fade to bottom on mobile, to left on desktop */}
+                    <div 
+                      className="absolute inset-0 lg:hidden"
+                      style={{ 
+                        background: 'linear-gradient(to top, var(--bg-card) 0%, transparent 40%)'
+                      }}
+                    />
+                    <div 
+                      className="absolute inset-0 hidden lg:block"
+                      style={{ 
+                        background: 'linear-gradient(to right, var(--bg-card) 0%, transparent 30%)'
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Tech Expertise Section */}
+      <section 
+        className="py-16 md:py-24 px-4 sm:px-6 rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-6" 
+        style={{ backgroundColor: 'var(--bg-secondary)' }}
+      >
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -354,7 +472,10 @@ export default function Home() {
       </section>
 
       {/* Explore More Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+      <section 
+        className="py-16 md:py-24 px-4 sm:px-6 rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-6" 
+        style={{ backgroundColor: 'var(--bg-primary)' }}
+      >
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -417,7 +538,10 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      <section 
+        className="py-16 md:py-24 px-4 sm:px-6 rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-6" 
+        style={{ backgroundColor: 'var(--bg-secondary)' }}
+      >
         <div className="container mx-auto max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
