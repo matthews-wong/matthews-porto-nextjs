@@ -122,8 +122,11 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white dark:bg-slate-950 pt-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-6xl">
+    <main className="min-h-screen pt-20 relative overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      {/* Subtle decorative line */}
+      <div className="absolute top-0 right-0 w-1 h-full opacity-20" style={{ backgroundColor: 'var(--accent-primary)' }} />
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-6xl relative z-10">
         {/* Back button */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
@@ -133,9 +136,10 @@ export default function ContactPage() {
         >
           <Link 
             href="/"
-            className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-base font-bold uppercase border-2 shadow-brutal transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-lg"
+            style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-5 h-5" />
             <span>Back</span>
           </Link>
         </motion.div>
@@ -147,16 +151,24 @@ export default function ContactPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 flex items-center justify-center bg-blue-50 dark:bg-blue-500/10 rounded-xl">
-              <MessageCircle className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+          <div className="flex items-center gap-4 mb-6">
+            <div 
+              className="w-14 h-14 flex items-center justify-center border-2 shadow-brutal"
+              style={{ backgroundColor: 'var(--accent-primary)', borderColor: 'var(--border-color)' }}
+            >
+              <MessageCircle className="w-7 h-7" style={{ color: 'var(--text-dark)' }} />
             </div>
-            <span className="text-sm font-medium text-blue-600 dark:text-blue-400">{t("subtitle")}</span>
+            <span 
+              className="px-4 py-1.5 text-sm font-bold uppercase border-2"
+              style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
+            >
+              {t("subtitle")}
+            </span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-black uppercase mb-4 tracking-tight" style={{ color: 'var(--text-primary)' }}>
             {t("title")}
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
+          <p className="text-lg md:text-xl max-w-2xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             {t("description")}
           </p>
         </motion.div>
@@ -168,20 +180,26 @@ export default function ContactPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, delay: 0.1 }}
           >
-            <div className="card p-6 md:p-8">
+            <div 
+              className="p-6 md:p-8 border-2 shadow-brutal"
+              style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
+            >
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2.5 bg-blue-50 dark:bg-blue-500/10 rounded-xl">
-                  <Mail className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <div 
+                  className="p-3 border-2"
+                  style={{ backgroundColor: 'var(--accent-primary)', borderColor: 'var(--border-color)' }}
+                >
+                  <Mail className="w-5 h-5" style={{ color: 'var(--text-dark)' }} />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Send a Message</h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm">I'll get back to you soon</p>
+                  <h3 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>Send a Message</h3>
+                  <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>I'll get back to you soon</p>
                 </div>
               </div>
 
               <form ref={form} onSubmit={handleSubmit} className="space-y-5">
                 <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  <label htmlFor="name" className="text-sm font-bold uppercase" style={{ color: 'var(--text-primary)' }}>
                     {t("form.name")}
                   </label>
                   <Input
@@ -189,12 +207,17 @@ export default function ContactPage() {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="rounded-xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20 h-11"
+                    className="h-12 border-2 text-base font-medium"
+                    style={{ 
+                      backgroundColor: 'var(--bg-primary)', 
+                      borderColor: 'var(--border-color)',
+                      color: 'var(--text-primary)'
+                    }}
                     placeholder="Your name"
                   />
                   <AnimatePresence>
                     {errors.name && (
-                      <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-red-500 text-sm">
+                      <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-sm font-medium" style={{ color: '#ef4444' }}>
                         {errors.name}
                       </motion.p>
                     )}
@@ -202,7 +225,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  <label htmlFor="email" className="text-sm font-bold uppercase" style={{ color: 'var(--text-primary)' }}>
                     {t("form.email")}
                   </label>
                   <Input
@@ -211,12 +234,17 @@ export default function ContactPage() {
                     type="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="rounded-xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20 h-11"
+                    className="h-12 border-2 text-base font-medium"
+                    style={{ 
+                      backgroundColor: 'var(--bg-primary)', 
+                      borderColor: 'var(--border-color)',
+                      color: 'var(--text-primary)'
+                    }}
                     placeholder="your.email@example.com"
                   />
                   <AnimatePresence>
                     {errors.email && (
-                      <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-red-500 text-sm">
+                      <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-sm font-medium" style={{ color: '#ef4444' }}>
                         {errors.email}
                       </motion.p>
                     )}
@@ -224,7 +252,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  <label htmlFor="message" className="text-sm font-bold uppercase" style={{ color: 'var(--text-primary)' }}>
                     {t("form.message")}
                   </label>
                   <Textarea
@@ -232,12 +260,17 @@ export default function ContactPage() {
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
-                    className="rounded-xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20 min-h-[140px] resize-none"
+                    className="min-h-[140px] resize-none border-2 text-base font-medium"
+                    style={{ 
+                      backgroundColor: 'var(--bg-primary)', 
+                      borderColor: 'var(--border-color)',
+                      color: 'var(--text-primary)'
+                    }}
                     placeholder="What would you like to discuss?"
                   />
                   <AnimatePresence>
                     {errors.message && (
-                      <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-red-500 text-sm">
+                      <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-sm font-medium" style={{ color: '#ef4444' }}>
                         {errors.message}
                       </motion.p>
                     )}
@@ -247,16 +280,17 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting || Object.values(errors).some((e) => e)}
-                  className="btn-primary w-full py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full py-4 font-black uppercase text-base border-2 shadow-brutal transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-x-0 disabled:hover:translate-y-0"
+                  style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
                 >
                   {isSubmitting ? (
                     <div className="flex items-center justify-center gap-2">
-                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <div className="w-5 h-5 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: 'var(--text-dark)' }} />
                       {t("form.sending")}
                     </div>
                   ) : (
                     <div className="flex items-center justify-center gap-2">
-                      <Send className="w-4 h-4" />
+                      <Send className="w-5 h-5" />
                       {t("form.send")}
                     </div>
                   )}
@@ -273,34 +307,46 @@ export default function ContactPage() {
             className="space-y-6"
           >
             {/* Quick Contact Info */}
-            <div className="card p-6">
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Quick Contact</h3>
+            <div>
+              <h3 className="text-lg font-black uppercase mb-4" style={{ color: 'var(--text-primary)' }}>Quick Contact</h3>
               <div className="space-y-3">
-                <div className="flex items-center gap-4 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
-                  <div className="p-2 bg-blue-50 dark:bg-blue-500/10 rounded-lg">
-                    <Mail className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <div 
+                  className="flex items-center gap-4 p-4 border-2"
+                  style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
+                >
+                  <div 
+                    className="p-2 border-2"
+                    style={{ backgroundColor: 'var(--accent-primary)', borderColor: 'var(--border-color)' }}
+                  >
+                    <Mail className="w-5 h-5" style={{ color: 'var(--text-dark)' }} />
                   </div>
                   <div>
-                    <p className="text-slate-500 dark:text-slate-400 text-xs">Email</p>
-                    <p className="text-slate-900 dark:text-white font-medium text-sm">matthewswong2610@gmail.com</p>
+                    <p className="text-xs font-bold uppercase" style={{ color: 'var(--text-secondary)' }}>Email</p>
+                    <p className="font-medium text-base" style={{ color: 'var(--text-primary)' }}>matthewswong2610@gmail.com</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
-                  <div className="p-2 bg-purple-50 dark:bg-purple-500/10 rounded-lg">
-                    <MapPin className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                <div 
+                  className="flex items-center gap-4 p-4 border-2"
+                  style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
+                >
+                  <div 
+                    className="p-2 border-2"
+                    style={{ backgroundColor: 'var(--accent-gray)', borderColor: 'var(--border-color)' }}
+                  >
+                    <MapPin className="w-5 h-5" style={{ color: 'var(--text-dark)' }} />
                   </div>
                   <div>
-                    <p className="text-slate-500 dark:text-slate-400 text-xs">Location</p>
-                    <p className="text-slate-900 dark:text-white font-medium text-sm">Tangerang, Indonesia</p>
+                    <p className="text-xs font-bold uppercase" style={{ color: 'var(--text-secondary)' }}>Location</p>
+                    <p className="font-medium text-base" style={{ color: 'var(--text-primary)' }}>Tangerang, Indonesia</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Social Links */}
-            <div className="card p-6">
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Connect With Me</h3>
+            <div>
+              <h3 className="text-lg font-black uppercase mb-4" style={{ color: 'var(--text-primary)' }}>Connect With Me</h3>
               <div className="grid grid-cols-2 gap-3">
                 {socialLinks.map((social, index) => {
                   const IconComponent = social.icon
@@ -310,15 +356,15 @@ export default function ContactPage() {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-500/50 transition-all duration-300"
-                      whileHover={{ y: -2 }}
+                      className="group p-4 border-2 transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal"
+                      style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3 + index * 0.1 }}
                     >
-                      <IconComponent className="text-slate-700 dark:text-white text-xl mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
-                      <h4 className="font-medium text-slate-900 dark:text-white text-sm mb-0.5">{social.label}</h4>
-                      <p className="text-slate-500 dark:text-slate-400 text-xs">{social.description}</p>
+                      <IconComponent className="text-2xl mb-2" style={{ color: 'var(--accent-primary)' }} />
+                      <h4 className="font-bold text-base mb-1" style={{ color: 'var(--text-primary)' }}>{social.label}</h4>
+                      <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{social.description}</p>
                     </motion.a>
                   )
                 })}
@@ -326,7 +372,7 @@ export default function ContactPage() {
             </div>
 
             {/* Footer */}
-            <div className="text-center text-slate-500 dark:text-slate-400 text-sm">
+            <div className="text-center text-sm font-medium pt-4" style={{ color: 'var(--text-secondary)' }}>
               © {new Date().getFullYear()} Matthews Wong. All rights reserved.
             </div>
           </motion.div>
@@ -340,22 +386,30 @@ export default function ContactPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/40 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
             onClick={() => setShowSuccessModal(false)}
           >
             <motion.div
-              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 max-w-sm mx-4 shadow-xl"
+              className="p-8 max-w-sm mx-4 border-2 shadow-brutal-lg"
+              style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center mb-5 mx-auto">
-                <Check className="w-7 h-7 text-white" />
+              <div 
+                className="w-16 h-16 flex items-center justify-center mb-5 mx-auto border-2"
+                style={{ backgroundColor: 'var(--accent-primary)', borderColor: 'var(--border-color)' }}
+              >
+                <Check className="w-8 h-8" style={{ color: 'var(--text-dark)' }} />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white text-center mb-3">Message Sent!</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-center mb-6 text-sm">Thank you for reaching out. I'll get back to you soon.</p>
-              <button onClick={() => setShowSuccessModal(false)} className="btn-primary w-full py-2.5">
+              <h3 className="text-xl font-black uppercase text-center mb-3" style={{ color: 'var(--text-primary)' }}>Message Sent!</h3>
+              <p className="text-center mb-6 text-base" style={{ color: 'var(--text-secondary)' }}>Thank you for reaching out. I'll get back to you soon.</p>
+              <button 
+                onClick={() => setShowSuccessModal(false)} 
+                className="w-full py-3 font-black uppercase border-2 shadow-brutal transition-all hover:-translate-x-0.5 hover:-translate-y-0.5"
+                style={{ backgroundColor: 'var(--accent-light)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
+              >
                 Got it!
               </button>
             </motion.div>
@@ -370,22 +424,30 @@ export default function ContactPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/40 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
             onClick={() => setShowErrorModal(false)}
           >
             <motion.div
-              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 max-w-sm mx-4 shadow-xl"
+              className="p-8 max-w-sm mx-4 border-2 shadow-brutal-lg"
+              style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="w-14 h-14 bg-red-500 rounded-full flex items-center justify-center mb-5 mx-auto">
-                <AlertCircle className="w-7 h-7 text-white" />
+              <div 
+                className="w-16 h-16 flex items-center justify-center mb-5 mx-auto border-2"
+                style={{ backgroundColor: '#ef4444', borderColor: 'var(--border-color)' }}
+              >
+                <AlertCircle className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white text-center mb-3">Oops!</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-center mb-6 text-sm">Something went wrong. Please try again later.</p>
-              <button onClick={() => setShowErrorModal(false)} className="w-full py-2.5 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors">
+              <h3 className="text-xl font-black uppercase text-center mb-3" style={{ color: 'var(--text-primary)' }}>Oops!</h3>
+              <p className="text-center mb-6 text-base" style={{ color: 'var(--text-secondary)' }}>Something went wrong. Please try again later.</p>
+              <button 
+                onClick={() => setShowErrorModal(false)} 
+                className="w-full py-3 font-black uppercase text-white border-2 transition-all hover:-translate-x-0.5 hover:-translate-y-0.5"
+                style={{ backgroundColor: '#ef4444', borderColor: 'var(--border-color)' }}
+              >
                 Close
               </button>
             </motion.div>

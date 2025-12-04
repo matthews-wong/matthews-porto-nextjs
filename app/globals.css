@@ -3,45 +3,69 @@
 @tailwind utilities;
 
 /* ============================================
-   SWISS DESIGN / MINIMALIST STYLE SYSTEM
-   Clean, Grid-based, Typography-focused
-   Plus Jakarta Sans Font
+   INDUSTRIAL NEO-BRUTALISM DESIGN SYSTEM
+   Clean, Minimalist, High Contrast
+   Strong Shadows, Thick Borders
    ============================================ */
 
 :root {
-  /* Light Mode - Clean whites and strong contrasts */
-  --bg-primary: #ffffff;
-  --bg-secondary: #fafafa;
-  --bg-tertiary: #f5f5f5;
-  --text-primary: #0a0a0a;
-  --text-secondary: #525252;
-  --text-tertiary: #737373;
-  --accent: #0066ff;
-  --accent-hover: #0052cc;
-  --border: #e5e5e5;
-  --border-strong: #d4d4d4;
+  /* Background Colors - Industrial Minimalist */
+  --bg-primary: #2E2E2E;
+  --bg-secondary: #3B3B3B;
+  --bg-card: #2E2E2E;
+  --bg-elevated: #3B3B3B;
   
-  /* Swiss Design accents */
-  --red-accent: #ff3333;
-  --yellow-accent: #ffcc00;
-}
-
-.dark,
-[data-theme="dark"] {
-  /* Dark Mode - Deep blacks with sharp contrasts */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #141414;
-  --bg-tertiary: #1a1a1a;
-  --text-primary: #fafafa;
-  --text-secondary: #a3a3a3;
-  --text-tertiary: #737373;
-  --accent: #3b82f6;
-  --accent-hover: #60a5fa;
-  --border: #262626;
-  --border-strong: #404040;
+  /* Accent Colors - Industrial Palette */
+  --accent-primary: #FF6F20;
+  --accent-yellow: #FF6F20;
+  --accent-pink: #FF6F20;
+  --accent-cyan: #BEC3C7;
+  --accent-lime: #F1F1F1;
+  --accent-orange: #FF6F20;
+  --accent-purple: #BEC3C7;
+  --accent-light: #F1F1F1;
+  --accent-gray: #BEC3C7;
   
-  --red-accent: #ef4444;
-  --yellow-accent: #eab308;
+  /* Primary Brand Color */
+  --primary: #FF6F20;
+  --primary-dark: #e55a0d;
+  
+  /* Text Colors */
+  --text-primary: #F1F1F1;
+  --text-secondary: #BEC3C7;
+  --text-muted: #BEC3C7;
+  --text-dark: #2E2E2E;
+  
+  /* Neo-Brutalism Essentials */
+  --border-color: #F1F1F1;
+  --border-width: 2px;
+  --shadow-offset: 4px;
+  --shadow-color: #000000;
+  
+  /* Shadows - Cleaner */
+  --shadow-brutal: 3px 3px 0px var(--shadow-color);
+  --shadow-brutal-lg: 4px 4px 0px var(--shadow-color);
+  --shadow-brutal-xl: 5px 5px 0px var(--shadow-color);
+  --shadow-brutal-hover: 4px 4px 0px var(--shadow-color);
+  
+  /* Border Radius - Minimal */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
 }
 
 @layer base {
@@ -63,9 +87,9 @@
     font-feature-settings: "ss01", "ss02", "cv01";
   }
 
-  /* Typography - Swiss Style */
+  /* Typography System - Bold for Brutalism */
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.02em;
     line-height: 1.1;
     color: var(--text-primary);
@@ -73,22 +97,37 @@
 
   h1 {
     font-size: clamp(2.5rem, 8vw, 4.5rem);
-    font-weight: 800;
+    font-weight: 900;
     letter-spacing: -0.03em;
+    text-transform: uppercase;
   }
 
   h2 {
-    font-size: clamp(1.875rem, 5vw, 3rem);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    text-transform: uppercase;
   }
 
   h3 {
-    font-size: clamp(1.25rem, 3vw, 1.5rem);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+  }
+
+  h4 {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 700;
   }
 
   p {
-    font-size: 1rem;
-    line-height: 1.75;
+    font-size: 1.125rem;
+    line-height: 1.8;
     color: var(--text-secondary);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.15s ease;
   }
 
   /* Hide scrollbar for Chrome, Safari and Opera */
@@ -101,256 +140,769 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  /* Selection - Orange accent */
+  ::selection {
+    background-color: var(--accent-primary);
+    color: var(--text-dark);
+  }
 }
 
 @layer components {
-  /* Swiss Grid Container */
-  .swiss-container {
+  /* Container - Responsive */
+  .container {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 var(--space-4);
   }
 
-  @media (min-width: 768px) {
-    .swiss-container {
-      padding: 0 3rem;
+  @media (min-width: 640px) {
+    .container {
+      padding: 0 var(--space-6);
     }
   }
 
   @media (min-width: 1024px) {
-    .swiss-container {
-      padding: 0 4rem;
+    .container {
+      padding: 0 var(--space-8);
     }
   }
 
-  /* Cards - Clean, Minimal */
+  /* ============================================
+     NEO-BRUTALISM CARDS
+     Thick borders, offset shadows, bold colors
+     ============================================ */
+  .card-brutal {
+    background-color: var(--bg-card);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-brutal);
+    transition: all 0.15s ease;
+    overflow: hidden;
+  }
+
+  .card-brutal:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  .card-brutal-yellow {
+    background-color: var(--accent-yellow);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-brutal);
+    color: var(--text-dark);
+    transition: all 0.15s ease;
+  }
+
+  .card-brutal-yellow:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  .card-brutal-pink {
+    background-color: var(--accent-pink);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-brutal);
+    color: var(--text-dark);
+    transition: all 0.15s ease;
+  }
+
+  .card-brutal-pink:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  .card-brutal-cyan {
+    background-color: var(--accent-cyan);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-brutal);
+    color: var(--text-dark);
+    transition: all 0.15s ease;
+  }
+
+  .card-brutal-cyan:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  .card-brutal-lime {
+    background-color: var(--accent-lime);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-brutal);
+    color: var(--text-dark);
+    transition: all 0.15s ease;
+  }
+
+  .card-brutal-lime:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  .card-brutal-purple {
+    background-color: var(--accent-purple);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-brutal);
+    color: var(--text-dark);
+    transition: all 0.15s ease;
+  }
+
+  .card-brutal-purple:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  .card-brutal-orange {
+    background-color: var(--accent-orange);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-brutal);
+    color: var(--text-dark);
+    transition: all 0.15s ease;
+  }
+
+  .card-brutal-orange:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  /* Legacy card for backwards compat */
   .card {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: 0.5rem;
-    transition: all 0.2s ease;
+    background-color: var(--bg-card);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-brutal);
+    transition: all 0.15s ease;
   }
   
   .card-hover:hover {
-    border-color: var(--border-strong);
-    transform: translateY(-2px);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
   }
 
-  .card-flat {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: 0;
+  /* ============================================
+     NEO-BRUTALISM BUTTONS
+     Bold, chunky, with offset shadows
+     ============================================ */
+  .btn-brutal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background-color: var(--accent-yellow);
+    color: var(--text-dark);
+    font-weight: 800;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-brutal);
+    transition: all 0.15s ease;
+    cursor: pointer;
+    white-space: nowrap;
   }
 
-  /* Glass effect */
-  .glass {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
+  .btn-brutal:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
   }
 
-  .dark .glass {
-    background: rgba(10, 10, 10, 0.8);
+  .btn-brutal:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
   }
 
-  /* Text gradient */
-  .text-gradient {
-    background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .btn-brutal-pink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background-color: var(--accent-pink);
+    color: var(--text-dark);
+    font-weight: 800;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-brutal);
+    transition: all 0.15s ease;
+    cursor: pointer;
+    white-space: nowrap;
   }
 
-  /* Buttons - Swiss Style, Strong CTAs */
+  .btn-brutal-pink:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  .btn-brutal-pink:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+
+  .btn-brutal-cyan {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background-color: var(--accent-cyan);
+    color: var(--text-dark);
+    font-weight: 800;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-brutal);
+    transition: all 0.15s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .btn-brutal-cyan:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  .btn-brutal-cyan:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+
+  .btn-brutal-dark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    font-weight: 800;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-brutal);
+    transition: all 0.15s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .btn-brutal-dark:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+    background-color: var(--bg-elevated);
+  }
+
+  .btn-brutal-dark:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+
+  .btn-brutal-white {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background-color: #ffffff;
+    color: var(--text-dark);
+    font-weight: 800;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-brutal);
+    transition: all 0.15s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .btn-brutal-white:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  .btn-brutal-white:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+
+  /* Legacy buttons - updated to brutalism */
   .btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.75rem;
-    background-color: var(--text-primary);
-    color: var(--bg-primary);
-    font-weight: 600;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background-color: var(--accent-yellow);
+    color: var(--text-dark);
+    font-weight: 800;
     font-size: 0.875rem;
-    letter-spacing: 0.01em;
-    border-radius: 0.375rem;
-    transition: all 0.2s ease;
-    border: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-brutal);
+    transition: all 0.15s ease;
     cursor: pointer;
+    white-space: nowrap;
   }
 
   .btn-primary:hover {
-    opacity: 0.85;
-    transform: translateY(-1px);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
   }
 
   .btn-secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.75rem;
-    background-color: transparent;
-    color: var(--text-primary);
-    font-weight: 600;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background-color: var(--accent-cyan);
+    color: var(--text-dark);
+    font-weight: 800;
     font-size: 0.875rem;
-    letter-spacing: 0.01em;
-    border: 2px solid var(--text-primary);
-    border-radius: 0.375rem;
-    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-brutal);
+    transition: all 0.15s ease;
     cursor: pointer;
+    white-space: nowrap;
   }
 
   .btn-secondary:hover {
-    background-color: var(--text-primary);
-    color: var(--bg-primary);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background-color: transparent;
+    color: var(--text-primary);
+    font-weight: 800;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: var(--border-width) solid var(--text-primary);
+    border-radius: var(--radius-sm);
+    box-shadow: 4px 4px 0px var(--text-primary);
+    transition: all 0.15s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .btn-ghost:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--text-primary);
   }
 
   .btn-outline {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
     background-color: transparent;
     color: var(--text-primary);
-    font-weight: 500;
+    font-weight: 700;
     font-size: 0.875rem;
-    border: 1px solid var(--border);
-    border-radius: 0.375rem;
-    transition: all 0.2s ease;
+    border: 2px solid var(--text-primary);
+    border-radius: var(--radius-sm);
+    transition: all 0.15s ease;
     cursor: pointer;
   }
 
   .btn-outline:hover {
-    border-color: var(--text-primary);
-    background-color: var(--bg-tertiary);
+    background-color: var(--text-primary);
+    color: var(--text-dark);
   }
 
-  /* Badges - Swiss style labels */
+  /* ============================================
+     NEO-BRUTALISM BADGES
+     ============================================ */
+  .badge-brutal {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background-color: var(--accent-yellow);
+    color: var(--text-dark);
+    white-space: nowrap;
+    box-shadow: 2px 2px 0px var(--shadow-color);
+  }
+
+  .badge-brutal-pink {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background-color: var(--accent-pink);
+    color: var(--text-dark);
+    white-space: nowrap;
+    box-shadow: 2px 2px 0px var(--shadow-color);
+  }
+
+  .badge-brutal-cyan {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background-color: var(--accent-cyan);
+    color: var(--text-dark);
+    white-space: nowrap;
+    box-shadow: 2px 2px 0px var(--shadow-color);
+  }
+
+  .badge-brutal-lime {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background-color: var(--accent-lime);
+    color: var(--text-dark);
+    white-space: nowrap;
+    box-shadow: 2px 2px 0px var(--shadow-color);
+  }
+
+  .badge-brutal-purple {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background-color: var(--accent-purple);
+    color: var(--text-dark);
+    white-space: nowrap;
+    box-shadow: 2px 2px 0px var(--shadow-color);
+  }
+
+  .badge-brutal-dark {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 2px solid var(--text-primary);
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    white-space: nowrap;
+    box-shadow: 2px 2px 0px var(--text-primary);
+  }
+
+  /* Legacy badge */
   .badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.375rem 0.75rem;
+    padding: var(--space-1) var(--space-3);
     font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
+    font-weight: 800;
     text-transform: uppercase;
-    border-radius: 0.25rem;
-    background-color: var(--bg-tertiary);
-    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background-color: var(--accent-yellow);
+    color: var(--text-dark);
+    white-space: nowrap;
+    box-shadow: 2px 2px 0px var(--shadow-color);
   }
   
-  .badge-primary {
-    background-color: var(--accent);
-    color: white;
+  .badge-accent {
+    background-color: var(--accent-cyan);
+    color: var(--text-dark);
   }
 
-  .badge-dark {
-    background-color: var(--text-primary);
-    color: var(--bg-primary);
+  .badge-success {
+    background-color: var(--accent-lime);
+    color: var(--text-dark);
   }
 
-  /* Section styles */
+  .badge-warning {
+    background-color: var(--accent-orange);
+    color: var(--text-dark);
+  }
+
+  /* ============================================
+     NEO-BRUTALISM INPUTS
+     ============================================ */
+  .input-brutal {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background-color: #ffffff;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-dark);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-brutal);
+    transition: all 0.15s ease;
+  }
+
+  .input-brutal::placeholder {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .input-brutal:focus {
+    outline: none;
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  /* Legacy input */
+  .input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--bg-elevated);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-brutal);
+    transition: all 0.15s ease;
+  }
+
+  .input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .input:focus {
+    outline: none;
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  /* ============================================
+     SECTION STYLING
+     ============================================ */
   .section {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
   }
 
   @media (min-width: 768px) {
     .section {
-      padding-top: 7rem;
-      padding-bottom: 7rem;
+      padding-top: var(--space-20);
+      padding-bottom: var(--space-20);
     }
   }
 
   .section-title {
     font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 800;
+    font-weight: 900;
+    text-transform: uppercase;
     letter-spacing: -0.02em;
     color: var(--text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .section-title-brutal {
+    display: inline-block;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--text-dark);
+    background-color: var(--accent-yellow);
+    padding: var(--space-2) var(--space-4);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--shadow-brutal);
+    margin-bottom: var(--space-6);
   }
 
   .section-subtitle {
     font-size: 1.125rem;
     color: var(--text-secondary);
     max-width: 42rem;
+    line-height: 1.6;
   }
 
-  /* Container */
-  .container-tight {
-    max-width: 64rem;
-    margin: 0 auto;
-    padding: 0 1rem;
+  /* ============================================
+     DECORATIVE ELEMENTS
+     ============================================ */
+  .pattern-grid {
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 
-  @media (min-width: 640px) {
-    .container-tight {
-      padding: 0 1.5rem;
-    }
+  .pattern-dots {
+    background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
   }
 
-  .container-wide {
-    max-width: 80rem;
-    margin: 0 auto;
-    padding: 0 1rem;
+  .highlight-brutal {
+    position: relative;
+    display: inline-block;
   }
 
-  @media (min-width: 640px) {
-    .container-wide {
-      padding: 0 1.5rem;
-    }
+  .highlight-brutal::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background-color: var(--accent-yellow);
+    z-index: -1;
+    opacity: 0.5;
   }
 
-  @media (min-width: 1024px) {
-    .container-wide {
-      padding: 0 2rem;
-    }
+  /* Geometric Shapes */
+  .shape-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--shadow-brutal);
   }
 
-  /* Input styles */
-  .input {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: 0.375rem;
-    color: var(--text-primary);
-    font-size: 0.9375rem;
-    transition: all 0.2s ease;
+  .shape-square {
+    width: 80px;
+    height: 80px;
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--shadow-brutal);
   }
 
-  .input::placeholder {
-    color: var(--text-tertiary);
+  /* Status Indicator - Brutalism style */
+  .status-online {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    background-color: var(--accent-lime);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: 2px 2px 0px var(--shadow-color);
   }
 
-  .input:focus {
-    outline: none;
-    border-color: var(--text-primary);
+  .status-online .dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--text-dark);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
   }
 
-  /* Dividers - Swiss Grid Lines */
+  .status-online span {
+    font-size: 0.8125rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    text-transform: uppercase;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+  }
+
+  /* Glass effect - removed blur for brutalism */
+  .glass {
+    background: var(--bg-elevated);
+    border: var(--border-width) solid var(--border-color);
+  }
+
+  /* Text gradient - kept for compatibility */
+  .text-gradient {
+    background: linear-gradient(135deg, var(--accent-yellow) 0%, var(--accent-pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Dividers */
   .divider {
-    height: 1px;
-    background-color: var(--border);
+    height: 3px;
+    background-color: var(--border-color);
     width: 100%;
   }
 
-  .divider-strong {
-    height: 2px;
-    background-color: var(--text-primary);
-    width: 3rem;
+  .divider-brutal {
+    height: 4px;
+    background-color: var(--accent-yellow);
+    border: 2px solid var(--border-color);
+    width: 100%;
   }
 
-  /* Swiss Accents */
-  .accent-red {
-    color: var(--red-accent);
+  /* Icon Containers */
+  .icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--accent-yellow);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-brutal);
+    color: var(--text-dark);
+    transition: all 0.15s ease;
   }
 
-  .bg-accent-red {
-    background-color: var(--red-accent);
+  .icon-box:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-hover);
+  }
+
+  .icon-box-sm {
+    width: 40px;
+    height: 40px;
+  }
+
+  .icon-box-md {
+    width: 48px;
+    height: 48px;
+  }
+
+  .icon-box-lg {
+    width: 64px;
+    height: 64px;
   }
 }
 
@@ -374,76 +926,135 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Line Clamps */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Neo-Brutalism Specific Utilities */
+  .border-brutal {
+    border: var(--border-width) solid var(--border-color);
+  }
+
+  .shadow-brutal {
+    box-shadow: var(--shadow-brutal);
+  }
+
+  .shadow-brutal-lg {
+    box-shadow: var(--shadow-brutal-lg);
+  }
+
+  .shadow-brutal-xl {
+    box-shadow: var(--shadow-brutal-xl);
+  }
+
+  .bg-brutal-yellow {
+    background-color: var(--accent-yellow);
+  }
+
+  .bg-brutal-pink {
+    background-color: var(--accent-pink);
+  }
+
+  .bg-brutal-cyan {
+    background-color: var(--accent-cyan);
+  }
+
+  .bg-brutal-lime {
+    background-color: var(--accent-lime);
+  }
+
+  .bg-brutal-purple {
+    background-color: var(--accent-purple);
+  }
+
+  .bg-brutal-orange {
+    background-color: var(--accent-orange);
+  }
+
+  .text-brutal-dark {
+    color: var(--text-dark);
+  }
+
+  /* Rotate utilities for playful elements */
+  .rotate-brutal-1 {
+    transform: rotate(-1deg);
+  }
+
+  .rotate-brutal-2 {
+    transform: rotate(-2deg);
+  }
+
+  .rotate-brutal-3 {
+    transform: rotate(-3deg);
+  }
+
+  .-rotate-brutal-1 {
+    transform: rotate(1deg);
+  }
+
+  .-rotate-brutal-2 {
+    transform: rotate(2deg);
+  }
+
+  .-rotate-brutal-3 {
+    transform: rotate(3deg);
+  }
+
+  /* Hover rotate */
+  .hover-rotate:hover {
+    transform: rotate(-2deg) translate(-2px, -2px);
+  }
 }
 
-/* Swiss Scrollbar */
+/* Scrollbar Styling - Brutalist */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
+  background: var(--bg-primary);
+  border-left: 2px solid var(--border-color);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-strong);
-  border-radius: 4px;
+  background: var(--accent-yellow);
+  border: 2px solid var(--border-color);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-tertiary);
+  background: var(--accent-pink);
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--border-strong) var(--bg-secondary);
+  scrollbar-color: var(--accent-yellow) var(--bg-primary);
 }
 
-/* Selection styling */
-::selection {
-  background-color: var(--accent);
-  color: white;
-}
-
-/* Focus styling */
+/* Focus Styling - Bold for brutalism */
 *:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 3px solid var(--accent-yellow);
   outline-offset: 2px;
-}
-
-/* Line clamp utilities */
-.line-clamp-1 {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Backdrop blur fallback */
-@supports not (backdrop-filter: blur(12px)) {
-  .backdrop-blur-lg {
-    background-color: rgba(255, 255, 255, 0.95);
-  }
-  
-  .dark .backdrop-blur-lg {
-    background-color: rgba(10, 10, 10, 0.95);
-  }
 }
 
 /* Animations */
@@ -463,12 +1074,54 @@
   }
 }
 
+@keyframes slide-down {
+  from { 
+    opacity: 0; 
+    transform: translateY(-10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+@keyframes bounce-brutal {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
 .animate-fade-in {
   animation: fade-in 0.5s ease forwards;
 }
 
 .animate-slide-up {
   animation: slide-up 0.6s ease forwards;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.4s ease forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-wiggle {
+  animation: wiggle 3s ease-in-out infinite;
+}
+
+.animate-bounce-brutal {
+  animation: bounce-brutal 2s ease-in-out infinite;
 }
 
 /* Print styles */
@@ -478,15 +1131,23 @@
   }
 }
 
-/* Dark mode transitions */
-body,
-.card,
+/* Smooth Transitions */
+.card-brutal,
+.btn-brutal,
+.btn-brutal-pink,
+.btn-brutal-cyan,
+.btn-brutal-dark,
+.btn-brutal-white,
 .btn-primary,
 .btn-secondary,
+.btn-ghost,
 .btn-outline,
-.input {
-  transition: background-color 0.2s ease, 
-              border-color 0.2s ease, 
-              color 0.2s ease;
+.input,
+.input-brutal,
+.badge-brutal,
+.icon-box {
+  transition: transform 0.15s ease, 
+              box-shadow 0.15s ease, 
+              background-color 0.15s ease;
 }
 

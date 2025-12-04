@@ -21,14 +21,11 @@ import {
   Linkedin,
   Mail,
   MapPin,
-  ExternalLink
+  ExternalLink,
+  Zap,
+  Star
 } from "lucide-react"
 
-const skills = [
-  { name: "Web Development", icon: Code2 },
-  { name: "DevOps", icon: Server },
-  { name: "AI & ML", icon: BotMessageSquare },
-]
 
 const techStacks = [
   {
@@ -37,6 +34,7 @@ const techStacks = [
     title: "Web Development",
     description: "Building responsive, modern web applications with cutting-edge frameworks.",
     skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js"],
+    color: "var(--accent-cyan)",
   },
   {
     id: "devops",
@@ -44,6 +42,7 @@ const techStacks = [
     title: "DevOps Engineering",
     description: "Architecting scalable infrastructure with automated deployment pipelines.",
     skills: ["Docker", "CI/CD", "Ansible", "Grafana", "Prometheus"],
+    color: "var(--accent-lime)",
   },
   {
     id: "ai",
@@ -51,6 +50,7 @@ const techStacks = [
     title: "AI Development",
     description: "Creating intelligent applications with machine learning and NLP.",
     skills: ["Python", "TensorFlow", "Scikit-Learn", "Hugging Face", "XGBoost"],
+    color: "var(--accent-pink)",
   },
 ]
 
@@ -61,6 +61,7 @@ const sections = [
     description: "Professional journey and internships",
     icon: Briefcase,
     href: "/experience",
+    color: "var(--accent-yellow)",
   },
   {
     id: "education",
@@ -68,6 +69,7 @@ const sections = [
     description: "Academic background and activities",
     icon: GraduationCap,
     href: "/education",
+    color: "var(--accent-cyan)",
   },
   {
     id: "projects",
@@ -75,6 +77,7 @@ const sections = [
     description: "Featured work and case studies",
     icon: Folder,
     href: "/projects",
+    color: "var(--accent-pink)",
   },
   {
     id: "certifications",
@@ -82,6 +85,7 @@ const sections = [
     description: "Professional credentials and badges",
     icon: Award,
     href: "/certifications",
+    color: "var(--accent-lime)",
   },
   {
     id: "hackathons",
@@ -89,6 +93,7 @@ const sections = [
     description: "Competitions and events",
     icon: Trophy,
     href: "/hackathons",
+    color: "var(--accent-orange)",
   },
 ]
 
@@ -96,58 +101,49 @@ export default function Home() {
   const t = useTranslations()
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950">
+    <div className="min-h-screen pattern-grid" style={{ backgroundColor: 'var(--bg-primary)' }}>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24 px-4 sm:px-6">
-        <div className="container mx-auto max-w-6xl">
+      <section className="pt-32 pb-20 md:pt-40 md:pb-28 px-4 sm:px-6 relative overflow-hidden">
+        {/* Decorative shapes */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-brutal-yellow border-brutal shadow-brutal rotate-12 hidden lg:block" />
+        <div className="absolute top-40 right-20 w-16 h-16 bg-brutal-pink border-brutal shadow-brutal -rotate-6 hidden lg:block" />
+        <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-brutal-cyan border-brutal shadow-brutal rotate-45 hidden lg:block" />
+
+        <div className="container mx-auto max-w-6xl relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             {/* Text Content */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4 }}
               className="flex-1 text-center lg:text-left"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/20 rounded-full mb-6">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-sm font-medium text-green-700 dark:text-green-400">
-                  {t("hero.openToWork")}
-                </span>
-              </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-4">
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white mb-4 uppercase tracking-tight">
                 {t("hero.greeting")}{" "}
-                <span className="text-gradient">{t("hero.name")}</span>
+                <span 
+                  className="inline-block px-4 py-1 -rotate-1"
+                  style={{ backgroundColor: 'var(--accent-yellow)', color: 'var(--text-dark)' }}
+                >
+                  {t("hero.name")}
+                </span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-6">
+              <p className="text-xl md:text-2xl font-bold text-white mb-6 uppercase tracking-wide">
                 {t("hero.title")}
               </p>
 
-              <p className="text-lg text-slate-500 dark:text-slate-400 max-w-xl mb-8 mx-auto lg:mx-0">
+              <p className="text-lg text-neutral-300 max-w-xl mb-8 mx-auto lg:mx-0">
                 {t("hero.description")}
-              </p>
-
-              {/* Skills */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-8">
-                {skills.map((skill) => (
-                  <div
-                    key={skill.name}
-                    className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full"
-                  >
-                    <skill.icon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{skill.name}</span>
-                  </div>
-                ))}
-              </div>
+              </p>  
 
               {/* CTAs */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+              <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8">
                 <Link href="/contact">
                   <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="btn-primary"
+                    whileHover={{ x: -2, y: -2 }}
+                    whileTap={{ x: 2, y: 2 }}
+                    className="btn-brutal"
                   >
                     <MessageCircle className="w-5 h-5" />
                     {t("hero.getInTouch")}
@@ -155,9 +151,9 @@ export default function Home() {
                 </Link>
                 <Link href="/projects">
                   <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="btn-secondary"
+                    whileHover={{ x: -2, y: -2 }}
+                    whileTap={{ x: 2, y: 2 }}
+                    className="btn-brutal-cyan"
                   >
                     <Folder className="w-5 h-5" />
                     {t("hero.viewProjects")}
@@ -166,42 +162,39 @@ export default function Home() {
               </div>
 
               {/* Social Links */}
-              <div className="flex justify-center lg:justify-start gap-3 mt-8">
-                <a
-                  href="https://github.com/MatthewsWongOfficial"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
-                >
-                  <Github className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/matthewswong"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </a>
-                <a
-                  href="mailto:matthewswong2610@gmail.com"
-                  className="p-2.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
-                >
-                  <Mail className="w-5 h-5" />
-                </a>
+              <div className="flex justify-center lg:justify-start gap-3">
+                {[
+                  { icon: Github, href: "https://github.com/MatthewsWongOfficial", label: "GitHub" },
+                  { icon: Linkedin, href: "https://www.linkedin.com/in/matthewswong", label: "LinkedIn" },
+                  { icon: Mail, href: "mailto:matthewswong2610@gmail.com", label: "Email" },
+                ].map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target={social.href.startsWith("mailto") ? undefined : "_blank"}
+                    rel={social.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
+                    className="p-3 bg-brutal-purple border-brutal shadow-brutal transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-lg"
+                  >
+                    <social.icon className="w-5 h-5 text-brutal-dark" />
+                  </a>
+                ))}
               </div>
             </motion.div>
 
             {/* Profile Image */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, rotate: -5, scale: 0.9 }}
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               className="relative"
             >
               <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full blur-2xl opacity-20 dark:opacity-30" />
-                <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl">
+                {/* Background shapes */}
+                <div className="absolute -top-4 -left-4 w-full h-full bg-brutal-pink border-brutal shadow-brutal-lg rotate-3" />
+                <div className="absolute -bottom-4 -right-4 w-full h-full bg-brutal-cyan border-brutal shadow-brutal-lg -rotate-3" />
+                
+                {/* Main image container */}
+                <div className="relative w-full h-full border-brutal shadow-brutal-xl overflow-hidden bg-white">
                   <Image
                     src="/images/profile-pic.avif"
                     alt="Matthews Wong"
@@ -219,59 +212,48 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16 md:py-24 px-4 sm:px-6 bg-slate-50 dark:bg-slate-900/50">
+      <section className="py-16 md:py-24 px-4 sm:px-6" style={{ backgroundColor: 'var(--bg-secondary)' }}>
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-              {t("about.title")}
-            </h2>
-          </motion.div>
+            {/* Section Title */}
+            <div className="inline-block mb-10">
+              <h2 
+                className="text-3xl md:text-4xl font-black uppercase px-6 py-3 -rotate-1"
+                style={{ 
+                  backgroundColor: 'var(--accent-yellow)', 
+                  color: 'var(--text-dark)',
+                  border: '3px solid var(--border-color)',
+                  boxShadow: 'var(--shadow-brutal)'
+                }}
+              >
+                {t("about.title")}
+              </h2>
+            </div>
+        
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="card p-6 md:p-8 lg:p-10"
-          >
-            <div className="flex flex-col lg:flex-row gap-8">
-              <div className="flex-1">
-                <div className="flex flex-wrap gap-3 mb-6">
-                  <span className="badge badge-primary">
-                    <Briefcase className="w-3.5 h-3.5 mr-1.5" />
-                    {t("about.devopsEngineer")}
-                  </span>
-                  <span className="badge badge-primary">
-                    <GraduationCap className="w-3.5 h-3.5 mr-1.5" />
-                    {t("about.itStudent")}
-                  </span>
-                  <span className="badge">
-                    <MapPin className="w-3.5 h-3.5 mr-1.5" />
-                    {t("about.city")}
-                  </span>
-                </div>
-
-                <div className="space-y-4 text-slate-600 dark:text-slate-400">
-                  <p className="text-lg leading-relaxed">
-                    {t("about.intro")}{" "}
-                    <span className="text-slate-900 dark:text-white font-medium">{t("about.role")}</span>{" "}
-                    {t("about.description1")}
-                  </p>
-                  <p className="text-lg leading-relaxed">
-                    {t("about.currentRole")}{" "}
-                    <span className="text-slate-900 dark:text-white font-medium">{t("about.degree")}</span>{" "}
-                    {t("about.atUniversity")}{" "}
-                    <span className="text-slate-900 dark:text-white font-medium">{t("about.position")}</span>{" "}
-                    {t("about.atCompany")}
-                  </p>
-                  <p className="text-lg leading-relaxed">
-                    {t("about.hobbies")}
-                  </p>
-                </div>
+            {/* About Content */}
+            <div 
+              className="max-w-4xl p-6 md:p-8 border-brutal shadow-brutal-lg"
+              style={{ backgroundColor: 'var(--bg-card)' }}
+            >
+              <div className="space-y-4 text-lg leading-relaxed text-neutral-300">
+                <p>
+                  {t("about.intro")}{" "}
+                  <span className="font-bold text-white">{t("about.role")}</span>{" "}
+                  {t("about.description1")}
+                </p>
+                <p>
+                  {t("about.currentRole")}{" "}
+                  <span className="font-bold text-white">{t("about.degree")}</span>{" "}
+                  {t("about.atUniversity")}{" "}
+                  <span className="font-bold text-white">{t("about.position")}</span>{" "}
+                  {t("about.atCompany")}
+                </p>
+                <p>{t("about.hobbies")}</p>
               </div>
             </div>
           </motion.div>
@@ -279,15 +261,23 @@ export default function Home() {
       </section>
 
       {/* Tech Expertise Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6">
+      <section className="py-16 md:py-24 px-4 sm:px-6" style={{ backgroundColor: 'var(--bg-primary)' }}>
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+            <h2 
+              className="inline-block text-3xl md:text-4xl font-black uppercase px-6 py-3 rotate-1"
+              style={{ 
+                backgroundColor: 'var(--accent-cyan)', 
+                color: 'var(--text-dark)',
+                border: '3px solid var(--border-color)',
+                boxShadow: 'var(--shadow-brutal)'
+              }}
+            >
               {t("techExpertise.title")}
             </h2>
           </motion.div>
@@ -300,20 +290,28 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="card card-hover p-6"
+                className="group border-brutal shadow-brutal p-6 transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg"
+                style={{ backgroundColor: 'var(--bg-card)' }}
               >
-                <div className="w-12 h-12 flex items-center justify-center bg-blue-50 dark:bg-blue-500/10 rounded-xl mb-4">
-                  <stack.icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                <div 
+                  className="w-14 h-14 flex items-center justify-center border-brutal shadow-brutal mb-5"
+                  style={{ backgroundColor: stack.color }}
+                >
+                  <stack.icon className="w-7 h-7 text-brutal-dark" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+                <h3 className="text-xl font-bold text-white mb-3 uppercase">
                   {stack.title}
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 mb-4">
+                <p className="text-neutral-400 mb-5">
                   {stack.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {stack.skills.map((skill) => (
-                    <span key={skill} className="badge text-xs">
+                    <span 
+                      key={skill} 
+                      className="px-3 py-1 text-sm font-bold border-2 border-white/20"
+                      style={{ color: 'var(--text-primary)' }}
+                    >
                       {skill}
                     </span>
                   ))}
@@ -325,18 +323,26 @@ export default function Home() {
       </section>
 
       {/* Explore More Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6 bg-slate-50 dark:bg-slate-900/50">
+      <section className="py-16 md:py-24 px-4 sm:px-6" style={{ backgroundColor: 'var(--bg-secondary)' }}>
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+            <h2 
+              className="inline-block text-3xl md:text-4xl font-black uppercase px-6 py-3 -rotate-1"
+              style={{ 
+                backgroundColor: 'var(--accent-pink)', 
+                color: 'var(--text-dark)',
+                border: '3px solid var(--border-color)',
+                boxShadow: 'var(--shadow-brutal)'
+              }}
+            >
               {t("sections.discoverMore")}
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-neutral-400 mt-6 max-w-2xl">
               {t("sections.discoverDescription")}
             </p>
           </motion.div>
@@ -351,19 +357,25 @@ export default function Home() {
                 transition={{ delay: index * 0.1 }}
               >
                 <Link href={section.href}>
-                  <div className="group card card-hover p-6 h-full">
-                    <div className="w-12 h-12 flex items-center justify-center bg-blue-50 dark:bg-blue-500/10 rounded-xl mb-4 group-hover:bg-blue-100 dark:group-hover:bg-blue-500/20 transition-colors">
-                      <section.icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  <div 
+                    className="group p-6 border-brutal shadow-brutal transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg"
+                    style={{ backgroundColor: 'var(--bg-card)' }}
+                  >
+                    <div 
+                      className="w-12 h-12 flex items-center justify-center border-brutal shadow-brutal mb-4"
+                      style={{ backgroundColor: section.color }}
+                    >
+                      <section.icon className="w-6 h-6 text-brutal-dark" />
                     </div>
-                    <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-lg font-bold text-white mb-2 uppercase">
                       {section.title}
                     </h3>
-                    <p className="text-slate-600 dark:text-slate-400 mb-4">
+                    <p className="text-sm text-neutral-400 mb-4">
                       {section.description}
                     </p>
-                    <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 text-sm font-medium">
+                    <div className="flex items-center gap-2 text-sm font-bold uppercase" style={{ color: section.color }}>
                       <span>{t("sections.exploreButton")}</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                     </div>
                   </div>
                 </Link>
@@ -374,65 +386,64 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6">
+      <section className="py-16 md:py-24 px-4 sm:px-6" style={{ backgroundColor: 'var(--bg-primary)' }}>
         <div className="container mx-auto max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center card p-8 md:p-12 bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-blue-500 dark:to-indigo-600 border-0"
+            className="text-center p-8 md:p-12 border-brutal shadow-brutal-xl -rotate-1"
+            style={{ backgroundColor: 'var(--accent-yellow)' }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              {t("cta.title")}
-            </h2>
-            <p className="text-lg text-blue-100 mb-8 max-w-xl mx-auto">
-              {t("cta.description")}
-            </p>
-            <Link href="/contact">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors"
-              >
-                <MessageCircle className="w-5 h-5" />
-                {t("cta.button")}
-                <ArrowRight className="w-5 h-5" />
-              </motion.button>
-            </Link>
+            <div className="rotate-1">
+              <div className="flex justify-center mb-4">
+                <Star className="w-8 h-8 text-brutal-dark" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-black text-brutal-dark mb-4 uppercase">
+                {t("cta.title")}
+              </h2>
+              <p className="text-lg mb-8 max-w-xl mx-auto text-brutal-dark/80">
+                {t("cta.description")}
+              </p>
+              <Link href="/contact">
+                <motion.button
+                  whileHover={{ x: -2, y: -2 }}
+                  whileTap={{ x: 2, y: 2 }}
+                  className="btn-brutal-dark text-lg"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  {t("cta.button")}
+                  <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-4 sm:px-6 border-t border-slate-200 dark:border-slate-800">
+      <footer className="py-8 px-4 sm:px-6 border-t-4 border-black" style={{ backgroundColor: 'var(--bg-card)' }}>
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-slate-500 dark:text-slate-400 text-sm">
+            <p className="text-sm font-bold text-neutral-400">
               © {new Date().getFullYear()} Matthews Wong. {t("footer.rights")}
             </p>
-            <div className="flex gap-6">
-              <a 
-                href="https://github.com/MatthewsWongOfficial" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-sm transition-colors"
-              >
-                GitHub
-              </a>
-              <a 
-                href="https://www.linkedin.com/in/matthewswong" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-sm transition-colors"
-              >
-                LinkedIn
-              </a>
-              <a 
-                href="mailto:matthewswong2610@gmail.com" 
-                className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-sm transition-colors"
-              >
-                Email
-              </a>
+            <div className="flex gap-4">
+              {[
+                { label: "GitHub", href: "https://github.com/MatthewsWongOfficial" },
+                { label: "LinkedIn", href: "https://www.linkedin.com/in/matthewswong" },
+                { label: "Email", href: "mailto:matthewswong2610@gmail.com" },
+              ].map((link) => (
+                <a 
+                  key={link.label}
+                  href={link.href} 
+                  target={link.href.startsWith("mailto") ? undefined : "_blank"}
+                  rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
+                  className="text-sm font-bold uppercase transition-colors text-neutral-400 hover:text-white"
+                >
+                  {link.label}
+                </a>
+              ))}
             </div>
           </div>
         </div>

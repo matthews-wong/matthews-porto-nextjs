@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import Groq from "groq-sdk"
 
 const groq = new Groq({
-  apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,
+  apiKey: process.env.GROQ_API_KEY || process.env.NEXT_PUBLIC_GROQ_API_KEY,
 })
 
 const CONTEXT_ENGLISH = `

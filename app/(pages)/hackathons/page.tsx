@@ -103,8 +103,11 @@ export default function HackathonsPage() {
   }, [isAutoplay, handleNext])
 
   return (
-    <main className="min-h-screen bg-white dark:bg-slate-950 pt-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-6xl">
+    <main className="min-h-screen pt-20 relative overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      {/* Subtle decorative line */}
+      <div className="absolute top-0 left-0 w-1 h-full opacity-20" style={{ backgroundColor: 'var(--accent-primary)' }} />
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-6xl relative z-10">
         {/* Back button */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
@@ -114,9 +117,10 @@ export default function HackathonsPage() {
         >
           <Link 
             href="/"
-            className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-base font-bold uppercase border-2 shadow-brutal transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-lg"
+            style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-5 h-5" />
             <span>Back</span>
           </Link>
         </motion.div>
@@ -128,23 +132,34 @@ export default function HackathonsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 flex items-center justify-center bg-blue-50 dark:bg-blue-500/10 rounded-xl">
-              <Trophy className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+          <div className="flex items-center gap-4 mb-6">
+            <div 
+              className="w-14 h-14 flex items-center justify-center border-2 shadow-brutal"
+              style={{ backgroundColor: 'var(--accent-primary)', borderColor: 'var(--border-color)' }}
+            >
+              <Trophy className="w-7 h-7" style={{ color: 'var(--text-dark)' }} />
             </div>
-            <span className="text-sm font-medium text-blue-600 dark:text-blue-400">{t("subtitle")}</span>
+            <span 
+              className="px-4 py-1.5 text-sm font-bold uppercase border-2"
+              style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
+            >
+              {t("subtitle")}
+            </span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-black uppercase mb-4 tracking-tight" style={{ color: 'var(--text-primary)' }}>
             {t("title")}
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
+          <p className="text-lg md:text-xl max-w-2xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             {t("description")}
           </p>
         </motion.div>
 
         {/* Featured Carousel */}
         <div className="max-w-5xl mx-auto mb-16" ref={containerRef}>
-          <div className="relative aspect-[16/9] rounded-2xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-800">
+          <div 
+            className="relative aspect-[16/9] overflow-hidden border-2 shadow-brutal-lg"
+            style={{ borderColor: 'var(--border-color)' }}
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -161,7 +176,7 @@ export default function HackathonsPage() {
                   className="object-cover"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
               </motion.div>
             </AnimatePresence>
 
@@ -179,26 +194,29 @@ export default function HackathonsPage() {
                     {hackathons[currentIndex].achievements.map((achievement) => (
                       <span
                         key={achievement}
-                        className="px-3 py-1 bg-blue-500/20 backdrop-blur-md rounded-full text-xs text-blue-200 font-medium"
+                        className="px-3 py-1.5 text-xs font-bold uppercase border-2"
+                        style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
                       >
                         {achievement}
                       </span>
                     ))}
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                  <h2 className="text-2xl md:text-3xl font-black uppercase mb-3" style={{ color: 'var(--text-primary)' }}>
                     {hackathons[currentIndex].title}
                   </h2>
-                  <div className="flex items-center gap-4 text-slate-300 text-sm mb-3">
-                    <span className="flex items-center gap-1.5">
-                      <Users className="w-4 h-4" />
+                  <div className="flex items-center gap-4 text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
+                    <span className="flex items-center gap-2 font-medium">
+                      <Users className="w-4 h-4" style={{ color: 'var(--accent-primary)' }} />
                       {hackathons[currentIndex].event}
                     </span>
-                    <span className="flex items-center gap-1.5">
-                      <Calendar className="w-4 h-4" />
+                    <span className="flex items-center gap-2 font-medium">
+                      <Calendar className="w-4 h-4" style={{ color: 'var(--accent-primary)' }} />
                       {hackathons[currentIndex].date}
                     </span>
                   </div>
-                  <p className="text-slate-300 text-sm md:text-base max-w-2xl">{hackathons[currentIndex].description}</p>
+                  <p className="text-base md:text-lg max-w-2xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                    {hackathons[currentIndex].description}
+                  </p>
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -206,48 +224,55 @@ export default function HackathonsPage() {
             {/* Navigation */}
             <button
               onClick={handlePrev}
-              className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all"
+              className="absolute left-4 top-1/2 -translate-y-1/2 p-3 border-2 transition-all hover:shadow-brutal"
+              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
             >
               <ChevronLeft size={20} />
             </button>
             <button
               onClick={handleNext}
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all"
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-3 border-2 transition-all hover:shadow-brutal"
+              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
             >
               <ChevronRight size={20} />
             </button>
 
             {/* Counter */}
-            <div className="absolute top-4 right-4 px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-white text-sm font-medium">
+            <div 
+              className="absolute top-4 right-4 px-4 py-2 border-2 text-sm font-bold"
+              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
+            >
               {currentIndex + 1} / {hackathons.length}
             </div>
 
             {/* Autoplay control */}
             <button
               onClick={() => setIsAutoplay(!isAutoplay)}
-              className="absolute top-4 left-4 px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-white text-sm hover:bg-white/20 transition-all"
+              className="absolute top-4 left-4 px-4 py-2 border-2 text-sm font-bold uppercase transition-all hover:shadow-brutal"
+              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
             >
               {isAutoplay ? "⏸ Pause" : "▶ Play"}
             </button>
           </div>
 
           {/* Thumbnails */}
-          <div className="flex gap-2 mt-4 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex gap-3 mt-4 overflow-x-auto pb-2 scrollbar-hide">
             {hackathons.map((hackathon, index) => (
               <button
                 key={hackathon.id}
                 onClick={() => setCurrentIndex(index)}
-                className={`flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 transition-all ${
-                  index === currentIndex
-                    ? "border-blue-500 ring-2 ring-blue-500/30"
-                    : "border-transparent opacity-60 hover:opacity-100"
-                }`}
+                className="flex-shrink-0 w-24 h-16 overflow-hidden border-2 transition-all"
+                style={{
+                  borderColor: index === currentIndex ? 'var(--accent-primary)' : 'var(--border-color)',
+                  opacity: index === currentIndex ? 1 : 0.6,
+                  boxShadow: index === currentIndex ? '3px 3px 0px var(--shadow-color)' : 'none'
+                }}
               >
                 <Image
                   src={hackathon.image}
                   alt={hackathon.title}
-                  width={80}
-                  height={56}
+                  width={96}
+                  height={64}
                   className="w-full h-full object-cover"
                 />
               </button>
@@ -257,7 +282,7 @@ export default function HackathonsPage() {
 
         {/* All Events Grid */}
         <div className="max-w-6xl mx-auto">
-          <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-6">All Events</h3>
+          <h3 className="text-xl font-black uppercase mb-6" style={{ color: 'var(--text-primary)' }}>All Events</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {hackathons.map((hackathon, index) => (
               <motion.div
@@ -266,27 +291,43 @@ export default function HackathonsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
                 onClick={() => setCurrentIndex(index)}
-                className={`cursor-pointer group rounded-xl overflow-hidden border transition-all duration-300 ${
-                  index === currentIndex
-                    ? "border-blue-500 bg-blue-50 dark:bg-blue-500/10"
-                    : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700"
-                }`}
+                className="cursor-pointer group border-2 overflow-hidden transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5"
+                style={{ 
+                  backgroundColor: index === currentIndex ? 'var(--accent-primary)' : 'var(--bg-secondary)',
+                  borderColor: 'var(--border-color)',
+                  boxShadow: index === currentIndex ? '3px 3px 0px var(--shadow-color)' : 'none'
+                }}
               >
-                <div className="relative aspect-video overflow-hidden">
+                <div className="relative aspect-video overflow-hidden border-b-2" style={{ borderColor: 'var(--border-color)' }}>
                   <Image
                     src={hackathon.image}
                     alt={hackathon.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                   <div className="absolute bottom-2 left-2">
-                    <span className="text-xs text-white/80">{hackathon.date}</span>
+                    <span 
+                      className="text-xs font-bold"
+                      style={{ color: 'var(--text-primary)' }}
+                    >
+                      {hackathon.date}
+                    </span>
                   </div>
                 </div>
                 <div className="p-3">
-                  <h4 className="font-medium text-slate-900 dark:text-white text-sm mb-0.5 line-clamp-1">{hackathon.title}</h4>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">{hackathon.event}</p>
+                  <h4 
+                    className="font-bold text-sm mb-1 line-clamp-1"
+                    style={{ color: index === currentIndex ? 'var(--text-dark)' : 'var(--text-primary)' }}
+                  >
+                    {hackathon.title}
+                  </h4>
+                  <p 
+                    className="text-xs line-clamp-1"
+                    style={{ color: index === currentIndex ? 'var(--text-dark)' : 'var(--text-secondary)' }}
+                  >
+                    {hackathon.event}
+                  </p>
                 </div>
               </motion.div>
             ))}

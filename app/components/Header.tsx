@@ -4,9 +4,8 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Sun, Moon, Globe, ChevronDown } from "lucide-react"
+import { Menu, X, Globe, ChevronDown } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { useTheme } from "@/lib/theme-provider"
 import { useLocale } from "@/lib/locale"
 
 export default function Header() {
@@ -15,7 +14,6 @@ export default function Header() {
   const [langOpen, setLangOpen] = useState(false)
   const pathname = usePathname()
   const t = useTranslations("nav")
-  const { theme, toggleTheme } = useTheme()
   const { setLocale, isPending } = useLocale()
 
   const navItems = [
@@ -62,33 +60,39 @@ export default function Header() {
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-        className={`fixed w-full z-50 transition-all duration-300 ${
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className={`fixed w-full z-50 transition-all duration-200 ${
           scrolled
-            ? "bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-slate-800/10"
-            : "bg-transparent"
+            ? "border-b-2 shadow-brutal"
+            : ""
         }`}
+        style={{ 
+          backgroundColor: scrolled ? 'var(--bg-primary)' : 'transparent',
+          borderColor: 'var(--border-color)'
+        }}
       >
         <nav className="container mx-auto px-4 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
             {/* Logo */}
             <Link href="/" className="relative z-10">
-              <span className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
-                Matthews<span className="text-blue-600 dark:text-blue-400">.</span>
-              </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-2">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  className={`px-4 py-2 text-sm font-bold uppercase transition-all ${
                     isActive(item.href)
-                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10"
-                      : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5"
+                      ? "border-2 shadow-brutal -translate-x-0.5 -translate-y-0.5"
+                      : "hover:border-2 border-2 border-transparent hover:shadow-brutal"
                   }`}
+                  style={
+                    isActive(item.href)
+                      ? { backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }
+                      : { color: 'var(--text-primary)' }
+                  }
                 >
                   {item.label}
                 </Link>
@@ -96,7 +100,7 @@ export default function Header() {
             </div>
 
             {/* Right Side Controls */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               {/* Language Switcher */}
               <div className="relative">
                 <button
@@ -105,7 +109,8 @@ export default function Header() {
                     setLangOpen(!langOpen)
                   }}
                   disabled={isPending}
-                  className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-2 text-sm font-bold uppercase border-2 shadow-brutal transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-lg"
+                  style={{ backgroundColor: 'var(--accent-gray)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
                 >
                   <Globe className="w-4 h-4" />
                   <span className="hidden sm:inline">EN</span>
@@ -119,14 +124,16 @@ export default function Header() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute right-0 mt-2 w-32 py-1 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700"
+                      className="absolute right-0 mt-2 w-36 border-2 shadow-brutal overflow-hidden"
+                      style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
                     >
                       <button
                         onClick={() => {
                           setLocale("en")
                           setLangOpen(false)
                         }}
-                        className="w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
+                        className="w-full px-4 py-3 text-left text-sm font-bold uppercase hover:bg-white/10 border-b"
+                        style={{ color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
                       >
                         🇺🇸 English
                       </button>
@@ -135,7 +142,8 @@ export default function Header() {
                           setLocale("id")
                           setLangOpen(false)
                         }}
-                        className="w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
+                        className="w-full px-4 py-3 text-left text-sm font-bold uppercase hover:bg-white/10"
+                        style={{ color: 'var(--text-primary)' }}
                       >
                         🇮🇩 Indonesia
                       </button>
@@ -144,23 +152,11 @@ export default function Header() {
                 </AnimatePresence>
               </div>
 
-              {/* Theme Toggle */}
-              <button
-                onClick={toggleTheme}
-                className="p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg transition-colors"
-                aria-label="Toggle theme"
-              >
-                {theme === "dark" ? (
-                  <Sun className="w-5 h-5" />
-                ) : (
-                  <Moon className="w-5 h-5" />
-                )}
-              </button>
-
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="lg:hidden p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg transition-colors"
+                className="lg:hidden p-2 border-2 shadow-brutal transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-lg"
+                style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
                 aria-label="Toggle menu"
               >
                 <Menu className="w-5 h-5" />
@@ -179,7 +175,7 @@ export default function Header() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 bg-black/20 dark:bg-black/40 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-40 bg-black/60 lg:hidden"
               onClick={() => setIsOpen(false)}
             />
 
@@ -189,17 +185,35 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-sm bg-white dark:bg-slate-900 shadow-xl lg:hidden"
+              className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-sm border-l-2 lg:hidden"
+              style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}
             >
               <div className="flex flex-col h-full">
-                {/* Header */}
-                <div className="flex items-center justify-between px-6 h-16 border-b border-slate-200 dark:border-slate-800">
-                  <span className="text-xl font-bold text-slate-900 dark:text-white">
-                    Menu
-                  </span>
+                {/* Header with Language Switcher */}
+                <div 
+                  className="flex items-center justify-between px-6 h-16 border-b-2"
+                  style={{ backgroundColor: 'var(--accent-primary)', borderColor: 'var(--border-color)' }}
+                >
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setLocale("en")}
+                      className="px-3 py-1 text-sm font-bold uppercase border-2 shadow-brutal"
+                      style={{ backgroundColor: 'var(--accent-light)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
+                    >
+                      EN
+                    </button>
+                    <button
+                      onClick={() => setLocale("id")}
+                      className="px-3 py-1 text-sm font-bold uppercase border-2 shadow-brutal"
+                      style={{ backgroundColor: 'var(--accent-gray)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
+                    >
+                      ID
+                    </button>
+                  </div>
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg transition-colors"
+                    className="p-2 border-2 shadow-brutal transition-all hover:-translate-x-0.5 hover:-translate-y-0.5"
+                    style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -207,56 +221,41 @@ export default function Header() {
 
                 {/* Navigation Links */}
                 <div className="flex-1 overflow-y-auto py-6 px-4">
-                  <nav className="space-y-1">
+                  <nav className="space-y-3">
                     <Link
                       href="/"
                       onClick={() => setIsOpen(false)}
-                      className={`flex items-center px-4 py-3 text-base font-medium rounded-xl transition-colors ${
-                        pathname === "/"
-                          ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10"
-                          : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5"
+                      className={`flex items-center px-4 py-3 text-base font-bold uppercase border-2 shadow-brutal transition-all ${
+                        pathname === "/" ? "" : "hover:-translate-x-0.5 hover:-translate-y-0.5"
                       }`}
+                      style={
+                        pathname === "/"
+                          ? { backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }
+                          : { backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }
+                      }
                     >
                       {t("home")}
                     </Link>
-                    {navItems.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setIsOpen(false)}
-                        className={`flex items-center px-4 py-3 text-base font-medium rounded-xl transition-colors ${
-                          isActive(item.href)
-                            ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10"
-                            : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5"
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
+                    {navItems.map((item, index) => {
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setIsOpen(false)}
+                          className={`flex items-center px-4 py-3 text-base font-bold uppercase border-2 shadow-brutal transition-all ${
+                            isActive(item.href) ? "" : "hover:-translate-x-0.5 hover:-translate-y-0.5"
+                          }`}
+                          style={
+                            isActive(item.href)
+                              ? { backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }
+                              : { backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }
+                          }
+                        >
+                          {item.label}
+                        </Link>
+                      )
+                    })}
                   </nav>
-                </div>
-
-                {/* Footer */}
-                <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-500 dark:text-slate-400">
-                      © 2024 Matthews Wong
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => setLocale("en")}
-                        className="px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 rounded"
-                      >
-                        EN
-                      </button>
-                      <button
-                        onClick={() => setLocale("id")}
-                        className="px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 rounded"
-                      >
-                        ID
-                      </button>
-                    </div>
-                  </div>
                 </div>
               </div>
             </motion.div>
