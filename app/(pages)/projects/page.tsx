@@ -15,11 +15,96 @@ interface Project {
   description: string
   features: string[]
   category: string
+  link?: string
 }
 
 const projects: Project[] = [
   {
     id: 1,
+    title: "AI Feeds",
+    image: "/AiFeeds.png",
+    description: "Anti doom-scrolling. Scroll through curated AI repositories to expand your knowledge.",
+    features: [
+      "Curated AI repository feed for learning.",
+      "Anti doom-scrolling design philosophy.",
+      "Knowledge-focused content discovery.",
+      "Clean, distraction-free interface.",
+    ],
+    category: "Web App",
+    link: "https://aifeeds.matthewswong.tech/",
+  },
+  {
+    id: 2,
+    title: "Review CI",
+    image: "/ReviewCI.png",
+    description: "A pipeline reader that evaluates your CI/CD pipelines and gives actionable insights.",
+    features: [
+      "CI/CD pipeline analysis and evaluation.",
+      "Actionable insights for pipeline optimization.",
+      "Support for multiple CI platforms.",
+      "Detailed reports and recommendations.",
+    ],
+    category: "DevOps Tool",
+    link: "https://reviewci.matthewswong.tech/",
+  },
+  {
+    id: 3,
+    title: "Jakarta Intl Denso",
+    image: "/jid-web.png",
+    description: "Car wash company website. Boosted SEO and increased online visibility for local customers.",
+    features: [
+      "SEO-optimized website for local visibility.",
+      "Modern, responsive design.",
+      "Business information and service showcase.",
+      "Improved online presence for the brand.",
+    ],
+    category: "Commercial",
+    link: "https://jakartaintldenso.com",
+  },
+  {
+    id: 4,
+    title: "Parcel Cirebon",
+    image: "/parcel-cirebon.png",
+    description: "E-commerce platform helping this store grow online visibility for Christmas parcels and more.",
+    features: [
+      "E-commerce platform for parcel sales.",
+      "Christmas and special occasion parcels.",
+      "Online ordering and catalog system.",
+      "Growth-focused digital presence.",
+    ],
+    category: "E-commerce",
+    link: "https://parcelcirebon.com",
+  },
+  {
+    id: 5,
+    title: "TikTok Agency Incubator",
+    image: "/tiktok-agency.png",
+    description: "Web app from official TikTok campaign. Built in a fast-paced agency environment.",
+    features: [
+      "Official TikTok campaign web application.",
+      "Built for agency workflow and speed.",
+      "Campaign management features.",
+      "Fast-paced development delivery.",
+    ],
+    category: "Campaign",
+    link: "https://tiktokagencyincubator.com",
+  },
+  {
+    id: 6,
+    title: "Shibui Matcha Bar",
+    image: "/shibui-lp.png",
+    description: "Landing page for matcha bar & cafe. Grew visitor traffic and boosted online visibility.",
+    features: [
+      "Beautiful landing page design.",
+      "Increased visitor traffic.",
+      "Brand visibility enhancement.",
+      "Cafe menu and location showcase.",
+    ],
+    category: "Landing Page",
+    link: "https://shibui.id",
+  },
+  {
+    id: 7,
     title: "STADPASS - Stadium Navigation App",
     image: "/images/STADPASS Project.jpeg",
     description: "A mobile app designed to help users navigate stadiums using Bluetooth Low Energy (BLE) technology.",
@@ -33,7 +118,7 @@ const projects: Project[] = [
     category: "Mobile App",
   },
   {
-    id: 2,
+    id: 8,
     title: "Observer KPU - Election Web App with LLM",
     image: "/images/Observer KPU Project.jpeg",
     description:
@@ -47,14 +132,31 @@ const projects: Project[] = [
     category: "Web App",
   },
   {
-    id: 3,
+    id: 9,
     title: "Credit Risk Analysis with XGBoost",
     images: [
       "/images/rakamin/rakamin-01.png",
+      "/images/rakamin/rakamin-02.png",
+      "/images/rakamin/rakamin-03.png",
       "/images/rakamin/rakamin-04.png",
       "/images/rakamin/rakamin-05.png",
       "/images/rakamin/rakamin-06.png",
       "/images/rakamin/rakamin-07.png",
+      "/images/rakamin/rakamin-08.png",
+      "/images/rakamin/rakamin-09.png",
+      "/images/rakamin/rakamin-10.png",
+      "/images/rakamin/rakamin-11.png",
+      "/images/rakamin/rakamin-12.png",
+      "/images/rakamin/rakamin-13.png",
+      "/images/rakamin/rakamin-14.png",
+      "/images/rakamin/rakamin-15.png",
+      "/images/rakamin/rakamin-16.png",
+      "/images/rakamin/rakamin-17.png",
+      "/images/rakamin/rakamin-18.png",
+      "/images/rakamin/rakamin-19.png",
+      "/images/rakamin/rakamin-20.png",
+      "/images/rakamin/rakamin-21.png",
+      "/images/rakamin/rakamin-22.png",
     ],
     description: "Developed a comprehensive credit risk analysis using advanced XGBoost modeling techniques.",
     features: [
@@ -66,7 +168,7 @@ const projects: Project[] = [
     category: "Data Science",
   },
   {
-    id: 4,
+    id: 10,
     title: "Security Onion - Network Monitoring",
     images: [
       "/images/1.png",
@@ -74,6 +176,20 @@ const projects: Project[] = [
       "/images/6.png",
       "/images/7.png",
       "/images/8.png",
+      "/images/9.png",
+      "/images/10.png",
+      "/images/17.png",
+      "/images/18.png",
+      "/images/19.png",
+      "/images/20.png",
+      "/images/21.png",
+      "/images/22.png",
+      "/images/23.png",
+      "/images/24.png",
+      "/images/25.png",
+      "/images/26.png",
+      "/images/27.png",
+      "/images/28.png",
     ],
     description: "Developed and implemented a comprehensive network security monitoring solution using Security Onion.",
     features: [
@@ -161,6 +277,21 @@ const FullscreenModal = ({ project, onClose, initialImageIndex = 0 }: Fullscreen
           </div>
         )}
         <p className="text-center text-white/70 text-sm max-w-2xl mx-auto">{project.description}</p>
+        {project.link && (
+          <div className="flex justify-center mt-4">
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-2 rounded-full text-sm font-medium transition-all hover:scale-105"
+              style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)' }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ExternalLink className="w-4 h-4" />
+              Visit Website
+            </a>
+          </div>
+        )}
       </div>
     </motion.div>
   )
@@ -266,6 +397,18 @@ export default function ProjectsPage() {
                     {project.category}
                   </span>
                 </div>
+
+                {/* Link indicator */}
+                {project.link && (
+                  <div className="absolute top-3 right-3">
+                    <span
+                      className="w-8 h-8 flex items-center justify-center rounded-full"
+                      style={{ backgroundColor: 'white/90' }}
+                    >
+                      <ExternalLink className="w-4 h-4" style={{ color: 'var(--text-dark)' }} />
+                    </span>
+                  </div>
+                )}
 
                 {/* Hover overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">

@@ -4,7 +4,7 @@ import { useState, useCallback, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft, ChevronLeft, ChevronRight, Trophy, Calendar, Users } from "lucide-react"
+import { ArrowLeft, ChevronLeft, ChevronRight, Calendar, MapPin, Award } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 const hackathons = [
@@ -103,17 +103,13 @@ export default function HackathonsPage() {
   }, [isAutoplay, handleNext])
 
   return (
-    <main className="min-h-screen pt-20 relative overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      {/* Subtle decorative line */}
-      <div className="absolute top-0 left-0 w-1 h-full opacity-20" style={{ backgroundColor: 'var(--accent-primary)' }} />
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-6xl relative z-10">
+    <main className="min-h-screen pt-20" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      <div className="container mx-auto px-4 sm:px-6 py-8 max-w-5xl">
         {/* Back button */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3 }}
-          className="mb-8"
+          className="mb-6"
         >
           <Link 
             href="/"
@@ -124,47 +120,38 @@ export default function HackathonsPage() {
           </Link>
         </motion.div>
 
-        {/* Page Header */}
+        {/* Header */}
         <motion.div 
-          className="mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          className="mb-8"
         >
-          <div className="flex items-center gap-4 mb-6">
-            <div 
-              className="w-14 h-14 flex items-center justify-center border-2 shadow-brutal"
-              style={{ backgroundColor: 'var(--accent-primary)', borderColor: 'var(--border-color)' }}
-            >
-              <Trophy className="w-7 h-7" style={{ color: 'var(--text-dark)' }} />
-            </div>
-            <span 
-              className="px-4 py-1.5 text-sm font-bold uppercase border-2"
-              style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
-            >
-              {t("subtitle")}
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-black uppercase mb-4 tracking-tight" style={{ color: 'var(--text-primary)' }}>
+          <p className="text-sm font-medium uppercase tracking-wider mb-2" style={{ color: 'var(--accent-primary)' }}>
+            {t("subtitle")}
+          </p>
+          <h1 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>
             {t("title")}
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+          <p className="text-base md:text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             {t("description")}
           </p>
         </motion.div>
 
         {/* Featured Carousel */}
-        <div className="max-w-5xl mx-auto mb-12 md:mb-16" ref={containerRef}>
-          <div 
-            className="relative aspect-[4/5] sm:aspect-[4/3] md:aspect-[16/9] overflow-hidden border-2 shadow-brutal-lg rounded-2xl"
-            style={{ borderColor: 'var(--border-color)' }}
-          >
+        <motion.div 
+          ref={containerRef}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="mb-10"
+        >
+          <div className="relative aspect-[4/3] md:aspect-[16/9] rounded-2xl overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.4 }}
                 className="absolute inset-0"
               >
@@ -175,196 +162,174 @@ export default function HackathonsPage() {
                   className="object-cover"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
               </motion.div>
             </AnimatePresence>
 
             {/* Content Overlay */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-10">
+            <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentIndex}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
+                  exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+                  {/* Achievements */}
+                  <div className="flex flex-wrap gap-2 mb-3">
                     {hackathons[currentIndex].achievements.map((achievement) => (
                       <span
                         key={achievement}
-                        className="px-2 py-1 sm:px-3 sm:py-1.5 text-[10px] sm:text-xs font-bold uppercase border-2 rounded-full"
-                        style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
+                        className="px-3 py-1 text-xs font-medium rounded-full flex items-center gap-1.5"
+                        style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)' }}
                       >
+                        <Award className="w-3 h-3" />
                         {achievement}
                       </span>
                     ))}
                   </div>
-                  <h2 className="text-lg sm:text-2xl md:text-3xl font-black uppercase mb-2 sm:mb-3" style={{ color: 'var(--text-primary)' }}>
+                  
+                  <h2 className="text-xl md:text-3xl font-bold mb-2 text-white">
                     {hackathons[currentIndex].title}
                   </h2>
-                  <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm mb-2 sm:mb-4" style={{ color: 'var(--text-secondary)' }}>
-                    <span className="flex items-center gap-1.5 sm:gap-2 font-medium">
-                      <Users className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: 'var(--accent-primary)' }} />
+                  
+                  <div className="flex flex-wrap items-center gap-4 text-sm mb-3 text-white/70">
+                    <span className="flex items-center gap-1.5">
+                      <MapPin className="w-4 h-4" style={{ color: 'var(--accent-primary)' }} />
                       {hackathons[currentIndex].event}
                     </span>
-                    <span className="flex items-center gap-1.5 sm:gap-2 font-medium">
-                      <Calendar className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: 'var(--accent-primary)' }} />
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-4 h-4" style={{ color: 'var(--accent-primary)' }} />
                       {hackathons[currentIndex].date}
                     </span>
                   </div>
-                  <p className="text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed line-clamp-2 sm:line-clamp-none" style={{ color: 'var(--text-secondary)' }}>
+                  
+                  <p className="text-sm md:text-base text-white/80 max-w-2xl line-clamp-2 md:line-clamp-none">
                     {hackathons[currentIndex].description}
                   </p>
                 </motion.div>
               </AnimatePresence>
             </div>
 
-            {/* Navigation - Hidden on mobile, show swipe hint instead */}
-            <button
-              onClick={handlePrev}
-              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 border-2 transition-all hover:shadow-brutal hidden sm:block"
-              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button
-              onClick={handleNext}
-              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 border-2 transition-all hover:shadow-brutal hidden sm:block"
-              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
-            >
-              <ChevronRight size={20} />
-            </button>
-
-            {/* Counter */}
-            <div 
-              className="absolute top-3 right-3 sm:top-4 sm:right-4 px-2.5 py-1.5 sm:px-4 sm:py-2 border-2 text-xs sm:text-sm font-bold rounded-full"
-              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
-            >
-              {currentIndex + 1} / {hackathons.length}
+            {/* Navigation Arrows */}
+            <div className="absolute left-4 right-4 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none">
+              <button
+                onClick={handlePrev}
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all pointer-events-auto"
+              >
+                <ChevronLeft className="w-5 h-5 text-white" />
+              </button>
+              <button
+                onClick={handleNext}
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all pointer-events-auto"
+              >
+                <ChevronRight className="w-5 h-5 text-white" />
+              </button>
             </div>
 
-            {/* Autoplay control */}
-            <button
-              onClick={() => setIsAutoplay(!isAutoplay)}
-              className="absolute top-3 left-3 sm:top-4 sm:left-4 px-2.5 py-1.5 sm:px-4 sm:py-2 border-2 text-xs sm:text-sm font-bold uppercase transition-all hover:shadow-brutal rounded-full"
-              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
-            >
-              {isAutoplay ? "⏸" : "▶"}
-            </button>
-          </div>
-
-          {/* Mobile navigation buttons */}
-          <div className="flex justify-center gap-3 mt-4 sm:hidden">
-            <button
-              onClick={handlePrev}
-              className="p-3 border-2 transition-all active:scale-95 rounded-full"
-              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
-            >
-              <ChevronLeft size={24} />
-            </button>
-            <button
-              onClick={handleNext}
-              className="p-3 border-2 transition-all active:scale-95 rounded-full"
-              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
-            >
-              <ChevronRight size={24} />
-            </button>
-          </div>
-
-          {/* Thumbnails - Hidden on mobile */}
-          <div className="hidden sm:flex gap-3 mt-4 overflow-x-auto pb-2 scrollbar-hide">
-            {hackathons.map((hackathon, index) => (
+            {/* Top controls */}
+            <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
               <button
-                key={hackathon.id}
-                onClick={() => setCurrentIndex(index)}
-                className="flex-shrink-0 w-24 h-16 overflow-hidden border-2 transition-all rounded-lg"
-                style={{
-                  borderColor: index === currentIndex ? 'var(--accent-primary)' : 'var(--border-color)',
-                  opacity: index === currentIndex ? 1 : 0.6,
-                  boxShadow: index === currentIndex ? '3px 3px 0px var(--shadow-color)' : 'none'
-                }}
+                onClick={() => setIsAutoplay(!isAutoplay)}
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all text-white text-sm"
               >
-                <Image
-                  src={hackathon.image}
-                  alt={hackathon.title}
-                  width={96}
-                  height={64}
-                  className="w-full h-full object-cover"
-                />
+                {isAutoplay ? "⏸" : "▶"}
               </button>
-            ))}
+              <div className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm font-medium">
+                {currentIndex + 1} / {hackathons.length}
+              </div>
+            </div>
           </div>
 
-          {/* Mobile dot indicators */}
-          <div className="flex justify-center gap-2 mt-4 sm:hidden">
+          {/* Dot indicators */}
+          <div className="flex justify-center gap-2 mt-4">
             {hackathons.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className="w-2 h-2 rounded-full transition-all"
+                className={`h-2 rounded-full transition-all ${
+                  index === currentIndex ? 'w-6' : 'w-2'
+                }`}
                 style={{
                   backgroundColor: index === currentIndex ? 'var(--accent-primary)' : 'var(--text-secondary)',
-                  transform: index === currentIndex ? 'scale(1.3)' : 'scale(1)'
+                  opacity: index === currentIndex ? 1 : 0.4
                 }}
               />
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* All Events Grid */}
-        <div className="max-w-6xl mx-auto">
-          <h3 className="text-lg sm:text-xl font-black uppercase mb-4 sm:mb-6" style={{ color: 'var(--text-primary)' }}>All Events</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <h3 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>
+            All Events
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {hackathons.map((hackathon, index) => (
               <motion.div
                 key={hackathon.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
+                transition={{ delay: 0.1 + index * 0.03 }}
                 onClick={() => setCurrentIndex(index)}
-                className="cursor-pointer group border-2 overflow-hidden transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 rounded-xl"
-                style={{ 
-                  backgroundColor: index === currentIndex ? 'var(--accent-primary)' : 'var(--bg-secondary)',
-                  borderColor: 'var(--border-color)',
-                  boxShadow: index === currentIndex ? '3px 3px 0px var(--shadow-color)' : 'none'
-                }}
+                className="cursor-pointer group"
               >
-                <div className="relative aspect-[4/3] overflow-hidden border-b-2" style={{ borderColor: 'var(--border-color)' }}>
+                <div 
+                  className={`relative aspect-[4/3] rounded-xl overflow-hidden mb-2 transition-all duration-300 ${
+                    index === currentIndex ? 'ring-2 ring-offset-2' : ''
+                  }`}
+                  style={{ 
+                    ringColor: 'var(--accent-primary)',
+                    ringOffsetColor: 'var(--bg-primary)'
+                  }}
+                >
                   <Image
                     src={hackathon.image}
                     alt={hackathon.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <div className="absolute bottom-1.5 left-1.5 sm:bottom-2 sm:left-2">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  
+                  {/* Date badge */}
+                  <div className="absolute bottom-2 left-2">
                     <span 
-                      className="text-[10px] sm:text-xs font-bold px-1.5 py-0.5 rounded"
-                      style={{ color: 'var(--text-primary)', backgroundColor: 'rgba(0,0,0,0.5)' }}
+                      className="px-2 py-0.5 text-xs font-medium rounded-full bg-black/50 text-white backdrop-blur-sm"
                     >
                       {hackathon.date}
                     </span>
                   </div>
+                  
+                  {/* Active indicator */}
+                  {index === currentIndex && (
+                    <div 
+                      className="absolute top-2 right-2 w-2 h-2 rounded-full"
+                      style={{ backgroundColor: 'var(--accent-primary)' }}
+                    />
+                  )}
                 </div>
-                <div className="p-2 sm:p-3">
-                  <h4 
-                    className="font-bold text-xs sm:text-sm mb-0.5 sm:mb-1 line-clamp-1"
-                    style={{ color: index === currentIndex ? 'var(--text-dark)' : 'var(--text-primary)' }}
-                  >
-                    {hackathon.title}
-                  </h4>
-                  <p 
-                    className="text-[10px] sm:text-xs line-clamp-1"
-                    style={{ color: index === currentIndex ? 'var(--text-dark)' : 'var(--text-secondary)' }}
-                  >
-                    {hackathon.event}
-                  </p>
-                </div>
+                
+                <h4 
+                  className="font-medium text-sm line-clamp-1 mb-0.5 group-hover:opacity-80 transition-opacity"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  {hackathon.title}
+                </h4>
+                <p 
+                  className="text-xs line-clamp-1"
+                  style={{ color: 'var(--text-secondary)' }}
+                >
+                  {hackathon.event}
+                </p>
               </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </main>
   )

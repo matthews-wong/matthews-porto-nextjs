@@ -8,12 +8,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/next'
 import { useTranslations } from "next-intl"
 import { 
-  Briefcase, 
-  GraduationCap, 
-  Award, 
-  Trophy, 
-  Folder, 
-  MessageCircle,
   ArrowRight,
   Code2,
   Server,
@@ -21,10 +15,12 @@ import {
   Github,
   Linkedin,
   Mail,
-  MapPin,
+  MessageCircle,
+  Folder,
   ExternalLink,
   Zap,
-  Star
+  Star,
+  Globe
 } from "lucide-react"
 
 
@@ -55,46 +51,61 @@ const techStacks = [
   },
 ]
 
-const sections = [
+const products = [
   {
-    id: "experience",
-    title: "Experience",
-    description: "Professional journey and internships",
-    icon: Briefcase,
-    href: "/experience",
-    color: "var(--accent-yellow)",
-  },
-  {
-    id: "education",
-    title: "Education",
-    description: "Academic background and activities",
-    icon: GraduationCap,
-    href: "/education",
+    id: "aifeeds",
+    title: "AI Feeds",
+    description: "Anti doom-scrolling. Scroll through curated AI repositories to expand your knowledge.",
+    href: "https://aifeeds.matthewswong.tech/",
+    icon: Zap,
     color: "var(--accent-cyan)",
+    tagline: "Learn, Don't Scroll",
+    image: "/AiFeeds.png",
   },
   {
-    id: "projects",
-    title: "Projects",
-    description: "Featured work and case studies",
-    icon: Folder,
-    href: "/projects",
-    color: "var(--accent-pink)",
-  },
-  {
-    id: "certifications",
-    title: "Certifications",
-    description: "Professional credentials and badges",
-    icon: Award,
-    href: "/certifications",
+    id: "reviewci",
+    title: "Review CI",
+    description: "A pipeline reader that evaluates your CI/CD pipelines and gives actionable insights.",
+    href: "https://reviewci.matthewswong.tech/",
+    icon: Server,
     color: "var(--accent-lime)",
+    tagline: "Pipeline Intelligence",
+    image: "/ReviewCI.png",
+  },
+]
+
+const commercialWebsites = [
+  {
+    id: "tiktok",
+    title: "TikTok Agency Incubator",
+    description: "Web app from official TikTok campaign. Built in a fast-paced agency environment.",
+    href: "https://tiktokagencyincubator.com",
+    image: "/tiktok-agency.png",
+    tags: ["Campaign", "Agency"],
   },
   {
-    id: "hackathons",
-    title: "Hackathons",
-    description: "Competitions and events",
-    icon: Trophy,
-    href: "/hackathons",
-    color: "var(--accent-orange)",
+    id: "parcel",
+    title: "Parcel Cirebon",
+    description: "E-commerce platform helping this store grow online visibility for Christmas parcels and more.",
+    href: "https://parcelcirebon.com",
+    image: "/parcel-cirebon.png",
+    tags: ["E-commerce", "Growth"],
+  },
+  {
+    id: "jid",
+    title: "Jakarta Intl Denso",
+    description: "Car wash company website. Boosted SEO and increased online visibility for local customers.",
+    href: "https://jakartaintldenso.com",
+    image: "/jid-web.png",
+    tags: ["SEO", "Business"],
+  },
+  {
+    id: "shibui",
+    title: "Shibui Matcha Bar",
+    description: "Landing page for matcha bar & cafe. Grew visitor traffic and boosted online visibility.",
+    href: "https://shibui.id",
+    image: "/shibui-lp.png",
+    tags: ["Landing Page", "Cafe"],
   },
 ]
 
@@ -189,7 +200,7 @@ export default function Home() {
               {/* Social Links */}
               <div className="flex justify-center lg:justify-start gap-3">
                 {[
-                  { icon: Github, href: "https://github.com/MatthewsWongOfficial", label: "GitHub" },
+                  { icon: Github, href: "https://github.com/matthews-wong", label: "GitHub" },
                   { icon: Linkedin, href: "https://www.linkedin.com/in/matthewswong", label: "LinkedIn" },
                   { icon: Mail, href: "mailto:matthewswong2610@gmail.com", label: "Email" },
                 ].map((social) => (
@@ -482,7 +493,126 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Explore More Section */}
+      {/* Commercial Websites Section - Highlighted */}
+      <section 
+        className="py-16 md:py-24 px-4 sm:px-6 rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-6" 
+        style={{ backgroundColor: 'var(--bg-primary)' }}
+      >
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <h2 
+                className="inline-block text-3xl md:text-4xl font-black uppercase px-6 py-3 rotate-1"
+                style={{ 
+                  backgroundColor: 'var(--accent-yellow)', 
+                  color: 'var(--text-dark)',
+                  border: '3px solid var(--border-color)',
+                  boxShadow: 'var(--shadow-brutal)'
+                }}
+              >
+                Commercial Websites
+              </h2>
+              <span 
+                className="px-3 py-1.5 text-xs font-black uppercase rounded-full border-2 animate-pulse"
+                style={{ 
+                  backgroundColor: 'var(--accent-yellow)', 
+                  color: 'var(--text-dark)',
+                  borderColor: 'var(--border-color)'
+                }}
+              >
+                ⭐ Highlight
+              </span>
+            </div>
+            <p className="text-lg text-neutral-400 max-w-2xl">
+              Websites I've built for businesses to enhance their online presence and drive growth.
+            </p>
+          </motion.div>
+
+          {/* Horizontal scroll container */}
+          <div className="relative -mx-4 sm:-mx-6 px-4 sm:px-6">
+            <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+              {commercialWebsites.map((site, index) => (
+                <motion.a
+                  key={site.id}
+                  href={site.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="group block flex-shrink-0 w-[300px] sm:w-[340px] snap-start"
+                >
+                  <div 
+                    className="relative overflow-hidden rounded-2xl border-brutal shadow-brutal transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg h-full"
+                    style={{ backgroundColor: 'var(--bg-card)' }}
+                  >
+                    {/* Image */}
+                    <div className="relative h-40 sm:h-48 overflow-hidden">
+                      <Image
+                        src={site.image}
+                        alt={site.title}
+                        fill
+                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      />
+                      {/* Gradient overlay */}
+                      <div 
+                        className="absolute inset-0"
+                        style={{ 
+                          background: 'linear-gradient(to top, var(--bg-card) 0%, transparent 60%)'
+                        }}
+                      />
+                      {/* Tags on image */}
+                      <div className="absolute top-3 right-3 flex gap-1.5">
+                        {site.tags.map((tag) => (
+                          <span 
+                            key={tag}
+                            className="px-2.5 py-1 text-xs font-bold uppercase rounded-full"
+                            style={{ 
+                              backgroundColor: 'var(--accent-yellow)',
+                              color: 'var(--text-dark)'
+                            }}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="p-5">
+                      {/* Title */}
+                      <h3 className="text-lg font-bold text-white mb-2">
+                        {site.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-sm text-neutral-400 mb-4 leading-relaxed">
+                        {site.description}
+                      </p>
+
+                      {/* CTA */}
+                      <div 
+                        className="inline-flex items-center gap-2 text-sm font-bold uppercase transition-all group-hover:gap-3"
+                        style={{ color: 'var(--accent-yellow)' }}
+                      >
+                        <span>Visit Site</span>
+                        <ExternalLink className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Discover More - My Products Section */}
       <section 
         className="py-16 md:py-24 px-4 sm:px-6 rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-6" 
         style={{ backgroundColor: 'var(--bg-primary)' }}
@@ -506,43 +636,86 @@ export default function Home() {
               {t("sections.discoverMore")}
             </h2>
             <p className="text-lg text-neutral-400 mt-6 max-w-2xl">
-              {t("sections.discoverDescription")}
+              Tools I've built to solve real problems. Try them out!
             </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sections.map((section, index) => (
-              <motion.div
-                key={section.id}
+          <div className="grid md:grid-cols-2 gap-6">
+            {products.map((product, index) => (
+              <motion.a
+                key={product.id}
+                href={product.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
+                className="group block"
               >
-                <Link href={section.href}>
-                  <div 
-                    className="group p-6 border-brutal shadow-brutal transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg"
-                    style={{ backgroundColor: 'var(--bg-card)' }}
-                  >
+                <div 
+                  className="relative overflow-hidden rounded-2xl border-brutal shadow-brutal transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg"
+                  style={{ backgroundColor: 'var(--bg-card)' }}
+                >
+                  {/* Image */}
+                  <div className="relative h-40 sm:h-48 overflow-hidden">
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      fill
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                    {/* Gradient overlay */}
                     <div 
-                      className="w-12 h-12 flex items-center justify-center border-brutal shadow-brutal mb-4"
-                      style={{ backgroundColor: section.color }}
-                    >
-                      <section.icon className="w-6 h-6 text-brutal-dark" />
-                    </div>
-                    <h3 className="text-lg font-bold text-white mb-2 uppercase">
-                      {section.title}
-                    </h3>
-                    <p className="text-sm text-neutral-400 mb-4">
-                      {section.description}
-                    </p>
-                    <div className="flex items-center gap-2 text-sm font-bold uppercase" style={{ color: section.color }}>
-                      <span>{t("sections.exploreButton")}</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                      className="absolute inset-0"
+                      style={{ 
+                        background: `linear-gradient(to top, var(--bg-card) 0%, transparent 60%)`
+                      }}
+                    />
+                    {/* Tagline badge */}
+                    <div className="absolute top-3 right-3">
+                      <span 
+                        className="px-3 py-1 text-xs font-bold uppercase rounded-full"
+                        style={{ 
+                          backgroundColor: product.color,
+                          color: 'var(--text-dark)'
+                        }}
+                      >
+                        {product.tagline}
+                      </span>
                     </div>
                   </div>
-                </Link>
-              </motion.div>
+                  
+                  <div className="p-6">
+                    {/* Header */}
+                    <div className="flex items-center gap-3 mb-3">
+                      <div 
+                        className="w-10 h-10 rounded-lg flex items-center justify-center"
+                        style={{ backgroundColor: product.color }}
+                      >
+                        <product.icon className="w-5 h-5 text-brutal-dark" />
+                      </div>
+                      <h3 className="text-xl font-black text-white uppercase">
+                        {product.title}
+                      </h3>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-neutral-400 mb-4 text-sm leading-relaxed">
+                      {product.description}
+                    </p>
+
+                    {/* CTA */}
+                    <div 
+                      className="inline-flex items-center gap-2 text-sm font-bold uppercase transition-all group-hover:gap-3"
+                      style={{ color: product.color }}
+                    >
+                      <span>Try it now</span>
+                      <ExternalLink className="w-4 h-4" />
+                    </div>
+                  </div>
+                </div>
+              </motion.a>
             ))}
           </div>
         </div>
@@ -596,7 +769,7 @@ export default function Home() {
             </p>
             <div className="flex gap-4">
               {[
-                { label: "GitHub", href: "https://github.com/MatthewsWongOfficial" },
+                { label: "GitHub", href: "https://github.com/matthews-wong" },
                 { label: "LinkedIn", href: "https://www.linkedin.com/in/matthewswong" },
                 { label: "Email", href: "mailto:matthewswong2610@gmail.com" },
               ].map((link) => (
