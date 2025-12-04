@@ -133,7 +133,7 @@ export default function Home() {
                 {t("hero.title")}
               </p>
 
-              <p className="text-lg text-neutral-300 max-w-xl mb-8 mx-auto lg:mx-0">
+              <p className="text-lg text-neutral-100 font-medium max-w-xl mb-8 mx-auto lg:mx-0">
                 {t("hero.description")}
               </p>  
 
@@ -183,28 +183,59 @@ export default function Home() {
 
             {/* Profile Image */}
             <motion.div
-              initial={{ opacity: 0, rotate: -5, scale: 0.9 }}
-              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               className="relative"
             >
-              <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
-                {/* Background shapes */}
-                <div className="absolute -top-4 -left-4 w-full h-full bg-brutal-pink border-brutal shadow-brutal-lg rotate-3" />
-                <div className="absolute -bottom-4 -right-4 w-full h-full bg-brutal-cyan border-brutal shadow-brutal-lg -rotate-3" />
+              <div className="relative w-64 h-80 md:w-80 md:h-[400px] lg:w-96 lg:h-[480px]">
+                {/* Simple gradient backdrop */}
+                <div 
+                  className="absolute inset-x-4 top-8 bottom-0 rounded-t-full"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(255, 111, 32, 0.15) 0%, rgba(59, 59, 59, 0.8) 40%, #2E2E2E 100%)',
+                  }}
+                />
                 
-                {/* Main image container */}
-                <div className="relative w-full h-full border-brutal shadow-brutal-xl overflow-hidden bg-white">
+                {/* Glow effect - clipped to not show at bottom */}
+                <div 
+                  className="absolute inset-0 z-10 overflow-hidden"
+                  style={{ clipPath: 'inset(0 0 20px 0)' }}
+                >
+                  <div 
+                    className="relative w-full h-full"
+                    style={{
+                      filter: 'drop-shadow(0 0 2px #FF6F20) drop-shadow(0 0 12px rgba(255,111,32,0.3))',
+                    }}
+                  >
+                    <Image
+                      src="/Matthews-Wong.png"
+                      alt=""
+                      fill
+                      className="object-contain object-bottom"
+                      aria-hidden="true"
+                    />
+                  </div>
+                </div>
+                
+                {/* Main image without glow */}
+                <div className="relative w-full h-full z-10">
                   <Image
-                    src="/images/profile-pic.avif"
+                    src="/Matthews-Wong.png"
                     alt="Matthews Wong"
                     fill
-                    className="object-cover"
+                    className="object-contain object-bottom"
                     priority
-                    placeholder="blur"
-                    blurDataURL="/images/profile-pic-tiny.avif"
                   />
                 </div>
+                
+                {/* Smooth fade base at bottom */}
+                <div 
+                  className="absolute -bottom-2 left-0 right-0 h-24 z-20 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(to top, var(--bg-primary) 0%, var(--bg-primary) 40%, transparent 100%)',
+                  }}
+                />
               </div>
             </motion.div>
           </div>
@@ -402,7 +433,7 @@ export default function Home() {
               <h2 className="text-3xl md:text-4xl font-black text-brutal-dark mb-4 uppercase">
                 {t("cta.title")}
               </h2>
-              <p className="text-lg mb-8 max-w-xl mx-auto text-brutal-dark/80">
+              <p className="text-lg mb-8 max-w-xl mx-auto text-brutal-dark font-semibold">
                 {t("cta.description")}
               </p>
               <Link href="/contact">

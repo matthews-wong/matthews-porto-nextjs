@@ -28,8 +28,19 @@ const experiences: Experience[] = [
     accentColor: "var(--accent-primary)",
     roles: [
       {
-        title: "DevOps Engineer",
-        duration: "Jan 2025 - Present",
+        title: "DevOps Engineer (Part-Time)",
+        duration: "Sep 2025 - Present",
+        description: [
+          "Migrate services from Public IP architecture to Load Balancers for improved scalability and security.",
+          "Integrate SonarQube into CI/CD pipelines to enforce code quality and vulnerability checks.",
+          "Handle day-to-day deployments across multiple environments.",
+          "Develop and maintain automation scripts to optimize operational workflows.",
+          "Collaborate with developers to ensure stable and efficient release processes.",
+        ],
+      },
+      {
+        title: "DevOps Engineer (Intern)",
+        duration: "Jan 2025 - Sep 2025",
         description: [
           "Ensure uptime for German and Indonesian websites with uptime alerts.",
           "Monitor system performance using Grafana.",
@@ -44,8 +55,8 @@ const experiences: Experience[] = [
         description: [
           "Developed and executed automated UI tests.",
           "Used WebdriverIO, Xpath Selector, and Mocha framework for front-end validation.",
-          "Integrate Allure reporting framework to provide comprehensive and detailed test reports",
-          "Design reusable test scripts to enhance testing efficiency and reduce maintenance efforts",
+          "Integrated Allure reporting framework for comprehensive test reporting.",
+          "Designed reusable test scripts to enhance testing efficiency and reduce maintenance efforts.",
         ],
       },
     ],
@@ -200,12 +211,6 @@ export default function ExperiencePage() {
                           <Calendar className="w-4 h-4" />
                           <span>{role.duration}</span>
                         </div>
-                        <span 
-                          className="px-3 py-1.5 text-xs font-bold uppercase border-2"
-                          style={{ backgroundColor: 'var(--accent-light)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
-                        >
-                          Internship
-                        </span>
                       </div>
                     </div>
 

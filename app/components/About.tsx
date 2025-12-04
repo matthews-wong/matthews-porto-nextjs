@@ -189,7 +189,14 @@ const About: React.FC = () => {
                       <span className="text-blue-300 font-medium">Matthews Wong</span>
                     </div>
 
-                    <div className="space-y-4 md:space-y-5 text-slate-300">
+                    {/* Scrollable container with soft fade edges like Instagram comments */}
+                    <div className="relative">
+                      {/* Top fade gradient */}
+                      <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-white/5 to-transparent z-10 pointer-events-none rounded-t-xl" />
+                      
+                      {/* Scrollable content */}
+                      <div className="max-h-[280px] md:max-h-[320px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent pr-2 py-4">
+                        <div className="space-y-4 md:space-y-5 text-slate-300">
                       {/* Mobile-optimized content with collapsible sections */}
                       <div className="md:hidden">
                         {isSimplified ? (
@@ -368,6 +375,11 @@ const About: React.FC = () => {
                           </Button>
                         </div>
                       </div>
+                        </div>
+                      </div>
+                      
+                      {/* Bottom fade gradient */}
+                      <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white/5 to-transparent z-10 pointer-events-none rounded-b-xl" />
                     </div>
 
                     <div className="mt-8 flex flex-wrap gap-3">

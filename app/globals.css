@@ -48,11 +48,12 @@
   --shadow-brutal-xl: 5px 5px 0px var(--shadow-color);
   --shadow-brutal-hover: 4px 4px 0px var(--shadow-color);
   
-  /* Border Radius - Minimal */
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
+  /* Border Radius - Soft Modern */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
   
   /* Spacing */
   --space-1: 4px;
@@ -139,6 +140,29 @@
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  /* Thin scrollbar for Instagram-like comments section */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.35);
+  }
+  
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
   }
 
   /* Selection - Orange accent */
@@ -287,7 +311,7 @@
 
   /* ============================================
      NEO-BRUTALISM BUTTONS
-     Bold, chunky, with offset shadows
+     Bold, chunky, with offset shadows + soft edges
      ============================================ */
   .btn-brutal {
     display: inline-flex;
@@ -302,7 +326,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border: var(--border-width) solid var(--border-color);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-full);
     box-shadow: var(--shadow-brutal);
     transition: all 0.15s ease;
     cursor: pointer;
@@ -332,7 +356,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border: var(--border-width) solid var(--border-color);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-full);
     box-shadow: var(--shadow-brutal);
     transition: all 0.15s ease;
     cursor: pointer;
@@ -362,7 +386,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border: var(--border-width) solid var(--border-color);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-full);
     box-shadow: var(--shadow-brutal);
     transition: all 0.15s ease;
     cursor: pointer;
@@ -392,7 +416,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border: var(--border-width) solid var(--border-color);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-full);
     box-shadow: var(--shadow-brutal);
     transition: all 0.15s ease;
     cursor: pointer;
@@ -423,7 +447,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border: var(--border-width) solid var(--border-color);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-full);
     box-shadow: var(--shadow-brutal);
     transition: all 0.15s ease;
     cursor: pointer;

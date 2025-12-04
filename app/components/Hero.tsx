@@ -55,34 +55,71 @@ export default function Hero() {
 
       {/* Main content container */}
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center gap-8">
-        {/* Profile image with enhanced effects */}
+        {/* Profile image with neomorphism borders */}
         <motion.div
-          className="relative w-60 h-60 sm:w-64 sm:h-64 md:w-80 md:h-80 mb-6 md:mb-8"
+          className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-96 md:h-96 mb-6 md:mb-8"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 100, damping: 15 }}
           onAnimationComplete={() => setTimeout(() => setMainContentLoaded(true), 200)}
         >
-          {/* Performance-optimized glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-full blur-xl opacity-60" />
-          
-          {/* Enhanced border effect */}
-          <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-blue-500/40 to-purple-500/40" />
-          
-          <Image
-            src="/images/profile-pic.avif"
-            alt="Matthews Wong"
-            layout="fill"
-            objectFit="cover"
-            className="rounded-full relative z-10"
-            priority
-            placeholder="blur"
-            blurDataURL="/images/profile-pic-tiny.avif"
+          {/* Neomorphism outer glow - soft light from top-left */}
+          <div 
+            className="absolute -inset-4 rounded-full"
+            style={{
+              background: 'linear-gradient(145deg, rgba(255,255,255,0.08) 0%, transparent 50%)',
+              boxShadow: `
+                -8px -8px 20px rgba(255, 255, 255, 0.05),
+                8px 8px 20px rgba(0, 0, 0, 0.4),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05)
+              `
+            }}
           />
           
-          {/* Enhanced border effects - visible on all devices */}
-          <div className="absolute -inset-1 rounded-full border-2 border-blue-400/20" />
-          <div className="absolute -inset-3 rounded-full border border-purple-400/10" />
+          {/* Inner neomorphism container */}
+          <div 
+            className="absolute -inset-2 rounded-full"
+            style={{
+              background: 'linear-gradient(145deg, #3a3a3a 0%, #252525 100%)',
+              boxShadow: `
+                inset -4px -4px 10px rgba(255, 255, 255, 0.03),
+                inset 4px 4px 10px rgba(0, 0, 0, 0.3)
+              `
+            }}
+          />
+          
+          {/* Accent border ring */}
+          <div 
+            className="absolute -inset-1 rounded-full"
+            style={{
+              border: '2px solid var(--accent-primary)',
+              boxShadow: '0 0 20px rgba(255, 111, 32, 0.3)'
+            }}
+          />
+          
+          {/* Image container with neomorphism inset */}
+          <div 
+            className="absolute inset-0 rounded-full overflow-hidden"
+            style={{
+              boxShadow: `
+                inset 0 4px 8px rgba(0, 0, 0, 0.3),
+                inset 0 -2px 6px rgba(255, 255, 255, 0.05)
+              `
+            }}
+          >
+            <Image
+              src="/Matthews-Wong.png"
+              alt="Matthews Wong"
+              fill
+              className="object-cover object-top relative z-10"
+              priority
+              sizes="(max-width: 640px) 256px, (max-width: 768px) 288px, 384px"
+            />
+          </div>
+          
+          {/* Decorative outer rings */}
+          <div className="absolute -inset-6 rounded-full border border-white/5" />
+          <div className="absolute -inset-10 rounded-full border border-white/[0.02]" />
         </motion.div>
 
         {/* Enhanced name and title section for mobile */}
