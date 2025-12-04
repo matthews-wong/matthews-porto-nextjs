@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft, BriefcaseIcon, Calendar, MapPin } from "lucide-react"
+import { ArrowLeft, MapPin } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 interface Role {
@@ -17,7 +17,6 @@ interface Experience {
   logo: string
   location?: string
   roles: Role[]
-  accentColor: string
 }
 
 const experiences: Experience[] = [
@@ -25,7 +24,6 @@ const experiences: Experience[] = [
     company: "Commsult Indonesia",
     logo: "/images/commsult-logo.png",
     location: "Jakarta, Indonesia",
-    accentColor: "var(--accent-primary)",
     roles: [
       {
         title: "DevOps Engineer (Part-Time)",
@@ -65,7 +63,6 @@ const experiences: Experience[] = [
     company: "id/x partners",
     logo: "/images/idx.png",
     location: "Remote",
-    accentColor: "var(--accent-light)",
     roles: [
       {
         title: "Project-Based Virtual Intern : Data Scientist x Rakamin Academy",
@@ -82,7 +79,6 @@ const experiences: Experience[] = [
     company: "PT Bank Mandiri (Persero) Tbk",
     logo: "/images/logo-bank-mandiri.png",
     location: "Remote",
-    accentColor: "var(--accent-gray)",
     roles: [
       {
         title: "Project-Based Virtual Intern : Mobile Apps Developer x Rakamin Academy",
@@ -100,157 +96,164 @@ export default function ExperiencePage() {
   const t = useTranslations("experience")
 
   return (
-    <main className="min-h-screen pt-20 relative overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      {/* Subtle decorative line */}
-      <div className="absolute top-0 left-0 w-1 h-full opacity-20" style={{ backgroundColor: 'var(--accent-primary)' }} />
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-5xl relative z-10">
+    <main className="min-h-screen pt-20" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      <div className="container mx-auto px-4 sm:px-6 py-8 max-w-4xl">
         {/* Back button */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3 }}
-          className="mb-8"
+          className="mb-6"
         >
           <Link 
             href="/"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-base font-bold uppercase border-2 shadow-brutal transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-lg"
+            className="w-11 h-11 flex items-center justify-center rounded-full border-2 shadow-brutal transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-lg"
             style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
           >
             <ArrowLeft className="w-5 h-5" />
-            <span>Back</span>
           </Link>
         </motion.div>
 
-        {/* Page Header */}
+        {/* Header */}
         <motion.div 
-          className="mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          className="mb-10"
         >
-          <div className="flex items-center gap-4 mb-6">
-            <div 
-              className="w-14 h-14 flex items-center justify-center border-2 shadow-brutal"
-              style={{ backgroundColor: 'var(--accent-primary)', borderColor: 'var(--border-color)' }}
-            >
-              <BriefcaseIcon className="w-7 h-7" style={{ color: 'var(--text-dark)' }} />
-            </div>
-            <span 
-              className="px-4 py-1.5 text-sm font-bold uppercase border-2"
-              style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
-            >
-              {t("subtitle")}
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-black uppercase mb-4 tracking-tight" style={{ color: 'var(--text-primary)' }}>
+          <p className="text-sm font-medium uppercase tracking-wider mb-2" style={{ color: 'var(--accent-primary)' }}>
+            {t("subtitle")}
+          </p>
+          <h1 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>
             {t("title")}
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+          <p className="text-base md:text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             {t("description")}
           </p>
         </motion.div>
 
-        {/* Experience Cards */}
-        <div className="space-y-8">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={exp.company}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="border-2 shadow-brutal p-6 md:p-8 transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg"
-              style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
-            >
-              {/* Company header */}
-              <div className="flex flex-col sm:flex-row items-start gap-4 mb-6">
-                <div 
-                  className="w-16 h-16 p-2 flex-shrink-0 border-2 shadow-brutal"
-                  style={{ backgroundColor: exp.accentColor, borderColor: 'var(--border-color)' }}
-                >
-                  <div className="relative w-full h-full">
-                    <Image
-                      src={exp.logo}
-                      alt={exp.company}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
+        {/* Timeline */}
+        <div className="relative">
+          {/* Timeline line */}
+          <div 
+            className="absolute left-[23px] md:left-[31px] top-0 bottom-0 w-0.5 opacity-20"
+            style={{ backgroundColor: 'var(--text-secondary)' }}
+          />
 
-                <div className="flex-grow">
-                  <h3 className="text-xl md:text-2xl font-black uppercase mb-2" style={{ color: 'var(--text-primary)' }}>
-                    {exp.company}
-                  </h3>
-                  {exp.location && (
-                    <div 
-                      className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium"
-                      style={{ color: 'var(--text-secondary)' }}
-                    >
-                      <MapPin className="w-4 h-4" style={{ color: 'var(--accent-primary)' }} />
-                      <span>{exp.location}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Roles */}
-              <div className="space-y-6">
-                {exp.roles.map((role, roleIndex) => (
+          {/* Companies */}
+          <div className="space-y-12">
+            {experiences.map((exp, expIndex) => (
+              <motion.div
+                key={exp.company}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: expIndex * 0.1 }}
+              >
+                {/* Company Header */}
+                <div className="flex items-start gap-4 mb-6">
+                  {/* Logo */}
                   <div 
-                    key={role.title} 
-                    className={roleIndex !== 0 ? "pt-6 border-t-3 border-black/30" : ""}
+                    className="w-12 h-12 md:w-16 md:h-16 rounded-full flex-shrink-0 p-2 border-2 relative z-10"
+                    style={{ backgroundColor: 'white', borderColor: 'var(--border-color)' }}
                   >
-                    <div className="mb-5">
-                      <h4 className="text-lg md:text-xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>{role.title}</h4>
-                      <div className="flex flex-wrap items-center gap-3">
-                        <div 
-                          className="flex items-center gap-2 px-4 py-1.5 border-2 text-sm font-bold"
-                          style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
-                        >
-                          <Calendar className="w-4 h-4" />
-                          <span>{role.duration}</span>
-                        </div>
-                      </div>
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={exp.logo}
+                        alt={exp.company}
+                        fill
+                        className="object-contain"
+                      />
                     </div>
-
-                    <ul className="space-y-4">
-                      {role.description.map((point, i) => (
-                        <li 
-                          key={i} 
-                          className="flex items-start gap-4"
-                          style={{ color: 'var(--text-secondary)' }}
-                        >
-                          <span 
-                            className="w-2 h-2 mt-2.5 flex-shrink-0"
-                            style={{ backgroundColor: 'var(--accent-primary)' }}
-                          />
-                          <span className="text-base md:text-lg leading-relaxed">{point}</span>
-                        </li>
-                      ))}
-                    </ul>
                   </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+
+                  {/* Company Info */}
+                  <div className="pt-1 md:pt-3">
+                    <h2 className="text-xl md:text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                      {exp.company}
+                    </h2>
+                    {exp.location && (
+                      <div className="flex items-center gap-1.5 mt-1" style={{ color: 'var(--text-secondary)' }}>
+                        <MapPin className="w-3.5 h-3.5" />
+                        <span className="text-sm">{exp.location}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Roles */}
+                <div className="ml-[23px] md:ml-[31px] pl-8 border-l-0 space-y-8">
+                  {exp.roles.map((role, roleIndex) => (
+                    <motion.div
+                      key={role.title}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: expIndex * 0.1 + roleIndex * 0.05 }}
+                    >
+                      {/* Role dot */}
+                      <div className="relative">
+                        <div 
+                          className="absolute -left-[36px] md:-left-[40px] top-1.5 w-3 h-3 rounded-full border-2"
+                          style={{ backgroundColor: 'var(--accent-primary)', borderColor: 'var(--bg-primary)' }}
+                        />
+                      </div>
+
+                      {/* Role content */}
+                      <div>
+                        <h3 className="text-base md:text-lg font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
+                          {role.title}
+                        </h3>
+                        <p className="text-sm font-medium mb-4" style={{ color: 'var(--accent-primary)' }}>
+                          {role.duration}
+                        </p>
+
+                        {/* Description */}
+                        <ul className="space-y-2.5">
+                          {role.description.map((point, i) => (
+                            <li 
+                              key={i} 
+                              className="flex items-start gap-3 text-sm md:text-base leading-relaxed"
+                              style={{ color: 'var(--text-secondary)' }}
+                            >
+                              <span 
+                                className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0"
+                                style={{ backgroundColor: 'var(--text-secondary)', opacity: 0.5 }}
+                              />
+                              <span>{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* CTA */}
         <motion.div 
-          className="text-center mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
+          className="mt-16 pt-8 border-t"
+          style={{ borderColor: 'var(--border-color)' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.5 }}
         >
-          <Link href="/contact">
-            <button 
-              className="px-10 py-4 font-black uppercase text-lg border-2 shadow-brutal transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg"
-              style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <p className="text-lg font-medium" style={{ color: 'var(--text-primary)' }}>
+                Interested in working together?
+              </p>
+              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                Let's discuss your project
+              </p>
+            </div>
+            <Link 
+              href="/contact"
+              className="px-6 py-3 rounded-full font-semibold text-sm transition-all hover:opacity-90"
+              style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)' }}
             >
-              Let's Work Together →
-            </button>
-          </Link>
+              Get in touch →
+            </Link>
+          </div>
         </motion.div>
       </div>
     </main>

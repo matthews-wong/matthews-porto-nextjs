@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -100,11 +101,21 @@ const sections = [
 export default function Home() {
   const t = useTranslations()
   
-  // Lightweight parallax effect using CSS transforms (GPU accelerated)
+  // Check if mobile (disable parallax on mobile)
+  const [isMobile, setIsMobile] = useState(false)
+  
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  // Lightweight parallax effect using CSS transforms (GPU accelerated) - desktop only
   const { scrollY } = useScroll()
-  const heroY = useTransform(scrollY, [0, 500], [0, 150])
-  const heroOpacity = useTransform(scrollY, [0, 300], [1, 0])
-  const decorY = useTransform(scrollY, [0, 500], [0, 80])
+  const heroY = useTransform(scrollY, [0, 500], [0, isMobile ? 0 : 150])
+  const heroOpacity = useTransform(scrollY, [0, 300], [1, isMobile ? 1 : 0])
+  const decorY = useTransform(scrollY, [0, 500], [0, isMobile ? 0 : 80])
 
   return (
     <div className="min-h-screen pattern-grid" style={{ backgroundColor: 'var(--bg-primary)' }}>

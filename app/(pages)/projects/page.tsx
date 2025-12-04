@@ -4,9 +4,8 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft, ChevronLeft, ChevronRight, X, Maximize, Info, Folder } from "lucide-react"
+import { ArrowLeft, ChevronLeft, ChevronRight, X, ExternalLink } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { cn } from "@/lib/utils"
 
 interface Project {
   id: number
@@ -95,7 +94,6 @@ interface FullscreenModalProps {
 
 const FullscreenModal = ({ project, onClose, initialImageIndex = 0 }: FullscreenModalProps) => {
   const [currentIndex, setCurrentIndex] = useState(initialImageIndex)
-  const [showInfo, setShowInfo] = useState(false)
   const images = project.images || (project.image ? [project.image] : [])
 
   const handleNext = () => setCurrentIndex((prev) => (prev + 1) % images.length)
@@ -106,87 +104,64 @@ const FullscreenModal = ({ project, onClose, initialImageIndex = 0 }: Fullscreen
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex flex-col"
-      style={{ backgroundColor: 'rgba(46, 46, 46, 0.98)' }}
+      className="fixed inset-0 z-50 flex flex-col bg-black/95"
       onClick={onClose}
     >
-      <div className="flex items-center justify-between p-4 border-b-2" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }} onClick={(e) => e.stopPropagation()}>
-        <div className="text-lg font-bold truncate max-w-[60%]" style={{ color: 'var(--text-primary)' }}>{project.title}</div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setShowInfo(!showInfo)}
-            className={cn("p-2 border-2 transition-all", showInfo ? "shadow-brutal" : "")}
-            style={{ 
-              backgroundColor: showInfo ? 'var(--accent-primary)' : 'var(--bg-primary)', 
-              color: showInfo ? 'var(--text-dark)' : 'var(--text-primary)',
-              borderColor: 'var(--border-color)'
-            }}
-          >
-            <Info size={20} />
-          </button>
-          <button 
-            onClick={onClose} 
-            className="p-2 border-2 transition-all hover:shadow-brutal"
-            style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
-          >
-            <X size={20} />
-          </button>
+      {/* Header */}
+      <div className="flex items-center justify-between p-4 md:p-6" onClick={(e) => e.stopPropagation()}>
+        <div>
+          <h3 className="text-lg md:text-xl font-semibold text-white">{project.title}</h3>
+          <p className="text-sm text-white/60">{project.category}</p>
         </div>
+        <button
+          onClick={onClose}
+          className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+        >
+          <X className="w-5 h-5 text-white" />
+        </button>
       </div>
 
-      <div className="flex-grow flex items-center justify-center relative" onClick={(e) => e.stopPropagation()}>
-        <div className="relative w-full h-full max-w-7xl max-h-[80vh] mx-auto">
+      {/* Image */}
+      <div className="flex-grow flex items-center justify-center relative px-4" onClick={(e) => e.stopPropagation()}>
+        <div className="relative w-full h-full max-w-6xl max-h-[70vh]">
           <Image src={images[currentIndex]} alt={project.title} fill className="object-contain" />
         </div>
 
         {images.length > 1 && (
           <>
-            <button 
-              onClick={handlePrev} 
-              className="absolute left-4 p-3 border-2 transition-all hover:shadow-brutal"
-              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
+            <button
+              onClick={handlePrev}
+              className="absolute left-4 md:left-8 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             >
-              <ChevronLeft size={24} />
+              <ChevronLeft className="w-6 h-6 text-white" />
             </button>
-            <button 
-              onClick={handleNext} 
-              className="absolute right-4 p-3 border-2 transition-all hover:shadow-brutal"
-              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
+            <button
+              onClick={handleNext}
+              className="absolute right-4 md:right-8 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             >
-              <ChevronRight size={24} />
+              <ChevronRight className="w-6 h-6 text-white" />
             </button>
-            <div 
-              className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 border-2 text-sm font-bold"
-              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
-            >
-              {currentIndex + 1} / {images.length}
-            </div>
           </>
         )}
       </div>
 
-      <AnimatePresence>
-        {showInfo && (
-          <motion.div
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            className="absolute bottom-0 left-0 right-0 p-6 max-h-[50vh] overflow-y-auto border-t-2"
-            style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <p className="mb-4 text-base md:text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
-            <ul className="space-y-3">
-              {project.features.map((feature, index) => (
-                <li key={index} className="flex items-start text-base" style={{ color: 'var(--text-secondary)' }}>
-                  <span className="mr-3 mt-1 w-2 h-2 flex-shrink-0" style={{ backgroundColor: 'var(--accent-primary)' }}></span>
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+      {/* Footer with dots and info */}
+      <div className="p-4 md:p-6" onClick={(e) => e.stopPropagation()}>
+        {images.length > 1 && (
+          <div className="flex justify-center gap-2 mb-4">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentIndex(i)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  i === currentIndex ? 'bg-white w-6' : 'bg-white/40'
+                }`}
+              />
+            ))}
+          </div>
         )}
-      </AnimatePresence>
+        <p className="text-center text-white/70 text-sm max-w-2xl mx-auto">{project.description}</p>
+      </div>
     </motion.div>
   )
 }
@@ -200,73 +175,60 @@ export default function ProjectsPage() {
   const filteredProjects = activeCategory === "All" ? projects : projects.filter((p) => p.category === activeCategory)
 
   return (
-    <main className="min-h-screen pt-20 relative overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      {/* Subtle decorative line */}
-      <div className="absolute top-0 left-0 w-1 h-full opacity-20" style={{ backgroundColor: 'var(--accent-primary)' }} />
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-6xl relative z-10">
+    <main className="min-h-screen pt-20" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      <div className="container mx-auto px-4 sm:px-6 py-8 max-w-5xl">
         {/* Back button */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3 }}
-          className="mb-8"
+          className="mb-6"
         >
-          <Link 
+          <Link
             href="/"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-base font-bold uppercase border-2 shadow-brutal transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-lg"
+            className="w-11 h-11 flex items-center justify-center rounded-full border-2 shadow-brutal transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-lg"
             style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
           >
             <ArrowLeft className="w-5 h-5" />
-            <span>Back</span>
           </Link>
         </motion.div>
 
-        {/* Page Header */}
-        <motion.div 
-          className="mb-12"
+        {/* Header */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          className="mb-8"
         >
-          <div className="flex items-center gap-4 mb-6">
-            <div 
-              className="w-14 h-14 flex items-center justify-center border-2 shadow-brutal"
-              style={{ backgroundColor: 'var(--accent-primary)', borderColor: 'var(--border-color)' }}
-            >
-              <Folder className="w-7 h-7" style={{ color: 'var(--text-dark)' }} />
-            </div>
-            <span 
-              className="px-4 py-1.5 text-sm font-bold uppercase border-2"
-              style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
-            >
-              {t("subtitle")}
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-black uppercase mb-4 tracking-tight" style={{ color: 'var(--text-primary)' }}>
+          <p className="text-sm font-medium uppercase tracking-wider mb-2" style={{ color: 'var(--accent-primary)' }}>
+            {t("subtitle")}
+          </p>
+          <h1 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>
             {t("title")}
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+          <p className="text-base md:text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             {t("description")}
           </p>
         </motion.div>
 
         {/* Category Filter */}
         <motion.div
-          className="flex flex-wrap gap-3 mb-10"
+          className="flex flex-wrap gap-2 mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+          transition={{ delay: 0.1 }}
         >
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className="px-5 py-2 text-sm font-bold uppercase border-2 transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5"
+              className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${
+                activeCategory === category
+                  ? ''
+                  : 'hover:opacity-80'
+              }`}
               style={
                 activeCategory === category
-                  ? { backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)', boxShadow: '3px 3px 0px var(--shadow-color)' }
-                  : { backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }
+                  ? { backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)' }
+                  : { backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }
               }
             >
               {category}
@@ -282,63 +244,49 @@ export default function ProjectsPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="border-2 overflow-hidden group transition-all duration-300 shadow-brutal hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg"
-              style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
+              className="group cursor-pointer"
+              onClick={() => setSelectedProject(project)}
             >
               {/* Image */}
-              <div
-                className="relative aspect-video cursor-pointer overflow-hidden border-b-2"
-                style={{ borderColor: 'var(--border-color)' }}
-                onClick={() => setSelectedProject(project)}
-              >
+              <div className="relative aspect-video rounded-xl overflow-hidden mb-4">
                 <Image
                   src={project.images?.[0] || project.image || ""}
                   alt={project.title}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                
                 {/* Category badge */}
-                <div className="absolute top-4 left-4">
-                  <span 
-                    className="px-3 py-1.5 text-xs font-bold uppercase border-2"
-                    style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
+                <div className="absolute top-3 left-3">
+                  <span
+                    className="px-3 py-1 text-xs font-medium rounded-full"
+                    style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)' }}
                   >
                     {project.category}
                   </span>
                 </div>
 
-                {/* View button */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button 
-                    className="px-5 py-2.5 font-bold uppercase flex items-center gap-2 border-2 shadow-brutal"
-                    style={{ backgroundColor: 'var(--accent-light)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
+                {/* Hover overlay */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
+                  <div
+                    className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium"
+                    style={{ backgroundColor: 'white', color: 'var(--text-dark)' }}
                   >
-                    <Maximize size={16} />
+                    <ExternalLink className="w-4 h-4" />
                     View Project
-                  </button>
+                  </div>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <h3 className="text-lg md:text-xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>
+              <div>
+                <h3 className="text-lg font-semibold mb-2 group-hover:opacity-80 transition-opacity" style={{ color: 'var(--text-primary)' }}>
                   {project.title}
                 </h3>
-                <p className="text-base mb-4 line-clamp-2 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
-
-                <div className="flex flex-wrap gap-2">
-                  {project.features.slice(0, 3).map((feature, i) => (
-                    <span 
-                      key={i} 
-                      className="text-xs px-3 py-1.5 font-medium border"
-                      style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-secondary)', borderColor: 'var(--border-color)' }}
-                    >
-                      {feature.split(" ").slice(0, 3).join(" ")}...
-                    </span>
-                  ))}
-                </div>
+                <p className="text-sm line-clamp-2 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  {project.description}
+                </p>
               </div>
             </motion.div>
           ))}
