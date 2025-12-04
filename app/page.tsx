@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -27,118 +27,95 @@ import {
 } from "lucide-react"
 
 
-const techStacks = [
+const techStacksData = [
   {
     id: "web",
+    translationKey: "webDev",
     icon: Code2,
-    title: "Web Development",
-    description: "Building responsive, modern web applications with cutting-edge frameworks.",
     skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js"],
     color: "var(--accent-cyan)",
   },
   {
     id: "devops",
+    translationKey: "devops",
     icon: Server,
-    title: "DevOps Engineering",
-    description: "Architecting scalable infrastructure with automated deployment pipelines.",
     skills: ["Docker", "CI/CD", "Ansible", "Grafana", "Prometheus"],
     color: "var(--accent-lime)",
   },
   {
     id: "ai",
+    translationKey: "ai",
     icon: BotMessageSquare,
-    title: "AI Development",
-    description: "Creating intelligent applications with machine learning and NLP.",
     skills: ["Python", "TensorFlow", "Scikit-Learn", "Hugging Face", "XGBoost"],
     color: "var(--accent-pink)",
   },
 ]
 
-const products = [
+const productsData = [
   {
     id: "aifeeds",
-    title: "AI Feeds",
-    description: "Anti doom-scrolling. Scroll through curated AI repositories to expand your knowledge.",
     href: "https://aifeeds.matthewswong.tech/",
     icon: Zap,
     color: "var(--accent-cyan)",
-    tagline: "Learn, Don't Scroll",
     image: "/AiFeeds.png",
   },
   {
     id: "reviewci",
-    title: "Review CI",
-    description: "A pipeline reader that evaluates your CI/CD pipelines and gives actionable insights.",
     href: "https://reviewci.matthewswong.tech/",
     icon: Server,
     color: "var(--accent-lime)",
-    tagline: "Pipeline Intelligence",
     image: "/ReviewCI.png",
   },
 ]
 
-const commercialWebsites = [
+const commercialWebsitesData = [
   {
     id: "tiktok",
-    title: "TikTok Agency Incubator",
-    description: "Web app from official TikTok campaign. Built in a fast-paced agency environment.",
     href: "https://tiktokagencyincubator.com",
     image: "/tiktok-agency.png",
     tags: ["Campaign", "Agency"],
   },
   {
     id: "parcel",
-    title: "Parcel Cirebon",
-    description: "E-commerce platform helping this store grow online visibility for Christmas parcels and more.",
     href: "https://parcelcirebon.com",
     image: "/parcel-cirebon.png",
     tags: ["E-commerce", "Growth"],
   },
   {
     id: "jid",
-    title: "Jakarta Intl Denso",
-    description: "Car wash company website. Boosted SEO and increased online visibility for local customers.",
     href: "https://jakartaintldenso.com",
     image: "/jid-web.png",
     tags: ["SEO", "Business"],
   },
   {
     id: "shibui",
-    title: "Shibui Matcha Bar",
-    description: "Landing page for matcha bar & cafe. Grew visitor traffic and boosted online visibility.",
     href: "https://shibui.id",
     image: "/shibui-lp.png",
     tags: ["Landing Page", "Cafe"],
   },
 ]
 
-const blogs = [
+const blogsData = [
   {
     id: "building-saas-ai-gymbro",
-    title: "Building My First SaaS: AI Gym Bro",
-    excerpt: "The journey of building an AI-powered fitness companion from scratch.",
+    translationKey: "aiGymbro",
     image: "/my-product.png",
-    date: "November 2024",
-    readTime: "5 min",
-    category: "Product",
+    date: "2024-11",
+    readTime: 5,
   },
   {
     id: "life-at-swiss-german-university",
-    title: "My Experience at Swiss German University",
-    excerpt: "A reflection on studying Information Technology at SGU.",
+    translationKey: "sgu",
     image: "/images/sgu-location.webp",
-    date: "October 2024",
-    readTime: "4 min",
-    category: "University",
+    date: "2024-10",
+    readTime: 4,
   },
   {
     id: "pwc-capture-the-flag",
-    title: "Competing in PwC Capture The Flag",
-    excerpt: "Diving into cybersecurity challenges at PwC's annual CTF competition.",
+    translationKey: "ctf",
     image: "/images/hackathon/PWC-Hackathon.jpg",
-    date: "September 2024",
-    readTime: "4 min",
-    category: "Hackathon",
+    date: "2024-09",
+    readTime: 4,
   },
 ]
 
@@ -148,11 +125,31 @@ export default function Home() {
   // Check if mobile (disable parallax on mobile)
   const [isMobile, setIsMobile] = useState(false)
   
+  // Commercial websites scroll tracking
+  const [activeWebsiteIndex, setActiveWebsiteIndex] = useState(0)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
     checkMobile()
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  // Handle scroll tracking for commercial websites
+  useEffect(() => {
+    const container = scrollContainerRef.current
+    if (!container) return
+    
+    const handleScroll = () => {
+      const cardWidth = 320 // approx width of each card with gap
+      const scrollLeft = container.scrollLeft
+      const index = Math.round(scrollLeft / cardWidth)
+      setActiveWebsiteIndex(Math.min(index, commercialWebsitesData.length - 1))
+    }
+    
+    container.addEventListener('scroll', handleScroll)
+    return () => container.removeEventListener('scroll', handleScroll)
   }, [])
   
   // Lightweight parallax effect using CSS transforms (GPU accelerated) - desktop only
@@ -394,7 +391,7 @@ export default function Home() {
                           borderColor: 'var(--border-color)'
                         }}
                       >
-                        🚀 My Product
+                        🚀 {t("products.myProduct")}
                       </span>
                       <span 
                         className="px-3 py-1 text-xs font-black uppercase border-2 rounded-full"
@@ -404,14 +401,14 @@ export default function Home() {
                           borderColor: 'var(--border-color)'
                         }}
                       >
-                        Live Now
+                        {t("products.liveNow")}
                       </span>
                     </div>
                     <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-white mb-3 uppercase">
-                      AI Gym Bro
+                      {t("products.aiGymbro.title")}
                     </h3>
                     <p className="text-neutral-300 mb-6 max-w-md text-sm md:text-base">
-                      Your AI-powered fitness companion. Get personalized workout plans and nutrition advice.
+                      {t("products.aiGymbro.description")}
                     </p>
                     <div 
                       className="inline-flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 font-black uppercase text-sm md:text-base border-brutal shadow-brutal transition-all hover:shadow-brutal-lg rounded-full self-start"
@@ -420,7 +417,7 @@ export default function Home() {
                         color: 'var(--text-dark)'
                       }}
                     >
-                      <span>Visit Site</span>
+                      <span>{t("products.visitSite")}</span>
                       <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
                     </div>
                   </div>
@@ -487,7 +484,7 @@ export default function Home() {
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {techStacks.map((stack, index) => (
+            {techStacksData.map((stack, index) => (
               <motion.div
                 key={stack.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -504,10 +501,10 @@ export default function Home() {
                   <stack.icon className="w-7 h-7 text-brutal-dark" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3 uppercase">
-                  {stack.title}
+                  {t(`techExpertise.${stack.translationKey}.title`)}
                 </h3>
                 <p className="text-neutral-400 mb-5">
-                  {stack.description}
+                  {t(`techExpertise.${stack.translationKey}.description`)}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {stack.skills.map((skill) => (
@@ -548,7 +545,7 @@ export default function Home() {
                   boxShadow: 'var(--shadow-brutal)'
                 }}
               >
-                Commercial Websites
+                {t("commercialWebsites.title")}
               </h2>
               <span 
                 className="px-3 py-1.5 text-xs font-black uppercase rounded-full border-2 animate-pulse"
@@ -558,18 +555,23 @@ export default function Home() {
                   borderColor: 'var(--border-color)'
                 }}
               >
-                ⭐ Highlight
+                ⭐ {t("commercialWebsites.highlight")}
               </span>
             </div>
             <p className="text-lg text-neutral-400 max-w-2xl">
-              Websites I've built for businesses to enhance their online presence and drive growth.
+              {t("commercialWebsites.description")}
             </p>
           </motion.div>
 
           {/* Horizontal scroll container */}
           <div className="relative -mx-4 sm:-mx-6 px-4 sm:px-6">
-            <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
-              {commercialWebsites.map((site, index) => (
+            {/* Scroll hint for mobile - peek of next card is achieved by not using full width */}
+            <div 
+              ref={scrollContainerRef}
+              className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
+              style={{ scrollPaddingLeft: '16px' }}
+            >
+              {commercialWebsitesData.map((site, index) => (
                 <motion.a
                   key={site.id}
                   href={site.href}
@@ -579,7 +581,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="group block flex-shrink-0 w-[300px] sm:w-[340px] snap-start"
+                  className="group block flex-shrink-0 w-[280px] sm:w-[340px] snap-start first:ml-0 last:mr-4"
                 >
                   <div 
                     className="relative overflow-hidden rounded-2xl border-brutal shadow-brutal transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg h-full"
@@ -589,7 +591,7 @@ export default function Home() {
                     <div className="relative h-40 sm:h-48 overflow-hidden">
                       <Image
                         src={site.image}
-                        alt={site.title}
+                        alt={t(`commercialWebsites.${site.id}.title`)}
                         fill
                         className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                       />
@@ -620,12 +622,12 @@ export default function Home() {
                     <div className="p-5">
                       {/* Title */}
                       <h3 className="text-lg font-bold text-white mb-2">
-                        {site.title}
+                        {t(`commercialWebsites.${site.id}.title`)}
                       </h3>
 
                       {/* Description */}
                       <p className="text-sm text-neutral-400 mb-4 leading-relaxed">
-                        {site.description}
+                        {t(`commercialWebsites.${site.id}.description`)}
                       </p>
 
                       {/* CTA */}
@@ -633,7 +635,7 @@ export default function Home() {
                         className="inline-flex items-center gap-2 text-sm font-bold uppercase transition-all group-hover:gap-3"
                         style={{ color: 'var(--accent-yellow)' }}
                       >
-                        <span>Visit Site</span>
+                        <span>{t("commercialWebsites.visitSite")}</span>
                         <ExternalLink className="w-4 h-4" />
                       </div>
                     </div>
@@ -641,6 +643,33 @@ export default function Home() {
                 </motion.a>
               ))}
             </div>
+            
+            {/* Dot indicators for mobile */}
+            <div className="flex justify-center gap-2 mt-4 md:hidden">
+              {commercialWebsitesData.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    const container = scrollContainerRef.current
+                    if (container) {
+                      const cardWidth = 296 // 280px card + 16px gap
+                      container.scrollTo({ left: index * cardWidth, behavior: 'smooth' })
+                    }
+                  }}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    activeWebsiteIndex === index 
+                      ? 'w-6 bg-[var(--accent-yellow)]' 
+                      : 'bg-white/30 hover:bg-white/50'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+            
+            {/* Swipe hint text for mobile */}
+            <p className="text-center text-xs text-neutral-500 mt-2 md:hidden">
+              ← {t("commercialWebsites.swipeHint") || "Swipe to see more"} →
+            </p>
           </div>
         </div>
       </section>
@@ -669,12 +698,12 @@ export default function Home() {
               {t("sections.discoverMore")}
             </h2>
             <p className="text-lg text-neutral-400 mt-6 max-w-2xl">
-              Tools I've built to solve real problems. Try them out!
+              {t("sections.toolsDescription")}
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {products.map((product, index) => (
+            {productsData.map((product, index) => (
               <motion.a
                 key={product.id}
                 href={product.href}
@@ -694,7 +723,7 @@ export default function Home() {
                   <div className="relative h-40 sm:h-48 overflow-hidden">
                     <Image
                       src={product.image}
-                      alt={product.title}
+                      alt={t(`products.${product.id}.title`)}
                       fill
                       className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                     />
@@ -714,7 +743,7 @@ export default function Home() {
                           color: 'var(--text-dark)'
                         }}
                       >
-                        {product.tagline}
+                        {t(`products.${product.id}.tagline`)}
                       </span>
                     </div>
                   </div>
@@ -729,13 +758,13 @@ export default function Home() {
                         <product.icon className="w-5 h-5 text-brutal-dark" />
                       </div>
                       <h3 className="text-xl font-black text-white uppercase">
-                        {product.title}
+                        {t(`products.${product.id}.title`)}
                       </h3>
                     </div>
 
                     {/* Description */}
                     <p className="text-neutral-400 mb-4 text-sm leading-relaxed">
-                      {product.description}
+                      {t(`products.${product.id}.description`)}
                     </p>
 
                     {/* CTA */}
@@ -743,7 +772,7 @@ export default function Home() {
                       className="inline-flex items-center gap-2 text-sm font-bold uppercase transition-all group-hover:gap-3"
                       style={{ color: product.color }}
                     >
-                      <span>Try it now</span>
+                      <span>{t("products.tryItNow")}</span>
                       <ExternalLink className="w-4 h-4" />
                     </div>
                   </div>
@@ -776,7 +805,7 @@ export default function Home() {
                   boxShadow: 'var(--shadow-brutal)'
                 }}
               >
-                Latest Blog Posts
+                {t("blog.latestPosts")}
               </h2>
               <Link href="/blog">
                 <motion.button
@@ -785,85 +814,88 @@ export default function Home() {
                   className="flex items-center gap-2 px-4 py-2 text-sm font-bold uppercase border-2 shadow-brutal transition-all"
                   style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
                 >
-                  View All
+                  {t("blog.viewAll")}
                   <ArrowRight className="w-4 h-4" />
                 </motion.button>
               </Link>
             </div>
             <p className="text-lg text-neutral-400 max-w-2xl">
-              Thoughts and stories from my journey in tech.
+              {t("blog.homeDescription")}
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {blogs.map((blog, index) => (
-              <motion.div
-                key={blog.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Link href={`/blog/${blog.id}`} className="group block h-full">
-                  <div 
-                    className="h-full overflow-hidden rounded-2xl border-brutal shadow-brutal transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg"
-                    style={{ backgroundColor: 'var(--bg-card)' }}
-                  >
-                    {/* Image */}
-                    <div className="relative h-40 overflow-hidden">
-                      <Image
-                        src={blog.image}
-                        alt={blog.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div 
-                        className="absolute inset-0"
-                        style={{ 
-                          background: 'linear-gradient(to top, var(--bg-card) 0%, transparent 60%)'
-                        }}
-                      />
-                      {/* Category badge */}
-                      <div className="absolute top-3 left-3">
-                        <span 
-                          className="px-2.5 py-1 text-xs font-bold uppercase rounded-full"
+            {blogsData.map((blog, index) => {
+              const dateKey = blog.date === "2024-11" ? "november" : blog.date === "2024-10" ? "october" : "september"
+              return (
+                <motion.div
+                  key={blog.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Link href={`/blog/${blog.id}`} className="group block h-full">
+                    <div 
+                      className="h-full overflow-hidden rounded-2xl border-brutal shadow-brutal transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg"
+                      style={{ backgroundColor: 'var(--bg-card)' }}
+                    >
+                      {/* Image */}
+                      <div className="relative h-40 overflow-hidden">
+                        <Image
+                          src={blog.image}
+                          alt={t(`blog.posts.${blog.translationKey}.title`)}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div 
+                          className="absolute inset-0"
                           style={{ 
-                            backgroundColor: 'var(--accent-cyan)',
-                            color: 'var(--text-dark)'
+                            background: 'linear-gradient(to top, var(--bg-card) 0%, transparent 60%)'
                           }}
-                        >
-                          {blog.category}
-                        </span>
+                        />
+                        {/* Category badge */}
+                        <div className="absolute top-3 left-3">
+                          <span 
+                            className="px-2.5 py-1 text-xs font-bold uppercase rounded-full"
+                            style={{ 
+                              backgroundColor: 'var(--accent-cyan)',
+                              color: 'var(--text-dark)'
+                            }}
+                          >
+                            {t(`blog.posts.${blog.translationKey}.category`)}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <div className="p-5">
+                        {/* Meta */}
+                        <div className="flex items-center gap-3 text-xs mb-3" style={{ color: 'var(--text-secondary)' }}>
+                          <span className="flex items-center gap-1">
+                            <Calendar className="w-3 h-3" />
+                            {t(`common.${dateKey}`)} 2024
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {blog.readTime} {t("common.minRead")}
+                          </span>
+                        </div>
+
+                        {/* Title */}
+                        <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 group-hover:opacity-80 transition-opacity">
+                          {t(`blog.posts.${blog.translationKey}.title`)}
+                        </h3>
+
+                        {/* Excerpt */}
+                        <p className="text-sm text-neutral-400 line-clamp-2">
+                          {t(`blog.posts.${blog.translationKey}.excerpt`)}
+                        </p>
                       </div>
                     </div>
-                    
-                    <div className="p-5">
-                      {/* Meta */}
-                      <div className="flex items-center gap-3 text-xs mb-3" style={{ color: 'var(--text-secondary)' }}>
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
-                          {blog.date}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {blog.readTime}
-                        </span>
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 group-hover:opacity-80 transition-opacity">
-                        {blog.title}
-                      </h3>
-
-                      {/* Excerpt */}
-                      <p className="text-sm text-neutral-400 line-clamp-2">
-                        {blog.excerpt}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
+                  </Link>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </section>

@@ -7,6 +7,7 @@
     "projects": "Projects",
     "certifications": "Certifications",
     "hackathons": "Hackathons",
+    "blog": "Blog",
     "contact": "Contact"
   },
   "hero": {
@@ -53,6 +54,49 @@
       "description": "Leveraging machine learning algorithms and natural language processing to create intelligent, data-driven applications."
     }
   },
+  "products": {
+    "myProduct": "My Product",
+    "liveNow": "Live Now",
+    "visitSite": "Visit Site",
+    "tryItNow": "Try it now",
+    "aiGymbro": {
+      "title": "AI Gym Bro",
+      "description": "Your AI-powered fitness companion. Get personalized workout plans and nutrition advice."
+    },
+    "aifeeds": {
+      "title": "AI Feeds",
+      "description": "Anti doom-scrolling. Scroll through curated AI repositories to expand your knowledge.",
+      "tagline": "Learn, Don't Scroll"
+    },
+    "reviewci": {
+      "title": "Review CI",
+      "description": "A pipeline reader that evaluates your CI/CD pipelines and gives actionable insights.",
+      "tagline": "Pipeline Intelligence"
+    }
+  },
+  "commercialWebsites": {
+    "title": "Commercial Websites",
+    "highlight": "Highlight",
+    "description": "Websites I've built for businesses to enhance their online presence and drive growth.",
+    "visitSite": "Visit Site",
+    "swipeHint": "Swipe to see more",
+    "tiktok": {
+      "title": "TikTok Agency Incubator",
+      "description": "Web app from official TikTok campaign. Built in a fast-paced agency environment."
+    },
+    "parcel": {
+      "title": "Parcel Cirebon",
+      "description": "E-commerce platform helping this store grow online visibility for Christmas parcels and more."
+    },
+    "jid": {
+      "title": "Jakarta Intl Denso",
+      "description": "Car wash company website. Boosted SEO and increased online visibility for local customers."
+    },
+    "shibui": {
+      "title": "Shibui Matcha Bar",
+      "description": "Landing page for matcha bar & cafe. Grew visitor traffic and boosted online visibility."
+    }
+  },
   "cta": {
     "title": "Let's Create Something Amazing",
     "description": "Interested in collaborating or learning more about my projects? Feel free to reach out and let's explore how we can bring your ideas to life.",
@@ -62,7 +106,8 @@
     "explore": "Explore My Portfolio",
     "discoverMore": "Discover More",
     "discoverDescription": "Navigate through different sections to learn more about my journey, skills, and achievements.",
-    "exploreButton": "Explore"
+    "exploreButton": "Explore",
+    "toolsDescription": "Tools I've built to solve real problems. Try them out!"
   },
   "experience": {
     "title": "Experience",
@@ -77,7 +122,9 @@
   "projects": {
     "title": "Projects",
     "subtitle": "Featured Work",
-    "description": "A showcase of my technical projects and contributions."
+    "description": "A showcase of my technical projects and contributions.",
+    "viewProject": "View Project",
+    "visitWebsite": "Visit Website"
   },
   "certifications": {
     "title": "Certifications",
@@ -87,7 +134,93 @@
   "hackathons": {
     "title": "Hackathons",
     "subtitle": "Competitions & Events",
-    "description": "Hackathons and coding competitions I've participated in."
+    "description": "Hackathons and coding competitions I've participated in.",
+    "allEvents": "All Events"
+  },
+  "blog": {
+    "title": "Thoughts & Stories",
+    "subtitle": "Blog",
+    "description": "Sharing my experiences, learnings, and adventures in tech and beyond.",
+    "latestPosts": "Latest Blog Posts",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "backToAll": "Back to all posts",
+    "postNotFound": "Post not found",
+    "backToBlog": "Back to Blog",
+    "homeDescription": "Thoughts and stories from my journey in tech.",
+    "posts": {
+      "aiGymbro": {
+        "title": "Building My First SaaS: AI Gym Bro",
+        "excerpt": "The journey of building an AI-powered fitness companion from scratch.",
+        "category": "Product",
+        "content": {
+          "intro": "Building AI Gym Bro has been one of the most rewarding experiences of my developer journey. What started as a simple idea—an AI that could help people with their fitness goals—turned into a full-fledged SaaS product that I'm incredibly proud of.",
+          "sparkTitle": "The Spark of an Idea",
+          "sparkContent": "It all began when I noticed how many people struggle to stay consistent with their workouts. They either don't know where to start, get bored with their routines, or simply lack the motivation to keep going. I thought, \"What if there was an AI that could be your personal gym buddy—always available, always encouraging, and always adapting to your needs?\"",
+          "techStackTitle": "The Tech Stack",
+          "techStackIntro": "For AI Gym Bro, I chose a modern stack that would allow for rapid development while maintaining high performance:",
+          "challengesTitle": "Challenges Along the Way",
+          "challengesIntro": "Building a SaaS isn't just about coding—it's about solving real problems for real people. Some of the biggest challenges I faced included:",
+          "lessonsTitle": "Lessons Learned",
+          "lessonsIntro": "This project taught me invaluable lessons about product development:",
+          "whatsNextTitle": "What's Next?",
+          "whatsNextContent": "AI Gym Bro is just getting started. I'm working on features like personalized workout plans, progress tracking, and integration with fitness wearables. The goal is to make it the ultimate AI fitness companion that helps everyone achieve their health goals.",
+          "cta": "If you haven't tried it yet, check it out at"
+        }
+      },
+      "sgu": {
+        "title": "My Experience at Swiss German University",
+        "excerpt": "A reflection on studying Information Technology at SGU.",
+        "category": "University",
+        "content": {
+          "intro": "Choosing Swiss German University (SGU) for my Information Technology degree was one of the best decisions I've ever made. Located in the iconic Prominence Tower in Alam Sutera, SGU offers a unique blend of Indonesian warmth and European academic rigor.",
+          "campusTitle": "The Campus Life",
+          "campusContent1": "Studying at Prominence Tower gives you a different perspective. The modern high-rise setting in the heart of Alam Sutera creates a professional atmosphere that prepares you for the corporate world. From the state-of-the-art computer labs to the stunning city views, every corner of the campus inspires you to aim higher.",
+          "campusContent2": "What makes SGU special is its intimate class sizes. Unlike massive lecture halls at other universities, our classes are small enough that professors know your name. This creates an environment where asking questions and engaging in discussions feels natural.",
+          "jackTitle": "Jack of All Trades? Think Again.",
+          "jackContent1": "When I first started at SGU, I had this nagging worry: \"Am I just scratching the surface of everything? Am I becoming a jack of all trades, master of none?\" The IT curriculum covers so much—web development, databases, networking, security, AI, mobile development, and more. It felt overwhelming at times.",
+          "jackContent2": "But as I progressed through my studies, I had a revelation. Learning the breadth of technology isn't a weakness—it's a superpower. By understanding a little bit of everything, I gained something invaluable: perspective.",
+          "jackContent3": "Now I can see how different pieces of technology connect. I understand why a backend developer needs to think about security, why a frontend developer should understand databases, and why everyone should know the basics of DevOps. This bird's-eye view helped me discover what truly excites me and where I want to go deeper.",
+          "depthTitle": "Finding My Depth",
+          "depthIntro": "The broad foundation SGU gave me allowed me to explore and eventually find my passions. For me, it turned out to be:",
+          "depthConclusion": "I wouldn't have discovered these interests if I hadn't been exposed to everything first. The \"jack of all trades\" approach wasn't spreading me thin—it was helping me find my direction.",
+          "academicTitle": "The Academic Journey",
+          "academicContent": "The IT curriculum at SGU is rigorous but rewarding. We don't just learn theory—we build things. From our first semester, we're writing code, building applications, and working on real-world projects. The professors, many of whom have industry experience, bring practical insights that textbooks simply can't provide.",
+          "coursesIntro": "Some of my favorite courses include:",
+          "beyondTitle": "Beyond the Classroom",
+          "beyondContent1": "University life at SGU extends far beyond lectures and assignments. I've had the opportunity to participate in hackathons, tech workshops, and networking events. The IT Symposium, where I showcased the Observer KPU project, was a highlight—our team won Most Favorite Project!",
+          "beyondContent2": "The connections I've made here—with classmates, professors, and industry professionals—have opened doors I never knew existed. From internship opportunities to collaborative projects, the SGU network is invaluable.",
+          "lessonTitle": "The Lesson",
+          "lessonContent1": "If you're a student feeling overwhelmed by the breadth of what you're learning, here's my advice: embrace it. Don't worry about being a generalist at first. Use this time to explore, experiment, and discover what truly excites you. The depth will come naturally once you find your passion.",
+          "lessonContent2": "SGU taught me that understanding the landscape of technology is just as important as mastering one specific area. Now, with that foundation, I know exactly where I want to dig deeper—and I have the context to understand how it all fits together."
+        }
+      },
+      "ctf": {
+        "title": "Competing in PwC Capture The Flag",
+        "excerpt": "Diving into cybersecurity challenges at PwC's annual CTF competition.",
+        "category": "Hackathon",
+        "content": {
+          "intro": "The adrenaline rush of a Capture The Flag (CTF) competition is something every tech enthusiast should experience at least once. When PwC Indonesia announced their annual Hackaday CTF event, I knew I had to participate. Little did I know, it would become one of my most memorable experiences in cybersecurity.",
+          "whatIsTitle": "What is Capture The Flag?",
+          "whatIsContent": "For those unfamiliar, CTF is a cybersecurity competition where participants solve challenges to find hidden \"flags\"—usually strings of text that prove you've successfully exploited a vulnerability or solved a puzzle. It's like a digital treasure hunt, but with hacking.",
+          "categoriesIntro": "Categories typically include:",
+          "pwcTitle": "The PwC Experience",
+          "pwcContent1": "What made the PwC CTF special was its professional setting. This wasn't just a student competition—it was organized by one of the Big Four consulting firms, with challenges designed by real cybersecurity professionals. The stakes felt higher, and the learning opportunities were immense.",
+          "pwcContent2": "Walking into the event, I was struck by the diversity of participants. From university students to working professionals, everyone shared a common passion for cybersecurity. The energy was electric.",
+          "challengesTitle": "Challenges That Tested My Limits",
+          "challengesContent1": "Some challenges had me scratching my head for hours. I remember one web exploitation challenge where I had to chain multiple vulnerabilities together—SQL injection leading to file upload, then using that to achieve remote code execution. It required patience, persistence, and plenty of coffee.",
+          "challengesContent2": "The cryptography challenges were particularly fun. There's something deeply satisfying about cracking an encrypted message and watching the plaintext emerge. Each solved challenge felt like unlocking a secret.",
+          "takeawaysTitle": "Key Takeaways",
+          "takeawaysIntro": "Beyond the technical skills, the CTF taught me valuable lessons:",
+          "pathTitle": "The Cybersecurity Path",
+          "pathContent1": "Participating in the PwC CTF solidified my interest in cybersecurity. It's not just about hacking—it's about understanding systems at a fundamental level. Every application, every network, every piece of software has potential vulnerabilities, and the work of security professionals is to find and fix them before the bad guys do.",
+          "pathContent2": "Since then, I've continued practicing on platforms like HackTheBox and TryHackMe. The CTF was just the beginning of a journey that I'm excited to continue.",
+          "adviceTitle": "Advice for Aspiring CTF Players",
+          "adviceIntro": "If you're interested in CTF competitions, here's my advice:",
+          "conclusion": "See you at the next CTF! 🚩"
+        }
+      }
+    }
   },
   "contact": {
     "title": "Get in Touch",
@@ -115,5 +248,11 @@
   "language": {
     "en": "English",
     "id": "Indonesian"
+  },
+  "common": {
+    "november": "November",
+    "october": "October",
+    "september": "September",
+    "minRead": "min read"
   }
 }

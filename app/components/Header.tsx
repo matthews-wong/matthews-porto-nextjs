@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Globe, ChevronDown } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale as useCurrentLocale } from "next-intl"
 import { useLocale } from "@/lib/locale"
 
 export default function Header() {
@@ -14,6 +14,7 @@ export default function Header() {
   const [langOpen, setLangOpen] = useState(false)
   const pathname = usePathname()
   const t = useTranslations("nav")
+  const currentLocale = useCurrentLocale()
   const { setLocale, isPending } = useLocale()
 
   const navItems = [
@@ -22,7 +23,7 @@ export default function Header() {
     { label: t("projects"), href: "/projects" },
     { label: t("certifications"), href: "/certifications" },
     { label: t("hackathons"), href: "/hackathons" },
-    { label: "Blog", href: "/blog" },
+    { label: t("blog"), href: "/blog" },
     { label: t("contact"), href: "/contact" },
   ]
 
@@ -114,7 +115,7 @@ export default function Header() {
                   style={{ backgroundColor: 'var(--accent-gray)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
                 >
                   <Globe className="w-4 h-4" />
-                  <span className="hidden sm:inline">EN</span>
+                  <span className="hidden sm:inline">{currentLocale.toUpperCase()}</span>
                   <ChevronDown className={`w-3 h-3 transition-transform ${langOpen ? "rotate-180" : ""}`} />
                 </button>
 
@@ -199,14 +200,22 @@ export default function Header() {
                     <button
                       onClick={() => setLocale("en")}
                       className="px-3 py-1 text-sm font-bold uppercase border-2 shadow-brutal"
-                      style={{ backgroundColor: 'var(--accent-light)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
+                      style={{ 
+                        backgroundColor: currentLocale === 'en' ? 'var(--accent-primary)' : 'var(--accent-light)', 
+                        color: 'var(--text-dark)', 
+                        borderColor: 'var(--border-color)' 
+                      }}
                     >
                       EN
                     </button>
                     <button
                       onClick={() => setLocale("id")}
                       className="px-3 py-1 text-sm font-bold uppercase border-2 shadow-brutal"
-                      style={{ backgroundColor: 'var(--accent-gray)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }}
+                      style={{ 
+                        backgroundColor: currentLocale === 'id' ? 'var(--accent-primary)' : 'var(--accent-gray)', 
+                        color: 'var(--text-dark)', 
+                        borderColor: 'var(--border-color)' 
+                      }}
                     >
                       ID
                     </button>

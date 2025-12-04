@@ -4,38 +4,41 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, Calendar, Clock } from "lucide-react"
-
-const blogs = [
-  {
-    id: "building-saas-ai-gymbro",
-    title: "Building My First SaaS: AI Gym Bro",
-    excerpt: "The journey of building an AI-powered fitness companion from scratch. From idea to launch, here's everything I learned.",
-    image: "/my-product.png",
-    date: "November 2024",
-    readTime: "5 min read",
-    category: "Product",
-  },
-  {
-    id: "life-at-swiss-german-university",
-    title: "My Experience at Swiss German University",
-    excerpt: "A reflection on studying Information Technology at SGU—the challenges, growth, and unforgettable moments on campus.",
-    image: "/images/sgu-location.webp",
-    date: "October 2024",
-    readTime: "4 min read",
-    category: "University",
-  },
-  {
-    id: "pwc-capture-the-flag",
-    title: "Competing in PwC Capture The Flag",
-    excerpt: "Diving into cybersecurity challenges at PwC's annual CTF competition. A thrilling experience that tested my skills.",
-    image: "/images/hackathon/PWC-Hackathon.jpg",
-    date: "September 2024",
-    readTime: "4 min read",
-    category: "Hackathon",
-  },
-]
+import { useTranslations } from "next-intl"
 
 export default function BlogPage() {
+  const t = useTranslations()
+
+  const blogs = [
+    {
+      id: "building-saas-ai-gymbro",
+      title: t("blog.posts.aiGymbro.title"),
+      excerpt: t("blog.posts.aiGymbro.excerpt"),
+      image: "/my-product.png",
+      date: `${t("common.november")} 2024`,
+      readTime: `5 ${t("common.minRead")}`,
+      category: t("blog.posts.aiGymbro.category"),
+    },
+    {
+      id: "life-at-swiss-german-university",
+      title: t("blog.posts.sgu.title"),
+      excerpt: t("blog.posts.sgu.excerpt"),
+      image: "/images/sgu-location.webp",
+      date: `${t("common.october")} 2024`,
+      readTime: `4 ${t("common.minRead")}`,
+      category: t("blog.posts.sgu.category"),
+    },
+    {
+      id: "pwc-capture-the-flag",
+      title: t("blog.posts.ctf.title"),
+      excerpt: t("blog.posts.ctf.excerpt"),
+      image: "/images/hackathon/PWC-Hackathon.jpg",
+      date: `${t("common.september")} 2024`,
+      readTime: `4 ${t("common.minRead")}`,
+      category: t("blog.posts.ctf.category"),
+    },
+  ]
+
   return (
     <main className="min-h-screen pt-20" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <div className="container mx-auto px-4 sm:px-6 py-8 max-w-5xl">
@@ -61,13 +64,13 @@ export default function BlogPage() {
           className="mb-10"
         >
           <p className="text-sm font-medium uppercase tracking-wider mb-2" style={{ color: 'var(--accent-primary)' }}>
-            Blog
+            {t("blog.subtitle")}
           </p>
           <h1 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>
-            Thoughts & Stories
+            {t("blog.title")}
           </h1>
           <p className="text-base md:text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-            Sharing my experiences, learnings, and adventures in tech and beyond.
+            {t("blog.description")}
           </p>
         </motion.div>
 
@@ -136,7 +139,7 @@ export default function BlogPage() {
                       className="inline-flex items-center gap-2 text-sm font-medium transition-all group-hover:gap-3"
                       style={{ color: 'var(--accent-primary)' }}
                     >
-                      <span>Read More</span>
+                      <span>{t("blog.readMore")}</span>
                       <ArrowRight className="w-4 h-4" />
                     </div>
                   </div>

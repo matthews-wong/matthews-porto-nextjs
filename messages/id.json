@@ -7,6 +7,7 @@
     "projects": "Proyek",
     "certifications": "Sertifikasi",
     "hackathons": "Hackathon",
+    "blog": "Blog",
     "contact": "Kontak"
   },
   "hero": {
@@ -53,6 +54,49 @@
       "description": "Memanfaatkan algoritma machine learning dan pemrosesan bahasa alami untuk membuat aplikasi cerdas berbasis data."
     }
   },
+  "products": {
+    "myProduct": "Produk Saya",
+    "liveNow": "Aktif Sekarang",
+    "visitSite": "Kunjungi Situs",
+    "tryItNow": "Coba sekarang",
+    "aiGymbro": {
+      "title": "AI Gym Bro",
+      "description": "Teman fitness berbasis AI Anda. Dapatkan rencana latihan dan saran nutrisi yang dipersonalisasi."
+    },
+    "aifeeds": {
+      "title": "AI Feeds",
+      "description": "Anti doom-scrolling. Scroll melalui repositori AI terkurasi untuk memperluas pengetahuan Anda.",
+      "tagline": "Belajar, Bukan Scroll"
+    },
+    "reviewci": {
+      "title": "Review CI",
+      "description": "Pembaca pipeline yang mengevaluasi pipeline CI/CD Anda dan memberikan insight yang dapat ditindaklanjuti.",
+      "tagline": "Kecerdasan Pipeline"
+    }
+  },
+  "commercialWebsites": {
+    "title": "Website Komersial",
+    "highlight": "Unggulan",
+    "description": "Website yang saya bangun untuk bisnis untuk meningkatkan kehadiran online dan mendorong pertumbuhan.",
+    "visitSite": "Kunjungi Situs",
+    "swipeHint": "Geser untuk lihat lebih banyak",
+    "tiktok": {
+      "title": "TikTok Agency Incubator",
+      "description": "Aplikasi web dari kampanye resmi TikTok. Dibangun di lingkungan agensi yang dinamis."
+    },
+    "parcel": {
+      "title": "Parcel Cirebon",
+      "description": "Platform e-commerce membantu toko ini meningkatkan visibilitas online untuk parcel Natal dan lainnya."
+    },
+    "jid": {
+      "title": "Jakarta Intl Denso",
+      "description": "Website perusahaan cuci mobil. Meningkatkan SEO dan visibilitas online untuk pelanggan lokal."
+    },
+    "shibui": {
+      "title": "Shibui Matcha Bar",
+      "description": "Landing page untuk matcha bar & kafe. Meningkatkan traffic pengunjung dan visibilitas online."
+    }
+  },
   "cta": {
     "title": "Mari Ciptakan Sesuatu yang Luar Biasa",
     "description": "Tertarik untuk berkolaborasi atau ingin tahu lebih banyak tentang proyek saya? Jangan ragu untuk menghubungi dan mari kita jelajahi bagaimana kita dapat mewujudkan ide Anda.",
@@ -62,7 +106,8 @@
     "explore": "Jelajahi Portofolio Saya",
     "discoverMore": "Temukan Lebih Banyak",
     "discoverDescription": "Navigasi melalui berbagai bagian untuk mempelajari lebih lanjut tentang perjalanan, keterampilan, dan pencapaian saya.",
-    "exploreButton": "Jelajahi"
+    "exploreButton": "Jelajahi",
+    "toolsDescription": "Alat yang saya bangun untuk memecahkan masalah nyata. Coba sekarang!"
   },
   "experience": {
     "title": "Pengalaman",
@@ -77,7 +122,9 @@
   "projects": {
     "title": "Proyek",
     "subtitle": "Karya Unggulan",
-    "description": "Showcase proyek teknis dan kontribusi saya."
+    "description": "Showcase proyek teknis dan kontribusi saya.",
+    "viewProject": "Lihat Proyek",
+    "visitWebsite": "Kunjungi Website"
   },
   "certifications": {
     "title": "Sertifikasi",
@@ -87,7 +134,93 @@
   "hackathons": {
     "title": "Hackathon",
     "subtitle": "Kompetisi & Acara",
-    "description": "Hackathon dan kompetisi coding yang saya ikuti."
+    "description": "Hackathon dan kompetisi coding yang saya ikuti.",
+    "allEvents": "Semua Acara"
+  },
+  "blog": {
+    "title": "Pemikiran & Cerita",
+    "subtitle": "Blog",
+    "description": "Berbagi pengalaman, pembelajaran, dan petualangan saya di dunia teknologi dan lainnya.",
+    "latestPosts": "Postingan Blog Terbaru",
+    "viewAll": "Lihat Semua",
+    "readMore": "Baca Selengkapnya",
+    "backToAll": "Kembali ke semua postingan",
+    "postNotFound": "Postingan tidak ditemukan",
+    "backToBlog": "Kembali ke Blog",
+    "homeDescription": "Pemikiran dan cerita dari perjalanan saya di dunia teknologi.",
+    "posts": {
+      "aiGymbro": {
+        "title": "Membangun SaaS Pertama Saya: AI Gym Bro",
+        "excerpt": "Perjalanan membangun teman fitness berbasis AI dari nol.",
+        "category": "Produk",
+        "content": {
+          "intro": "Membangun AI Gym Bro adalah salah satu pengalaman paling memuaskan dalam perjalanan saya sebagai developer. Apa yang dimulai sebagai ide sederhana—sebuah AI yang bisa membantu orang dengan tujuan fitness mereka—berubah menjadi produk SaaS yang saya sangat banggakan.",
+          "sparkTitle": "Percikan Sebuah Ide",
+          "sparkContent": "Semuanya dimulai ketika saya menyadari betapa banyak orang yang kesulitan untuk konsisten dengan latihan mereka. Mereka entah tidak tahu harus mulai dari mana, bosan dengan rutinitas mereka, atau kurang motivasi untuk terus berjalan. Saya berpikir, \"Bagaimana jika ada AI yang bisa menjadi teman gym pribadi Anda—selalu tersedia, selalu menyemangati, dan selalu beradaptasi dengan kebutuhan Anda?\"",
+          "techStackTitle": "Tech Stack",
+          "techStackIntro": "Untuk AI Gym Bro, saya memilih stack modern yang memungkinkan development cepat sambil mempertahankan performa tinggi:",
+          "challengesTitle": "Tantangan di Sepanjang Jalan",
+          "challengesIntro": "Membangun SaaS bukan hanya tentang coding—ini tentang memecahkan masalah nyata untuk orang nyata. Beberapa tantangan terbesar yang saya hadapi termasuk:",
+          "lessonsTitle": "Pelajaran yang Dipetik",
+          "lessonsIntro": "Proyek ini mengajarkan saya pelajaran berharga tentang pengembangan produk:",
+          "whatsNextTitle": "Apa Selanjutnya?",
+          "whatsNextContent": "AI Gym Bro baru saja dimulai. Saya sedang mengerjakan fitur seperti rencana latihan yang dipersonalisasi, pelacakan progres, dan integrasi dengan perangkat fitness. Tujuannya adalah menjadikannya teman fitness AI terbaik yang membantu semua orang mencapai tujuan kesehatan mereka.",
+          "cta": "Jika Anda belum mencobanya, kunjungi di"
+        }
+      },
+      "sgu": {
+        "title": "Pengalaman Saya di Swiss German University",
+        "excerpt": "Refleksi tentang kuliah Teknologi Informasi di SGU.",
+        "category": "Universitas",
+        "content": {
+          "intro": "Memilih Swiss German University (SGU) untuk gelar Teknologi Informasi saya adalah salah satu keputusan terbaik yang pernah saya buat. Berlokasi di Prominence Tower yang ikonik di Alam Sutera, SGU menawarkan perpaduan unik antara kehangatan Indonesia dan ketelitian akademis Eropa.",
+          "campusTitle": "Kehidupan Kampus",
+          "campusContent1": "Kuliah di Prominence Tower memberikan perspektif yang berbeda. Suasana gedung tinggi modern di jantung Alam Sutera menciptakan atmosfer profesional yang mempersiapkan Anda untuk dunia korporat. Dari lab komputer canggih hingga pemandangan kota yang menakjubkan, setiap sudut kampus menginspirasi Anda untuk meraih lebih tinggi.",
+          "campusContent2": "Yang membuat SGU istimewa adalah ukuran kelas yang intim. Berbeda dengan aula kuliah besar di universitas lain, kelas kami cukup kecil sehingga dosen mengenal nama Anda. Ini menciptakan lingkungan di mana bertanya dan terlibat dalam diskusi terasa natural.",
+          "jackTitle": "Jack of All Trades? Pikir Lagi.",
+          "jackContent1": "Ketika pertama kali masuk SGU, saya memiliki kekhawatiran ini: \"Apakah saya hanya menyentuh permukaan dari segalanya? Apakah saya menjadi jack of all trades, master of none?\" Kurikulum IT mencakup begitu banyak—pengembangan web, database, jaringan, keamanan, AI, pengembangan mobile, dan lainnya. Rasanya overwhelming kadang-kadang.",
+          "jackContent2": "Tapi seiring saya maju dalam studi, saya mendapat pencerahan. Mempelajari luasnya teknologi bukanlah kelemahan—ini adalah kekuatan super. Dengan memahami sedikit dari segalanya, saya mendapatkan sesuatu yang sangat berharga: perspektif.",
+          "jackContent3": "Sekarang saya bisa melihat bagaimana potongan-potongan teknologi yang berbeda terhubung. Saya memahami mengapa backend developer perlu memikirkan keamanan, mengapa frontend developer harus memahami database, dan mengapa semua orang harus tahu dasar-dasar DevOps. Pandangan bird's-eye ini membantu saya menemukan apa yang benar-benar menarik minat saya dan di mana saya ingin mendalami.",
+          "depthTitle": "Menemukan Kedalaman Saya",
+          "depthIntro": "Fondasi luas yang SGU berikan memungkinkan saya mengeksplorasi dan akhirnya menemukan passion saya. Bagi saya, ternyata adalah:",
+          "depthConclusion": "Saya tidak akan menemukan minat-minat ini jika saya tidak terpapar dengan semuanya terlebih dahulu. Pendekatan \"jack of all trades\" tidak menyebarkan saya terlalu tipis—itu membantu saya menemukan arah.",
+          "academicTitle": "Perjalanan Akademis",
+          "academicContent": "Kurikulum IT di SGU ketat tapi memuaskan. Kami tidak hanya belajar teori—kami membangun sesuatu. Dari semester pertama, kami sudah menulis kode, membangun aplikasi, dan mengerjakan proyek dunia nyata. Para dosen, banyak di antaranya memiliki pengalaman industri, membawa wawasan praktis yang tidak bisa diberikan buku teks.",
+          "coursesIntro": "Beberapa mata kuliah favorit saya termasuk:",
+          "beyondTitle": "Di Luar Kelas",
+          "beyondContent1": "Kehidupan universitas di SGU melampaui kuliah dan tugas. Saya berkesempatan berpartisipasi dalam hackathon, workshop teknologi, dan acara networking. IT Symposium, di mana saya menampilkan proyek Observer KPU, adalah highlight—tim kami memenangkan Most Favorite Project!",
+          "beyondContent2": "Koneksi yang saya buat di sini—dengan teman sekelas, dosen, dan profesional industri—telah membuka pintu yang tidak pernah saya tahu ada. Dari kesempatan magang hingga proyek kolaboratif, jaringan SGU sangat berharga.",
+          "lessonTitle": "Pelajarannya",
+          "lessonContent1": "Jika Anda mahasiswa yang merasa overwhelmed dengan luasnya apa yang Anda pelajari, ini saran saya: rangkullah. Jangan khawatir menjadi generalis di awal. Gunakan waktu ini untuk mengeksplorasi, bereksperimen, dan menemukan apa yang benar-benar menarik minat Anda. Kedalaman akan datang secara natural setelah Anda menemukan passion Anda.",
+          "lessonContent2": "SGU mengajarkan saya bahwa memahami lanskap teknologi sama pentingnya dengan menguasai satu area spesifik. Sekarang, dengan fondasi itu, saya tahu persis di mana saya ingin menggali lebih dalam—dan saya memiliki konteks untuk memahami bagaimana semuanya cocok bersama."
+        }
+      },
+      "ctf": {
+        "title": "Berkompetisi di PwC Capture The Flag",
+        "excerpt": "Menyelami tantangan keamanan siber di kompetisi CTF tahunan PwC.",
+        "category": "Hackathon",
+        "content": {
+          "intro": "Adrenalin rush dari kompetisi Capture The Flag (CTF) adalah sesuatu yang harus dialami setiap pecinta teknologi setidaknya sekali. Ketika PwC Indonesia mengumumkan acara Hackaday CTF tahunan mereka, saya tahu saya harus berpartisipasi. Saya tidak menyangka, itu akan menjadi salah satu pengalaman paling berkesan saya dalam keamanan siber.",
+          "whatIsTitle": "Apa itu Capture The Flag?",
+          "whatIsContent": "Bagi yang belum familiar, CTF adalah kompetisi keamanan siber di mana peserta menyelesaikan tantangan untuk menemukan \"flag\" tersembunyi—biasanya string teks yang membuktikan Anda telah berhasil mengeksploitasi kerentanan atau memecahkan puzzle. Ini seperti berburu harta karun digital, tapi dengan hacking.",
+          "categoriesIntro": "Kategori biasanya termasuk:",
+          "pwcTitle": "Pengalaman PwC",
+          "pwcContent1": "Yang membuat CTF PwC spesial adalah setting profesionalnya. Ini bukan hanya kompetisi mahasiswa—ini diorganisir oleh salah satu firma konsultan Big Four, dengan tantangan yang dirancang oleh profesional keamanan siber nyata. Taruhannya terasa lebih tinggi, dan kesempatan belajarnya sangat besar.",
+          "pwcContent2": "Saat memasuki acara, saya terkesan dengan keragaman peserta. Dari mahasiswa hingga profesional yang bekerja, semua berbagi passion yang sama untuk keamanan siber. Energinya sangat terasa.",
+          "challengesTitle": "Tantangan yang Menguji Batas Saya",
+          "challengesContent1": "Beberapa tantangan membuat saya menggaruk kepala berjam-jam. Saya ingat satu tantangan web exploitation di mana saya harus merangkai beberapa kerentanan—SQL injection mengarah ke file upload, kemudian menggunakannya untuk mencapai remote code execution. Membutuhkan kesabaran, ketekunan, dan banyak kopi.",
+          "challengesContent2": "Tantangan kriptografi sangat menyenangkan. Ada sesuatu yang sangat memuaskan tentang memecahkan pesan terenkripsi dan melihat plaintext muncul. Setiap tantangan yang terpecahkan terasa seperti membuka rahasia.",
+          "takeawaysTitle": "Poin Penting",
+          "takeawaysIntro": "Di luar keterampilan teknis, CTF mengajarkan saya pelajaran berharga:",
+          "pathTitle": "Jalur Keamanan Siber",
+          "pathContent1": "Berpartisipasi dalam CTF PwC memantapkan minat saya dalam keamanan siber. Ini bukan hanya tentang hacking—ini tentang memahami sistem pada level fundamental. Setiap aplikasi, setiap jaringan, setiap perangkat lunak memiliki potensi kerentanan, dan tugas profesional keamanan adalah menemukan dan memperbaikinya sebelum orang jahat melakukannya.",
+          "pathContent2": "Sejak itu, saya terus berlatih di platform seperti HackTheBox dan TryHackMe. CTF hanyalah awal dari perjalanan yang saya sangat antusias untuk melanjutkannya.",
+          "adviceTitle": "Saran untuk Calon Pemain CTF",
+          "adviceIntro": "Jika Anda tertarik dengan kompetisi CTF, ini saran saya:",
+          "conclusion": "Sampai jumpa di CTF berikutnya! 🚩"
+        }
+      }
+    }
   },
   "contact": {
     "title": "Hubungi Saya",
@@ -115,5 +248,11 @@
   "language": {
     "en": "Inggris",
     "id": "Indonesia"
+  },
+  "common": {
+    "november": "November",
+    "october": "Oktober",
+    "september": "September",
+    "minRead": "menit baca"
   }
 }
