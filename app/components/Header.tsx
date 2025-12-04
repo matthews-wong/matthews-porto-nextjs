@@ -22,6 +22,7 @@ export default function Header() {
     { label: t("projects"), href: "/projects" },
     { label: t("certifications"), href: "/certifications" },
     { label: t("hackathons"), href: "/hackathons" },
+    { label: "Blog", href: "/blog" },
     { label: t("contact"), href: "/contact" },
   ]
 

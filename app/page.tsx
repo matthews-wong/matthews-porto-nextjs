@@ -20,7 +20,10 @@ import {
   ExternalLink,
   Zap,
   Star,
-  Globe
+  Globe,
+  BookOpen,
+  Calendar,
+  Clock
 } from "lucide-react"
 
 
@@ -106,6 +109,36 @@ const commercialWebsites = [
     href: "https://shibui.id",
     image: "/shibui-lp.png",
     tags: ["Landing Page", "Cafe"],
+  },
+]
+
+const blogs = [
+  {
+    id: "building-saas-ai-gymbro",
+    title: "Building My First SaaS: AI Gym Bro",
+    excerpt: "The journey of building an AI-powered fitness companion from scratch.",
+    image: "/my-product.png",
+    date: "November 2024",
+    readTime: "5 min",
+    category: "Product",
+  },
+  {
+    id: "life-at-swiss-german-university",
+    title: "My Experience at Swiss German University",
+    excerpt: "A reflection on studying Information Technology at SGU.",
+    image: "/images/sgu-location.webp",
+    date: "October 2024",
+    readTime: "4 min",
+    category: "University",
+  },
+  {
+    id: "pwc-capture-the-flag",
+    title: "Competing in PwC Capture The Flag",
+    excerpt: "Diving into cybersecurity challenges at PwC's annual CTF competition.",
+    image: "/images/hackathon/PWC-Hackathon.jpg",
+    date: "September 2024",
+    readTime: "4 min",
+    category: "Hackathon",
   },
 ]
 
@@ -716,6 +749,120 @@ export default function Home() {
                   </div>
                 </div>
               </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Section */}
+      <section 
+        className="py-16 md:py-24 px-4 sm:px-6 rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-6" 
+        style={{ backgroundColor: 'var(--bg-secondary)' }}
+      >
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+              <h2 
+                className="inline-block text-3xl md:text-4xl font-black uppercase px-6 py-3 rotate-1"
+                style={{ 
+                  backgroundColor: 'var(--accent-cyan)', 
+                  color: 'var(--text-dark)',
+                  border: '3px solid var(--border-color)',
+                  boxShadow: 'var(--shadow-brutal)'
+                }}
+              >
+                Latest Blog Posts
+              </h2>
+              <Link href="/blog">
+                <motion.button
+                  whileHover={{ x: -2, y: -2 }}
+                  whileTap={{ x: 2, y: 2 }}
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-bold uppercase border-2 shadow-brutal transition-all"
+                  style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
+                >
+                  View All
+                  <ArrowRight className="w-4 h-4" />
+                </motion.button>
+              </Link>
+            </div>
+            <p className="text-lg text-neutral-400 max-w-2xl">
+              Thoughts and stories from my journey in tech.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {blogs.map((blog, index) => (
+              <motion.div
+                key={blog.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Link href={`/blog/${blog.id}`} className="group block h-full">
+                  <div 
+                    className="h-full overflow-hidden rounded-2xl border-brutal shadow-brutal transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg"
+                    style={{ backgroundColor: 'var(--bg-card)' }}
+                  >
+                    {/* Image */}
+                    <div className="relative h-40 overflow-hidden">
+                      <Image
+                        src={blog.image}
+                        alt={blog.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div 
+                        className="absolute inset-0"
+                        style={{ 
+                          background: 'linear-gradient(to top, var(--bg-card) 0%, transparent 60%)'
+                        }}
+                      />
+                      {/* Category badge */}
+                      <div className="absolute top-3 left-3">
+                        <span 
+                          className="px-2.5 py-1 text-xs font-bold uppercase rounded-full"
+                          style={{ 
+                            backgroundColor: 'var(--accent-cyan)',
+                            color: 'var(--text-dark)'
+                          }}
+                        >
+                          {blog.category}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="p-5">
+                      {/* Meta */}
+                      <div className="flex items-center gap-3 text-xs mb-3" style={{ color: 'var(--text-secondary)' }}>
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          {blog.date}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {blog.readTime}
+                        </span>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 group-hover:opacity-80 transition-opacity">
+                        {blog.title}
+                      </h3>
+
+                      {/* Excerpt */}
+                      <p className="text-sm text-neutral-400 line-clamp-2">
+                        {blog.excerpt}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
