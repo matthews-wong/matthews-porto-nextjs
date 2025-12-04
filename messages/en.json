@@ -1,0 +1,119 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "education": "Education",
+    "projects": "Projects",
+    "certifications": "Certifications",
+    "hackathons": "Hackathons",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Matthews Wong",
+    "title": "Software Engineer & DevOps Enthusiast",
+    "description": "IT Student at Swiss German University specializing in Technopreneurship. Building innovative solutions that bridge technology and business.",
+    "openToWork": "Open to work",
+    "getInTouch": "Get in Touch",
+    "viewProjects": "View Projects"
+  },
+  "about": {
+    "title": "About Me",
+    "intro": "Hello! I'm a",
+    "role": "passionate software engineer",
+    "description1": "with a strong drive to solve real-world problems through innovative solutions. My journey in technology is driven by curiosity and a desire to build meaningful digital experiences.",
+    "currentRole": "Currently, I'm pursuing an",
+    "degree": "Information Technology degree",
+    "atUniversity": "at Swiss German University while working as a",
+    "position": "DevOps Engineer intern",
+    "atCompany": "at Commsult Indonesia.",
+    "jobDescription": "In this role, I develop CI/CD pipelines and Grafana observability tools, combining my passion for automation with practical business applications.",
+    "location": "Based in",
+    "city": "Tangerang, Indonesia",
+    "exploring": ", I'm constantly exploring new technologies and approaches to solving complex problems. I believe in writing maintainable code and creating intuitive user experiences.",
+    "hobbies": "When I'm not coding, you can find me exploring new technologies and experimenting with AI and machine learning concepts. For a refreshing break, you'll often find me recharging on the badminton court or at the gym, staying active and energized.",
+    "simplify": "Simplify",
+    "showDetailed": "Show Detailed",
+    "devopsEngineer": "DevOps Engineer",
+    "itStudent": "IT Student"
+  },
+  "techExpertise": {
+    "title": "Tech Expertise",
+    "webDev": {
+      "title": "Web Development",
+      "description": "Crafting responsive, intuitive digital experiences with modern frameworks and pixel-perfect precision."
+    },
+    "devops": {
+      "title": "DevOps Engineering",
+      "description": "Architecting scalable infrastructure solutions with automated pipelines for seamless deployment and monitoring."
+    },
+    "ai": {
+      "title": "AI Development",
+      "description": "Leveraging machine learning algorithms and natural language processing to create intelligent, data-driven applications."
+    }
+  },
+  "cta": {
+    "title": "Let's Create Something Amazing",
+    "description": "Interested in collaborating or learning more about my projects? Feel free to reach out and let's explore how we can bring your ideas to life.",
+    "button": "Get in Touch"
+  },
+  "sections": {
+    "explore": "Explore My Portfolio",
+    "discoverMore": "Discover More",
+    "discoverDescription": "Navigate through different sections to learn more about my journey, skills, and achievements.",
+    "exploreButton": "Explore"
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "My Professional Journey",
+    "description": "A timeline of my work experience and internships in the tech industry."
+  },
+  "education": {
+    "title": "Education",
+    "subtitle": "Academic Background",
+    "description": "My educational journey and achievements."
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Featured Work",
+    "description": "A showcase of my technical projects and contributions."
+  },
+  "certifications": {
+    "title": "Certifications",
+    "subtitle": "Professional Credentials",
+    "description": "Certifications and badges I've earned."
+  },
+  "hackathons": {
+    "title": "Hackathons",
+    "subtitle": "Competitions & Events",
+    "description": "Hackathons and coding competitions I've participated in."
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Let's Connect",
+    "description": "Feel free to reach out for collaborations or just a friendly hello.",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "message": "Your Message",
+      "send": "Send Message",
+      "sending": "Sending..."
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "letsWork": "Let's Work Together",
+    "projectInMind": "Have a project in mind? I'd love to hear about it.",
+    "contactMe": "Contact Me"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "language": {
+    "en": "English",
+    "id": "Indonesian"
+  }
+}

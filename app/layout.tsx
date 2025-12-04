@@ -1,13 +1,18 @@
 import "./globals.css"
-import { Inter } from "next/font/google"
+import { Plus_Jakarta_Sans } from "next/font/google"
 import type React from "react"
 import type { Metadata, Viewport } from "next"
+import { NextIntlClientProvider } from "next-intl"
+import { getMessages, getLocale } from "next-intl/server"
+import { ThemeProvider } from "@/lib/theme-provider"
+import Header from "./components/Header"
+import Chatbot from "./components/Chatbot"
 
-
-const inter = Inter({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
   preload: true,
+  variable: "--font-jakarta",
 })
 
 const BASE_URL = "https://matthewswong.tech"
@@ -22,21 +27,22 @@ const socialLinks = [
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: dark)", color: "#020617" },
   ],
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  colorScheme: "light dark",
 }
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
     default: "Matthews Wong - Software Engineer",
-    template: "%s | Matthews Wong Portfolio",
+    template: "%s | Matthews Wong",
   },
   description:
-    "Matthews Wong - Innovative Software Engineer and IT student from Indonesia specializing in Automation, Web Development, CI/CD, and infrastructure automation. Explore cutting-edge tech solutions and projects.",
+    "Matthews Wong - Innovative Software Engineer and IT student from Indonesia specializing in DevOps, Web Development, and AI. Building technology solutions that make an impact.",
   applicationName: "Matthews Wong Portfolio",
   authors: [{ name: "Matthews Wong", url: BASE_URL }],
   generator: "Next.js",
@@ -44,27 +50,12 @@ export const metadata: Metadata = {
     "DevOps",
     "Cloud Computing",
     "CI/CD",
-    "Ansible",
-    "Infrastructure as Code",
     "Software Engineering",
-    "Technopreneurship",
-    "Automation",
-    "Docker",
-    "AWS",
-    "Matthews Wong",
-    "Web Developer",
+    "Web Development",
     "Full Stack Developer",
     "Indonesia Developer",
+    "Matthews Wong",
     "Tech Portfolio",
-    "Anak IT Indonesia",
-    "Software Engineer Indonesia",
-    "Indonesian Developer",
-    "IT Professional Indonesia",
-    "Tech Talent Indonesia",
-    "Indonesian Software Expert",
-    "Jakarta Developer",
-    "Southeast Asia Tech",
-    "ASEAN Developer",
   ],
   referrer: "origin-when-cross-origin",
   creator: "Matthews Wong",
@@ -86,7 +77,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "id_ID", 
+    locale: "en_US",
     title: "Matthews Wong - Software Engineer",
     description:
       "Innovative portfolio showcasing Web Applications, DevOps, and software engineering expertise.",
@@ -103,9 +94,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Matthews Wong - DevOps & Software Engineering",
+    title: "Matthews Wong - Software Engineer",
     description:
-      "Innovative Software engineer and IT student from Indonesia.",
+      "Innovative Software Engineer and IT student from Indonesia.",
     images: [`${BASE_URL}/og-image.svg`],
   },
   icons: {
@@ -116,37 +107,42 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
     shortcut: { url: "/favicon.ico", type: "image/x-icon" },
-    other: [
-      {
-        rel: "android-chrome-192x192",
-        url: "/android-chrome-192x192.png",
-        sizes: "192x192",
-      },
-      {
-        rel: "android-chrome-512x512",
-        url: "/android-chrome-512x512.png",
-        sizes: "512x512",
-      },
-    ],
   },
   manifest: "/site.webmanifest",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const locale = await getLocale()
+  const messages = await getMessages()
+
   return (
-    <html lang="en">
+    <html lang={locale} className={jakarta.variable} suppressHydrationWarning>
       <head>
         <meta name="geo.region" content="ID" />
         <meta name="geo.placename" content="Indonesia" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="alternate" hrefLang="en" href={BASE_URL} />
+        <link rel="alternate" hrefLang="id" href={`${BASE_URL}?locale=id`} />
         <link rel="alternate" hrefLang="x-default" href={BASE_URL} />
-
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -165,39 +161,32 @@ export default function RootLayout({
                 "DevOps",
                 "Cloud Computing",
                 "CI/CD",
-                "Ansible",
-                "Infrastructure as Code",
                 "Software Engineering",
                 "Web Development",
                 "Automation",
                 "Docker",
                 "AWS",
-                "Anak IT Indonesia",
               ],
               worksFor: {
                 "@type": "Organization",
-                name: "commsult Indonesia", 
+                name: "Commsult Indonesia",
               },
               nationality: {
                 "@type": "Country",
                 name: "Indonesia",
               },
-              address: {
-                "@type": "PostalAddress",
-                addressCountry: "Indonesia",
-              },
-              memberOf: [
-                {
-                  "@type": "Organization",
-                  name: "Redhat Student Organization",
-                },
-              ],
             }),
           }}
         />
       </head>
-      <body className={`${inter.className} antialiased min-h-screen`}>
-        {children}
+      <body className={`${jakarta.className} antialiased min-h-screen`}>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider>
+            <Header />
+            <main>{children}</main>
+            <Chatbot />
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

@@ -1,0 +1,119 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "about": "Tentang",
+    "experience": "Pengalaman",
+    "education": "Pendidikan",
+    "projects": "Proyek",
+    "certifications": "Sertifikasi",
+    "hackathons": "Hackathon",
+    "contact": "Kontak"
+  },
+  "hero": {
+    "greeting": "Halo, Saya",
+    "name": "Matthews Wong",
+    "title": "Software Engineer & DevOps Enthusiast",
+    "description": "Mahasiswa IT di Swiss German University dengan spesialisasi Technopreneurship. Membangun solusi inovatif yang menjembatani teknologi dan bisnis.",
+    "openToWork": "Terbuka untuk bekerja",
+    "getInTouch": "Hubungi Saya",
+    "viewProjects": "Lihat Proyek"
+  },
+  "about": {
+    "title": "Tentang Saya",
+    "intro": "Halo! Saya adalah",
+    "role": "software engineer yang bersemangat",
+    "description1": "dengan dorongan kuat untuk memecahkan masalah dunia nyata melalui solusi inovatif. Perjalanan saya dalam teknologi didorong oleh rasa ingin tahu dan keinginan untuk membangun pengalaman digital yang bermakna.",
+    "currentRole": "Saat ini, saya sedang menempuh",
+    "degree": "gelar Teknologi Informasi",
+    "atUniversity": "di Swiss German University sambil bekerja sebagai",
+    "position": "DevOps Engineer intern",
+    "atCompany": "di Commsult Indonesia.",
+    "jobDescription": "Dalam peran ini, saya mengembangkan pipeline CI/CD dan alat observabilitas Grafana, menggabungkan semangat saya untuk otomatisasi dengan aplikasi bisnis praktis.",
+    "location": "Berbasis di",
+    "city": "Tangerang, Indonesia",
+    "exploring": ", saya terus mengeksplorasi teknologi dan pendekatan baru untuk memecahkan masalah kompleks. Saya percaya dalam menulis kode yang dapat dipelihara dan menciptakan pengalaman pengguna yang intuitif.",
+    "hobbies": "Ketika tidak sedang coding, Anda dapat menemukan saya mengeksplorasi teknologi baru dan bereksperimen dengan konsep AI dan machine learning. Untuk istirahat yang menyegarkan, Anda sering akan menemukan saya bermain badminton atau di gym, tetap aktif dan berenergi.",
+    "simplify": "Sederhanakan",
+    "showDetailed": "Tampilkan Detail",
+    "devopsEngineer": "DevOps Engineer",
+    "itStudent": "Mahasiswa IT"
+  },
+  "techExpertise": {
+    "title": "Keahlian Teknis",
+    "webDev": {
+      "title": "Pengembangan Web",
+      "description": "Membuat pengalaman digital yang responsif dan intuitif dengan framework modern dan presisi pixel-perfect."
+    },
+    "devops": {
+      "title": "DevOps Engineering",
+      "description": "Merancang solusi infrastruktur yang skalabel dengan pipeline otomatis untuk deployment dan monitoring yang mulus."
+    },
+    "ai": {
+      "title": "Pengembangan AI",
+      "description": "Memanfaatkan algoritma machine learning dan pemrosesan bahasa alami untuk membuat aplikasi cerdas berbasis data."
+    }
+  },
+  "cta": {
+    "title": "Mari Ciptakan Sesuatu yang Luar Biasa",
+    "description": "Tertarik untuk berkolaborasi atau ingin tahu lebih banyak tentang proyek saya? Jangan ragu untuk menghubungi dan mari kita jelajahi bagaimana kita dapat mewujudkan ide Anda.",
+    "button": "Hubungi Saya"
+  },
+  "sections": {
+    "explore": "Jelajahi Portofolio Saya",
+    "discoverMore": "Temukan Lebih Banyak",
+    "discoverDescription": "Navigasi melalui berbagai bagian untuk mempelajari lebih lanjut tentang perjalanan, keterampilan, dan pencapaian saya.",
+    "exploreButton": "Jelajahi"
+  },
+  "experience": {
+    "title": "Pengalaman",
+    "subtitle": "Perjalanan Profesional Saya",
+    "description": "Timeline pengalaman kerja dan magang saya di industri teknologi."
+  },
+  "education": {
+    "title": "Pendidikan",
+    "subtitle": "Latar Belakang Akademis",
+    "description": "Perjalanan dan pencapaian pendidikan saya."
+  },
+  "projects": {
+    "title": "Proyek",
+    "subtitle": "Karya Unggulan",
+    "description": "Showcase proyek teknis dan kontribusi saya."
+  },
+  "certifications": {
+    "title": "Sertifikasi",
+    "subtitle": "Kredensial Profesional",
+    "description": "Sertifikasi dan badge yang telah saya peroleh."
+  },
+  "hackathons": {
+    "title": "Hackathon",
+    "subtitle": "Kompetisi & Acara",
+    "description": "Hackathon dan kompetisi coding yang saya ikuti."
+  },
+  "contact": {
+    "title": "Hubungi Saya",
+    "subtitle": "Mari Terhubung",
+    "description": "Jangan ragu untuk menghubungi untuk kolaborasi atau sekadar menyapa.",
+    "form": {
+      "name": "Nama Anda",
+      "email": "Email Anda",
+      "message": "Pesan Anda",
+      "send": "Kirim Pesan",
+      "sending": "Mengirim..."
+    }
+  },
+  "footer": {
+    "rights": "Hak cipta dilindungi.",
+    "letsWork": "Mari Bekerja Sama",
+    "projectInMind": "Punya proyek dalam pikiran? Saya ingin mendengarnya.",
+    "contactMe": "Hubungi Saya"
+  },
+  "theme": {
+    "light": "Terang",
+    "dark": "Gelap",
+    "system": "Sistem"
+  },
+  "language": {
+    "en": "Inggris",
+    "id": "Indonesia"
+  }
+}
