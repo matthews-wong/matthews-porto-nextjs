@@ -104,6 +104,41 @@ A showcase of Matthews' technical projects and contributions.
     - Monitored Windows and Linux systems with Wazuh and SIEM tools.
     - Conducted log analysis using Elasticsearch and Kibana.
 
+### Hackathons & Events:
+Matthews actively participates in tech events, hackathons, and workshops.
+
+1. **PwC Capture the Flag** (2023)
+   - Hackaday Event organized by PwC
+   - Cybersecurity challenge focusing on identifying vulnerabilities
+
+2. **Blockchain Training** (2024)
+   - Organized by Pelita Bangsa Academy
+   - Training on blockchain technology fundamentals
+
+3. **AI Hackathon** (2024)
+   - Organized by AI Indonesia Society
+   - Competition focused on AI/ML solutions
+
+4. **PwC CTF 2024** (2024)
+   - Annual Hackaday event by PwC
+   - Advanced cybersecurity challenges
+
+5. **Software Development Workshop** (2024)
+   - Organized by Commsult Indonesia
+   - Workshop on software development best practices
+
+6. **Web3 Networking Event** (2024)
+   - Organized by Pelita Bangsa Academy
+   - Networking event focused on Web3 technologies
+
+7. **Blockchain Bootcamp** (2024)
+   - Organized by Pelita Bangsa Academy
+   - Intensive bootcamp on blockchain development
+
+8. **IT Symposium** (2024)
+   - SGU Project Showcase
+   - Presented Observer KPU project, won Most Favorite Project!
+
 ### Skills:
 - **Languages**: JavaScript (React.js, Node.js), Python, Java
 - **DevOps**: Ansible, Docker, Docker Swarm, CI/CD
@@ -203,6 +238,41 @@ Showcase proyek teknis dan kontribusi Matthews.
 
 ### Pendidikan:
 - **Sarjana Teknologi Informasi**, Swiss German University (Agt 2022 – Agt 2026)
+
+### Hackathon & Acara:
+Matthews aktif berpartisipasi dalam acara teknologi, hackathon, dan workshop.
+
+1. **PwC Capture the Flag** (2023)
+   - Acara Hackaday yang diselenggarakan oleh PwC
+   - Tantangan keamanan siber fokus pada identifikasi kerentanan
+
+2. **Blockchain Training** (2024)
+   - Diselenggarakan oleh Pelita Bangsa Academy
+   - Pelatihan tentang dasar-dasar teknologi blockchain
+
+3. **AI Hackathon** (2024)
+   - Diselenggarakan oleh AI Indonesia Society
+   - Kompetisi fokus pada solusi AI/ML
+
+4. **PwC CTF 2024** (2024)
+   - Acara Hackaday tahunan oleh PwC
+   - Tantangan keamanan siber tingkat lanjut
+
+5. **Software Development Workshop** (2024)
+   - Diselenggarakan oleh Commsult Indonesia
+   - Workshop tentang praktik terbaik pengembangan perangkat lunak
+
+6. **Web3 Networking Event** (2024)
+   - Diselenggarakan oleh Pelita Bangsa Academy
+   - Acara networking fokus pada teknologi Web3
+
+7. **Blockchain Bootcamp** (2024)
+   - Diselenggarakan oleh Pelita Bangsa Academy
+   - Bootcamp intensif tentang pengembangan blockchain
+
+8. **IT Symposium** (2024)
+   - SGU Project Showcase
+   - Mempresentasikan proyek Observer KPU, memenangkan Most Favorite Project!
 
 ### Keahlian:
 - **Bahasa Pemrograman**: JavaScript (React.js, Node.js), Python, Java
