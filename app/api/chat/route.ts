@@ -9,13 +9,19 @@ const CONTEXT_ENGLISH = `
 Matthews Wong is an Information Technology student at Swiss German University, specializing in Technopreneurship. He is passionate about continuous learning and actively participates in international tech communities to stay current with emerging trends and technologies.
 
 ### Current Role:
-- **DevOps Engineer Intern at Commsult Indonesia** (Jan 2025 – Present)
+- **DevOps (Part-Time) at Commsult Indonesia** (September 2025 – Present)
+  - Integrate SonarQube into CI/CD pipelines to enforce code quality and vulnerability checks
+  - Handle day-to-day deployments across multiple environments.
+  - Develop and maintain automation scripts to optimize operational workflows.
+  - Migrate services from Public IP architecture to Load Balancers for improved scalability and security.
+
+### Previous Experience:
+- **DevOps Engineer Intern at Commsult Indonesia** (Jan 2025 – September 2025)
   - Manages infrastructure using tools such as Ansible and Docker Swarm.
   - Implements deployment automation and CI/CD pipelines to enhance reliability.
   - Maintains uptime for German and Indonesian websites, using monitoring and alerting tools.
   - Uses Grafana for system performance monitoring.
 
-### Previous Experience:
 - **Software Development Engineer in Test Intern (SDET) at Commsult Indonesia** (Jul 2024 – Jan 2025)
   - Built automated UI tests using WebdriverIO, XPath, and Mocha.
   - Developed API tests with Supertest and Jest, supporting data-driven validation.
@@ -48,19 +54,55 @@ Matthews Wong is an Information Technology student at Swiss German University, s
 - **Bachelor of Information Technology**, Swiss German University (Aug 2022 – Aug 2026)
   - Member of: Badminton Club (Secretary), IT Student Association, Chess Club (Head of Events), SGU Bible Fellowship (Creative Division Head)
 
-### Key Projects:
-1. **Observer KPU – Real-time Election Platform** (Feb 2024 – Jun 2024)
-   - Built a React.js and Express.js web app to display real-time Indonesian election data.
-   - Integrated SIREKAP API and implemented web scraping for live news.
-   - Developed an AI chatbot using GROQ to deliver verified political information.
+### Featured Projects:
+A showcase of Matthews' technical projects and contributions.
 
-2. **STADPASS – Stadium Navigation App Using BLE** (Oct 2023 – Mar 2024)
-   - Created a mobile navigation app using Bluetooth Low Energy for stadium visitors.
+**Web Applications:**
+1. **AI Feeds** (Web App)
+   - Anti doom-scrolling platform. Scroll through curated AI repositories to expand your knowledge.
+   - Visit: aifeeds.matthewswong.tech
+
+2. **Observer KPU – Election Web App with LLM** (Web App)
+   - An all-in-one election news resource with automated web scraping and an AI chatbot tuned with election and candidate data.
+   - Built with React.js and Express.js to display real-time Indonesian election data.
+   - Integrated SIREKAP API and implemented web scraping for live news.
+
+**DevOps Tools:**
+3. **Review CI** (DevOps Tool)
+   - A pipeline reader that evaluates your CI/CD pipelines and gives actionable insights.
+   - Visit: reviewci.matthewswong.tech
+
+**Commercial Websites:**
+4. **Jakarta Intl Denso** (Commercial)
+   - Car wash company website. Boosted SEO and increased online visibility for local customers.
+   - Visit: jakartaintldenso.com
+
+5. **Parcel Cirebon** (E-commerce)
+   - E-commerce platform helping this store grow online visibility for Christmas parcels and more.
+   - Visit: parcelcirebon.com
+
+6. **TikTok Agency Incubator** (Campaign)
+   - Web app from official TikTok campaign. Built in a fast-paced agency environment.
+   - Visit: tiktokagencyincubator.com
+
+7. **Shibui Matcha Bar** (Landing Page)
+   - Landing page for matcha bar & cafe. Grew visitor traffic and boosted online visibility.
+   - Visit: shibui.id
+
+**Mobile Apps:**
+8. **STADPASS - Stadium Navigation App** (Mobile App)
+   - A mobile app designed to help users navigate stadiums using Bluetooth Low Energy (BLE) technology.
    - Enabled food ordering and real-time stall notifications.
 
-3. **Wazuh-Based IT Security Monitoring** (Sep 2023 – Dec 2023)
-   - Monitored Windows and Linux systems with Wazuh and SIEM tools.
-   - Conducted log analysis using Elasticsearch and Kibana.
+**Data Science & Security:**
+9. **Credit Risk Analysis with XGBoost** (Data Science)
+   - Developed a comprehensive credit risk analysis using advanced XGBoost modeling techniques.
+   - Resulted in 46% good loans and 0% risky loans prediction.
+
+10. **Security Onion - Network Monitoring** (Security)
+    - Developed and implemented a comprehensive network security monitoring solution using Security Onion.
+    - Monitored Windows and Linux systems with Wazuh and SIEM tools.
+    - Conducted log analysis using Elasticsearch and Kibana.
 
 ### Skills:
 - **Languages**: JavaScript (React.js, Node.js), Python, Java
@@ -79,7 +121,7 @@ const CONTEXT_INDONESIAN = `
 Matthews Wong adalah mahasiswa Teknologi Informasi di Swiss German University, dengan spesialisasi di bidang Technopreneurship. Ia memiliki semangat belajar yang tinggi dan aktif dalam berbagai komunitas teknologi internasional.
 
 ### Peran Saat Ini:
-- **Magang DevOps Engineer di Commsult Indonesia** (Jan 2025 – Sekarang)
+- **DevOps (Part-Time) di Commsult Indonesia** (Jan 2025 – Sekarang)
   - Mengelola infrastruktur menggunakan Ansible dan Docker Swarm.
   - Menerapkan otomasi proses deployment dan CI/CD.
   - Menggunakan Grafana untuk memantau kinerja sistem.
@@ -95,6 +137,69 @@ Matthews Wong adalah mahasiswa Teknologi Informasi di Swiss German University, d
 
 - **Magang Mobile App Developer di PT Bank Mandiri** (Jan 2024 – Feb 2024)
   - Mengembangkan aplikasi berita real-time di Android menggunakan Kotlin dan Jetpack Compose.
+
+### Sertifikasi:
+- Ethical Hacking Essentials – EC-Council
+- Network Defense Essentials – EC-Council
+- Cybersecurity Awareness Certification – CertiProf
+- Docker Foundation Professional – Docker
+- DevOps Certification – PagerDuty
+- REST API (Advanced) – HackerRank
+- SQL (Advanced) – HackerRank
+- Career Essentials in Software Development – Microsoft & LinkedIn
+- Career Essentials in Generative AI – Microsoft & LinkedIn
+- Large Language Models – Google Cloud Skills Boost
+- Advanced Website Conversion Rate Optimization – Simplilearn
+
+### Proyek Unggulan:
+Showcase proyek teknis dan kontribusi Matthews.
+
+**Aplikasi Web:**
+1. **AI Feeds** (Aplikasi Web)
+   - Platform anti doom-scrolling. Scroll melalui repositori AI terkurasi untuk memperluas pengetahuan Anda.
+   - Kunjungi: aifeeds.matthewswong.tech
+
+2. **Observer KPU – Aplikasi Web Pemilu dengan LLM** (Aplikasi Web)
+   - Sumber berita pemilu lengkap dengan web scraping otomatis dan AI chatbot yang disesuaikan dengan data pemilu dan kandidat.
+   - Dibangun dengan React.js dan Express.js untuk menampilkan data pemilu Indonesia secara real-time.
+   - Mengintegrasikan API SIREKAP dan menerapkan web scraping untuk berita langsung.
+
+**Tools DevOps:**
+3. **Review CI** (Tool DevOps)
+   - Pembaca pipeline yang mengevaluasi pipeline CI/CD Anda dan memberikan insight yang dapat ditindaklanjuti.
+   - Kunjungi: reviewci.matthewswong.tech
+
+**Website Komersial:**
+4. **Jakarta Intl Denso** (Komersial)
+   - Website perusahaan cuci mobil. Meningkatkan SEO dan visibilitas online untuk pelanggan lokal.
+   - Kunjungi: jakartaintldenso.com
+
+5. **Parcel Cirebon** (E-commerce)
+   - Platform e-commerce membantu toko ini meningkatkan visibilitas online untuk parcel Natal dan lainnya.
+   - Kunjungi: parcelcirebon.com
+
+6. **TikTok Agency Incubator** (Kampanye)
+   - Aplikasi web dari kampanye resmi TikTok. Dibangun di lingkungan agensi yang dinamis.
+   - Kunjungi: tiktokagencyincubator.com
+
+7. **Shibui Matcha Bar** (Landing Page)
+   - Landing page untuk matcha bar & kafe. Meningkatkan traffic pengunjung dan visibilitas online.
+   - Kunjungi: shibui.id
+
+**Aplikasi Mobile:**
+8. **STADPASS - Aplikasi Navigasi Stadion** (Aplikasi Mobile)
+   - Aplikasi mobile yang dirancang untuk membantu pengguna menavigasi stadion menggunakan teknologi Bluetooth Low Energy (BLE).
+   - Mengaktifkan pemesanan makanan dan notifikasi kios secara real-time.
+
+**Data Science & Keamanan:**
+9. **Credit Risk Analysis dengan XGBoost** (Data Science)
+   - Mengembangkan analisis risiko kredit komprehensif menggunakan teknik pemodelan XGBoost tingkat lanjut.
+   - Menghasilkan prediksi 46% pinjaman baik dan 0% pinjaman berisiko.
+
+10. **Security Onion - Monitoring Jaringan** (Keamanan)
+    - Mengembangkan dan mengimplementasikan solusi monitoring keamanan jaringan komprehensif menggunakan Security Onion.
+    - Memantau sistem Windows dan Linux dengan Wazuh dan SIEM tools.
+    - Melakukan analisis log menggunakan Elasticsearch dan Kibana.
 
 ### Pendidikan:
 - **Sarjana Teknologi Informasi**, Swiss German University (Agt 2022 – Agt 2026)
