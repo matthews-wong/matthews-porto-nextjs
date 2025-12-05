@@ -55,7 +55,12 @@ export default function Header() {
     }
   }, [langOpen])
 
-  const isActive = (href: string) => pathname === href
+  // Check if path is active (handles trailing slashes)
+  const isActive = (href: string) => {
+    const normalizedPathname = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname
+    const normalizedHref = href.endsWith('/') ? href.slice(0, -1) : href
+    return normalizedPathname === normalizedHref
+  }
 
   return (
     <>
@@ -244,23 +249,30 @@ export default function Header() {
                           : { backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }
                       }
                     >
+                      {pathname === "/" && (
+                        <span className="w-2 h-2 rounded-full mr-3" style={{ backgroundColor: 'var(--text-dark)' }} />
+                      )}
                       {t("home")}
                     </Link>
                     {navItems.map((item, index) => {
+                      const active = isActive(item.href)
                       return (
                         <Link
                           key={item.href}
                           href={item.href}
                           onClick={() => setIsOpen(false)}
                           className={`flex items-center px-4 py-3 text-base font-bold uppercase border-2 shadow-brutal transition-all ${
-                            isActive(item.href) ? "" : "hover:-translate-x-0.5 hover:-translate-y-0.5"
+                            active ? "" : "hover:-translate-x-0.5 hover:-translate-y-0.5"
                           }`}
                           style={
-                            isActive(item.href)
+                            active
                               ? { backgroundColor: 'var(--accent-primary)', color: 'var(--text-dark)', borderColor: 'var(--border-color)' }
                               : { backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }
                           }
                         >
+                          {active && (
+                            <span className="w-2 h-2 rounded-full mr-3" style={{ backgroundColor: 'var(--text-dark)' }} />
+                          )}
                           {item.label}
                         </Link>
                       )
