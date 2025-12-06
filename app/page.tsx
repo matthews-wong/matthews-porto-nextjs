@@ -54,14 +54,14 @@ const techStacksData = [
 const productsData = [
   {
     id: "aifeeds",
-    href: "https://aifeeds.matthewswong.tech/",
+    href: "https://aifeeds.matthewswong.com/",
     icon: Zap,
     color: "var(--accent-cyan)",
     image: "/AiFeeds.png",
   },
   {
     id: "reviewci",
-    href: "https://reviewci.matthewswong.tech/",
+    href: "https://reviewci.matthewswong.com/",
     icon: Server,
     color: "var(--accent-lime)",
     image: "/ReviewCI.png",

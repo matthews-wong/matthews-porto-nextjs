@@ -31,7 +31,7 @@ const projects: Project[] = [
       "Clean, distraction-free interface.",
     ],
     category: "Web App",
-    link: "https://aifeeds.matthewswong.tech/",
+    link: "https://aifeeds.matthewswong.com/",
   },
   {
     id: 2,
@@ -45,7 +45,7 @@ const projects: Project[] = [
       "Detailed reports and recommendations.",
     ],
     category: "DevOps Tool",
-    link: "https://reviewci.matthewswong.tech/",
+    link: "https://reviewci.matthewswong.com/",
   },
   {
     id: 3,

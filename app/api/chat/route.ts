@@ -60,7 +60,7 @@ A showcase of Matthews' technical projects and contributions.
 **Web Applications:**
 1. **AI Feeds** (Web App)
    - Anti doom-scrolling platform. Scroll through curated AI repositories to expand your knowledge.
-   - Visit: aifeeds.matthewswong.tech
+   - Visit: aifeeds.matthewswong.com
 
 2. **Observer KPU – Election Web App with LLM** (Web App)
    - An all-in-one election news resource with automated web scraping and an AI chatbot tuned with election and candidate data.
@@ -70,7 +70,7 @@ A showcase of Matthews' technical projects and contributions.
 **DevOps Tools:**
 3. **Review CI** (DevOps Tool)
    - A pipeline reader that evaluates your CI/CD pipelines and gives actionable insights.
-   - Visit: reviewci.matthewswong.tech
+   - Visit: reviewci.matthewswong.com
 
 **Commercial Websites:**
 4. **Jakarta Intl Denso** (Commercial)
@@ -192,7 +192,7 @@ Showcase proyek teknis dan kontribusi Matthews.
 **Aplikasi Web:**
 1. **AI Feeds** (Aplikasi Web)
    - Platform anti doom-scrolling. Scroll melalui repositori AI terkurasi untuk memperluas pengetahuan Anda.
-   - Kunjungi: aifeeds.matthewswong.tech
+   - Kunjungi: aifeeds.matthewswong.com
 
 2. **Observer KPU – Aplikasi Web Pemilu dengan LLM** (Aplikasi Web)
    - Sumber berita pemilu lengkap dengan web scraping otomatis dan AI chatbot yang disesuaikan dengan data pemilu dan kandidat.
@@ -202,7 +202,7 @@ Showcase proyek teknis dan kontribusi Matthews.
 **Tools DevOps:**
 3. **Review CI** (Tool DevOps)
    - Pembaca pipeline yang mengevaluasi pipeline CI/CD Anda dan memberikan insight yang dapat ditindaklanjuti.
-   - Kunjungi: reviewci.matthewswong.tech
+   - Kunjungi: reviewci.matthewswong.com
 
 **Website Komersial:**
 4. **Jakarta Intl Denso** (Komersial)
