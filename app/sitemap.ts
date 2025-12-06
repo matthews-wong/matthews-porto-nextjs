@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const BASE_URL = "https://www.matthewswong.tech"
+  const BASE_URL = "https://www.matthewswong.com"
   const lastModified = new Date("2025-02-08")
 
   // Blog posts

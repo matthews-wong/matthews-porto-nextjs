@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Contact - Matthews Wong",
+  title: "Contact",
   description: "Get in touch with Matthews Wong. Contact form and social links for collaboration and opportunities.",
 }
 

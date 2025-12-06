@@ -15,7 +15,7 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
 })
 
-const BASE_URL = "https://matthewswong.tech"
+const BASE_URL = "https://www.matthewswong.com"
 
 const socialLinks = [
   { href: "https://www.linkedin.com/in/matthewswong", label: "LinkedIn" },

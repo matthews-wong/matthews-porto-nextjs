@@ -2,15 +2,15 @@ import type { Metadata } from "next"
 
 const blogTitles: Record<string, { title: string; description: string }> = {
   "building-saas-ai-gymbro": {
-    title: "Building My First SaaS: AI Gym Bro - Matthews Wong",
+    title: "Building My First SaaS: AI Gym Bro",
     description: "The journey of building an AI-powered fitness companion from scratch.",
   },
   "life-at-swiss-german-university": {
-    title: "My Experience at Swiss German University - Matthews Wong",
+    title: "My Experience at Swiss German University",
     description: "A reflection on studying Information Technology at SGU.",
   },
   "pwc-capture-the-flag": {
-    title: "Competing in PwC Capture The Flag - Matthews Wong",
+    title: "Competing in PwC Capture The Flag",
     description: "Diving into cybersecurity challenges at PwC's annual CTF competition.",
   },
 }
@@ -25,7 +25,7 @@ export async function generateMetadata({
 
   if (!blog) {
     return {
-      title: "Blog Post - Matthews Wong",
+      title: "Blog Post",
       description: "Blog post by Matthews Wong",
     }
   }

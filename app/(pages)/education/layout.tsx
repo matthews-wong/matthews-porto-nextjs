@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Education - Matthews Wong",
+  title: "Education",
   description: "Educational background and academic achievements of Matthews Wong. Information Technology student at Swiss German University.",
 }
 
